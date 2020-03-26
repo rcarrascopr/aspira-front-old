@@ -1,8 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { logoutAction } from "../../actions/userActions";
 
 const Navbar = props => {
+  const handleLogout = () => {
+    props.logout().then(() => {
+      if (!localStorage.getItem("token")) {
+        props.history.push("/");
+      }
+    });
+  };
+
   return (
     <nav className="navbar">
       <NavLink exact activeClassName="active-link" to="/">
@@ -18,14 +27,20 @@ const Navbar = props => {
           Sign in
         </NavLink>
       )}
+
+      {localStorage.getItem("token") && (
+        <NavLink exact activeClassName="active-link" to="/" onClick={handleLogout}>
+          Logout
+        </NavLink>
+      )}
     </nav>
   );
 };
 
-let mapDispatchToProps = state => {
+let mapDispatchToProps = dispatch => {
   return {
-    user: state.users.current_user
+    logout: () => dispatch(logoutAction())
   };
 };
 
-export default connect(mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(withRouter(Navbar));

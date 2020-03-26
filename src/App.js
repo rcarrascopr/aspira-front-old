@@ -6,18 +6,34 @@ import Signin from "./features/user/sign in/Signin";
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
-function App() {
+function App(props) {
+  const generateLoginSignupRoutes = () => {
+    if (!props.currentUser) {
+      return (
+        <React.Fragment>
+          <Route exact path="/login" render={props => <Signin {...props} />} />
+        </React.Fragment>
+      );
+    }
+  };
+
   return (
     <div className="App">
       <Navbar />
       <div>
         <Switch>
           <Route exact path="/" render={() => <p>Hi</p>} />
-          <Route exact path="/login" render={() => <Signin />} />
+          {generateLoginSignupRoutes()}
         </Switch>
       </div>
     </div>
   );
 }
 
-export default connect()(App);
+let mapStateToProps = state => {
+  return {
+    currentUser: state.users.currentUser
+  };
+};
+
+export default connect(mapStateToProps)(App);

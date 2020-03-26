@@ -1,5 +1,5 @@
 export default function usersReducer(
-  state = { loading: false, currentUser: null },
+  state = { loading: false, currentUser: localStorage.getItem("currentUser") },
   action
 ) {
   switch (action.type) {
@@ -9,10 +9,10 @@ export default function usersReducer(
     //   return { loading: false, currentUser: action.payload };
     case "LOGIN":
       return { loading: false, currentUser: action.payload };
-    // case "LOGOUT_USER":
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("currentUserId");
-    //   return { loading: false, currentUser: null };
+    case "LOGOUT_USER":
+      localStorage.removeItem("token");
+      localStorage.removeItem("currentUser");
+      return { loading: false, currentUser: null };
     // case "SIGNUP":
     //   return { ...state, loading: false };
     default:
