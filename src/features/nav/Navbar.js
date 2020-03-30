@@ -29,9 +29,19 @@ const Navbar = props => {
       )}
 
       {localStorage.getItem("token") && (
-        <NavLink exact activeClassName="active-link" to="/" onClick={handleLogout}>
-          Logout
-        </NavLink>
+        <>
+          <NavLink exact activeClassName="active-link" to="/centers">
+            Centers
+          </NavLink>
+          <NavLink
+            exact
+            activeClassName="active-link"
+            to="/"
+            onClick={handleLogout}
+          >
+            Logout
+          </NavLink>
+        </>
       )}
     </nav>
   );
