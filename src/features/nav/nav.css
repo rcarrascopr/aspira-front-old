@@ -1,0 +1,46 @@
+.primary-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary-nav a {
+  margin: 25px;
+}
+
+.active-link {
+  text-decoration: underline;
+}
+
+.primary-nav .logout-btn {
+  width: 250px;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.secondary-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  height: 120px;
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 310px;
+}
+
+.nav-header a {
+  text-decoration: underline;
+}
+
+.name-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
