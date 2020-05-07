@@ -1,18 +1,18 @@
 export default [
   {
     title: "Estudiantes",
-    icon: "/",
+    icon: "/assets/icon_students.png",
   },
   {
     title: "Facultad",
-    icon: "/",
+    icon: "/assets/icon_faculty.png",
   },
   {
     title: "UTIS",
-    icon: "/",
+    icon: "/assets/icon_UTIS.png",
   },
   {
     title: "Eventos",
-    icon: "/",
+    icon: "/assets/icon_events.png",
   },
 ];
