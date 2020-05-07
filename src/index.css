@@ -36,10 +36,6 @@ a {
   color: white !important;
 }
 
-.bigger-text {
-  font-size: 2em;
-}
-
 .name-circle {
   background-color: white;
   border-radius: 50%;
@@ -52,4 +48,8 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0px;
+}
+
+label {
+  font-weight: 700 !important;
 }

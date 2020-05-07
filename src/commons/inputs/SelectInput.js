@@ -16,14 +16,6 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  select: {
-    "&:before": {
-      borderColor: "white",
-    },
-    "&:after": {
-      borderColor: "white",
-    },
-  },
   icon: {
     fill: "white",
   },
@@ -42,7 +34,6 @@ export const SelectInput = (props) => {
 
       <Select
         variant="outlined"
-        className={classes.select}
         value={props.value}
         onChange={props.handleChange}
         labelWidth={props.labelWidth}
