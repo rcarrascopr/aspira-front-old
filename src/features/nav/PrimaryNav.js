@@ -16,8 +16,8 @@ export const PrimaryNav = (props) => {
 
   return (
     <section className="primary-nav">
-      <NavLink exact to="/">
-        ASPIRA
+      <NavLink className="logo" exact to="/">
+        <img src="/assets/logo_aspira.png" alt="Aspira Logo"/>
       </NavLink>
 
       <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/">
@@ -38,7 +38,7 @@ export const PrimaryNav = (props) => {
             Facultad
           </NavLink>
           <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/uti">
-            UTI
+            UTIS
           </NavLink>
           <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/eventos">
             Eventos
