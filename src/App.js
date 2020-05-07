@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
+import {DashboardContainer} from "./features/dashboard/DashboardContainer"
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
@@ -23,7 +24,7 @@ function App(props) {
       <Navbar />
       <div>
         <Switch>
-          <Route exact path="/" render={() => <p>Hi</p>} />
+          <Route exact path="/" render={() => <DashboardContainer />} />
           <PrivateRoute path="/centers" component={CenterContainer} />
           {generateLoginSignupRoutes()}
         </Switch>

@@ -1,0 +1,30 @@
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.main-dashboard {
+    text-align: center;
+}
+
+.card-group {
+    display: flex;
+}
+
+.card {
+    margin: 15px;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px 0 rgba(42,88,148,0.5);
+    width: 175px;
+    height: 175px;
+}
+
+.dashboard img {
+    height: 130px;
+}
+
+hr {
+
+}

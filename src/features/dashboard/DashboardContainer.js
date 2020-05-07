@@ -1,25 +1,18 @@
 import React from "react";
+import { DashboardCardsContainer } from "./DashboardCardsContainer";
 
-import { Link } from "react-router-dom";
+import "./dashboard.css"
 
 export const DashboardContainer = () => {
   return (
-    <div>
-      <ul>
-        <Link to="/estudiante ">
-          <li>Manejar Estudiantes</li>
-        </Link>
-        <Link>
-          <li>Manejar Facultad</li>
-        </Link>
-        <Link>
-          {" "}
-          <li>Manejar UTI</li>
-        </Link>
-        <Link>
-          <li>Manejar Eventos</li>
-        </Link>
-      </ul>
-    </div>
+    <section className="dashboard light-purple">
+      <div className="main-dashboard">
+        <h1 className="white-text">Dashboard</h1>
+        <DashboardCardsContainer />
+        <hr />
+        <img src="/assets/logo_aspira.png" alt="" />
+        <hr />
+      </div>
+    </section>
   );
 };
