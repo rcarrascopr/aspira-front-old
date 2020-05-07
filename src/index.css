@@ -28,12 +28,20 @@ a {
   color: #282460;
 }
 
+.light-purple {
+  background-color: #7289BE;
+}
+
 .very-light-purple {
   background-color: #C8D3EE;
 }
 
 .white-text {
   color: white !important;
+}
+
+.dark-blue {
+  background-color: #2A5894;
 }
 
 .name-circle {
@@ -52,4 +60,8 @@ h1, h2, h3, h4, h5, h6 {
 
 label {
   font-weight: 700 !important;
+}
+
+hr {
+  border-color: #2A5894;
 }
