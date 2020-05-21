@@ -1,5 +1,8 @@
 export default function usersReducer(
-  state = { loading: false, currentUser: localStorage.getItem("currentUser") },
+  state = {
+    loading: false,
+    currentUser: JSON.parse(localStorage.getItem("currentUser")),
+  },
   action
 ) {
   switch (action.type) {

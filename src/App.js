@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
-import {DashboardContainer} from "./features/dashboard/DashboardContainer"
+import { DashboardContainer } from "./features/dashboard/DashboardContainer";
+import UTISContainer from "./features/UTIS/UTISContainer";
+import {UTISFormContainer} from "./features/UTIS/form/UTISFormContainer"
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
+import { fetchCenters } from "./actions/centerActions";
+
 function App(props) {
+  useEffect(() => {
+    if (props.currentUser && props.currentUser.role === "admin") {
+      props.fetch_centers();
+    }
+  }, [props.currentUser]);
+
   const generateLoginSignupRoutes = () => {
     if (!props.currentUser) {
       return (
         <React.Fragment>
-          <Route exact path="/login" render={props => <Signin {...props} />} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Signin {...props} />}
+          />
         </React.Fragment>
       );
     }
@@ -26,6 +40,8 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={() => <DashboardContainer />} />
           <PrivateRoute path="/centers" component={CenterContainer} />
+          <PrivateRoute path="/utis/create" component={UTISFormContainer} />
+          <PrivateRoute path="/utis" component={UTISContainer} />
           {generateLoginSignupRoutes()}
         </Switch>
       </div>
@@ -33,10 +49,14 @@ function App(props) {
   );
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
-    currentUser: state.users.currentUser
+    currentUser: state.users.currentUser,
   };
 };
 
-export default connect(mapStateToProps)(App);
+let mapDispatchToProps = (dispatch) => {
+  return { fetch_centers: () => dispatch(fetchCenters()) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

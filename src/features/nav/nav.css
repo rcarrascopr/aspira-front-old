@@ -36,6 +36,33 @@
   align-items: center;
   padding: 10px 30px;
   height: 120px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.secondary-nav > * {
+  position: relative;
+  z-index: 2;
+}
+
+.secondary-nav:before {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  z-index: 0;
+  background-image: url("/assets/school_theme_pattern.png");
+  background-repeat: repeat;
+  background-size: 500px;
+  opacity: 1;
+  /* -webkit-transform: rotate(-30deg);
+  -moz-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  transform: rotate(-30deg); */
 }
 
 .nav-header {
@@ -54,13 +81,4 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-}
-
-.MuiOutlinedInput-notchedOutline {
-    border-color: white !important;
-}
-
-.MuiSelect-outlined.MuiSelect-outlined {
-    color: white !important;
-    font-weight: 700;
 }

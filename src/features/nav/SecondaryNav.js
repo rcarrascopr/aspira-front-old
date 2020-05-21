@@ -17,7 +17,7 @@ export const SecondaryNav = () => {
     <section className="secondary-nav very-light-purple white-text">
       <div className="nav-header">
         {/* <img src="" alt="Profile image" /> */}
-        <NameCircle initials="KY"/>
+        <NameCircle initials="KY" />
 
         <div className="name-header">
           <h2>Nombre de usuario</h2>
@@ -32,7 +32,10 @@ export const SecondaryNav = () => {
         label="Semestre"
         value={semester}
         labelWidth={70}
-        items={["2015-16 01", "2015-16 02"]}
+        items={[
+          { name: "2015-16 01", id: 1 },
+          { name: "2015-16 02", id: 2 },
+        ]}
         handleChange={handleChange}
       />
     </section>

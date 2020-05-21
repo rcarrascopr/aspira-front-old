@@ -1,0 +1,138 @@
+.utis-container {
+  padding: 30px;
+}
+
+.utis-filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2em;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.utis-container a {
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid;
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.utis-container a:hover {
+  text-decoration: none;
+}
+
+.btn {
+  border-color: #282460;
+  color: #282460;
+}
+
+.btn:hover,
+.btn-active {
+  color: #fff;
+}
+
+.btn-1:hover,
+.btn-1.btn-active {
+  background-color: #75cf94;
+  border-color: #75cf94;
+}
+
+.btn-2:hover,
+.btn-2.btn-active {
+  background-color: #83bc09;
+  border-color: #83bc09;
+}
+
+.btn-3:hover,
+.btn-3.btn-active {
+  background-color: #5f83b2;
+  border-color: #5f83b2;
+}
+
+.btn-4:hover,
+.btn-4.btn-active {
+  background-color: #9b7ec0;
+  border-color: #9b7ec0;
+}
+
+.btn-5:hover,
+.btn-5.btn-active {
+  background-color: #c5b7da;
+  border-color: #c5b7da;
+}
+
+.courses-container {
+  margin: 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.courses-container h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 50px 0px;
+}
+
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 15px;
+  max-width: 1080px;
+}
+
+.course-card {
+  height: 280px;
+  width: 240px;
+  border-radius: 6px;
+  /* padding: 15px; */
+  margin: 15px;
+  cursor: pointer;
+}
+
+.course-card-create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.plus-icon {
+  font-size: 6em;
+  margin: 0px;
+}
+
+.course-card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+}
+
+.course-card h2 {
+  text-align: center;
+  font-weight: 400;
+}
+
+.course-card-content p {
+  margin: 0px;
+}
+
+.course-card-header {
+  width: 100%;
+  height: 80px;
+  border-radius: 6px 6px 0px 0px;
+}

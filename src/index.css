@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --dark-purple: #282460;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -21,19 +25,51 @@ a {
 }
 
 .dark-purple {
-  background-color: #282460;
+  background-color: var(--dark-purple);
 }
 
 .dark-purple-text {
-  color: #282460;
+  color: var(--dark-purple) !important;
+}
+
+.courses-purple {
+  background-color: #dde7ff;
+}
+
+.humanistico {
+  background-color: #75cf94;
+}
+
+.cientifico {
+  background-color: #83bc09;
+}
+
+.ocupacional {
+  background-color: #5f83b2;
+}
+
+.cultural {
+  background-color: #9b7ec0;
+}
+
+.comunitaria {
+  background-color: #c5b7da;
 }
 
 .light-purple {
-  background-color: #7289BE;
+  background-color: #7289be;
 }
 
 .very-light-purple {
-  background-color: #C8D3EE;
+  background-color: #c8d3ee;
+}
+
+.light-gray {
+  background-color: #F2F3F6;
+}
+
+.white {
+  background-color: white;
 }
 
 .white-text {
@@ -41,7 +77,7 @@ a {
 }
 
 .dark-blue {
-  background-color: #2A5894;
+  background-color: #2a5894;
 }
 
 .name-circle {
@@ -54,7 +90,18 @@ a {
   align-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.name-circle.small {
+  height: 30px;
+  width: 30px;
+  font-size: 0.5em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0px;
 }
 
@@ -63,5 +110,139 @@ label {
 }
 
 hr {
-  border-color: #2A5894;
+  border-color: #2a5894;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+  color: white !important;
+  font-weight: 700;
+}
+
+.invert > .MuiOutlinedInput-notchedOutline {
+  border-color: #282460 !important;
+}
+
+.invert > .MuiSelect-outlined.MuiSelect-outlined {
+  color: #282460 !important;
+  font-weight: 700;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.scrollable::-webkit-scrollbar-track {
+  background-color: #2a5894;
+  border-radius: 10px;
+  border: 3px solid #fff;
+}
+
+/* Handle */
+.scrollable::-webkit-scrollbar-thumb {
+  background: #2a5894;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #557fb6;
+}
+
+.search-form {
+  height: 40px;
+  background: white;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: 2px solid #282460;
+  padding: 0px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.search {
+  width: 80%;
+  height: 34.5px;
+  line-height: 30px;
+  outline: 0;
+  border: 0;
+  font-size: 1em;
+  border-radius: 20px;
+  padding: 5px 0px;
+  padding-left: 20px;
+}
+
+.search-image {
+  padding: 10px;
+  height: 38px;
+  width: 40px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.modal {
+  display: flex;
+  width: 500px;
+  flex-direction: column;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: var(--dark-purple) !important;
+}
+
+.textfield-outlined {
+  margin: 8px !important;
+  min-width: 170px !important;
+}
+
+.MuiOutlinedInput-input {
+  color: var(--dark-purple) !important;
+}
+
+.MuiFormLabel-root.Mui-error {
+  color: #f44336 !important;
+}
+
+.select-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

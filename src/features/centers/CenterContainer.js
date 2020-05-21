@@ -3,15 +3,18 @@ import { connect } from "react-redux";
 import { fetchCenters } from "../../actions/centerActions";
 import { Center } from "./Center";
 import { LoadingScreen } from "../../commons/LoadingScreen";
+import "./centers.css"
 
 export const CenterContainer = ({ loading, centers, fetch_centers }) => {
+  
   useEffect(() => {
     fetch_centers();
-  }, [fetch_centers, centers.length]);
+    // eslint-disable-next-line
+  }, []);
 
   const generateCenters = () => {
     if (centers.length > 0) {
-      return centers[0].map(center => <Center key={center.id} {...center} />);
+      return centers[0].map((center) => <Center key={center.id} {...center} />);
     }
   };
 
@@ -22,13 +25,13 @@ export const CenterContainer = ({ loading, centers, fetch_centers }) => {
   return <div>{generateCenters()}</div>;
 };
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
-    centers: state.centers.centers
+    centers: state.centers.centers,
   };
 };
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = (dispatch) => {
   return { fetch_centers: () => dispatch(fetchCenters()) };
 };
 
