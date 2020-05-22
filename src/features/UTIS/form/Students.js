@@ -53,6 +53,7 @@ export const Students = (props) => {
           handleClose={handleClose}
           utis={props.utis}
           setUtis={props.setUtis}
+        
         />
       </div>
       <ul className="student-list scrollable">{generateStudents()}</ul>

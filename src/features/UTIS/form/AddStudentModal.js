@@ -15,7 +15,11 @@ import fake_students from "../../../commons/fake_students";
 import { name, last_name } from "../../../commons/sort_methods";
 
 export const AddStudentModal = (props) => {
-  const [formData, setFormData] = useState({ grade: "", sortBy: "Nombre", filter: ""});
+  const [formData, setFormData] = useState({
+    grade: "",
+    sortBy: "Nombre",
+    filter: "",
+  });
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -33,17 +37,19 @@ export const AddStudentModal = (props) => {
   const generateStudents = () => {
     let sorted_students;
 
-    if (formData.filter !== ""){
-      sorted_students = fake_students.filter(s => `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`.includes(formData.filter))
+    if (formData.filter !== "") {
+      sorted_students = fake_students.filter((s) =>
+        `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`.toLowerCase().includes(
+          formData.filter.toLowerCase()
+        )
+      );
     } else {
-      sorted_students = fake_students
+      sorted_students = fake_students;
     }
 
     if (formData.sortBy === "Apellido") {
-      console.log("sorted by last name")
       sorted_students = sorted_students.sort(last_name);
     } else {
-      console.log("sorted by name")
       sorted_students = sorted_students.sort(name);
     }
 
@@ -105,10 +111,16 @@ export const AddStudentModal = (props) => {
           labelWidth={70}
           items={grades}
           handleChange={handleChange}
+        
         />
 
         <div className="search-form">
-          <input className="search" type="search" name="filter" onChange={handleChange}/>
+          <input
+            className="search"
+            type="search"
+            name="filter"
+            onChange={handleChange}
+          />
           <img
             className="dark-purple search-image"
             src="/assets/search_icon.png"

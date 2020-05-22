@@ -1,25 +1,36 @@
 import React from "react";
 
+import { Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
+import Error from "../../../commons/inputs/Error";
 
 export const Details = (props) => {
   return (
     <div className="utis-details-container">
       <h1 className="dark-purple-text">UTIS: Detalles</h1>
-      <TextField
-        required
-        id="utis-name"
-        name="name"
-        label="Nombre"
-        value={props.utis.name}
-        variant="outlined"
-        onChange={props.handleChange}
-        className={"dark-purple-text textfield-outlined"}
+      <div className="textfield-input">
+        <Controller
+          as={
+            <TextField
+              id="utis-name"
+              name="name"
+              label="Nombre"
+              value={props.utis.name}
+              variant="outlined"
+              onChange={props.handleChange}
+              className={"dark-purple-text textfield-outlined"}
+              error={props.errors["name"]}
+        
+            />
+          }
+          name="name"
+          control={props.control}
+          rules={{ required: true }}
+        />
 
-        // helperText={touched.debtorIin ? errors.debtorIin : ""}
-        // error={touched.debtorIin && Boolean(errors.debtorIin)}
-      />
+        <Error errors={props.errors["name"]} />
+      </div>
 
       <SelectInput
         name="category"
@@ -35,7 +46,8 @@ export const Details = (props) => {
           "Comunitaria",
         ]}
         handleChange={props.handleChange}
-        error={props.utis.category === ""}
+        control={props.control}
+        errors={props.errors["category"]}
       />
 
       <SelectInput
@@ -46,6 +58,8 @@ export const Details = (props) => {
         labelWidth={70}
         items={["2020-21", "2020-22"]}
         handleChange={props.handleChange}
+        control={props.control}
+        errors={props.errors["semester"]}
       />
 
       <SelectInput
@@ -56,6 +70,8 @@ export const Details = (props) => {
         labelWidth={70}
         items={["Aguada", "Moca", "Carolina"]}
         handleChange={props.handleChange}
+        control={props.control}
+        errors={props.errors["center"]}
       />
 
       <SelectInput
@@ -66,6 +82,8 @@ export const Details = (props) => {
         labelWidth={130}
         items={["Kenneth R. Young Castro"]}
         handleChange={props.handleChange}
+        // control={props.control}
+        // errors={props.errors["teacher"]}
       />
       <SelectInput
         name="grade"
@@ -75,6 +93,8 @@ export const Details = (props) => {
         labelWidth={50}
         items={["10mo"]}
         handleChange={props.handleChange}
+        control={props.control}
+        errors={props.errors["grade"]}
       />
     </div>
   );

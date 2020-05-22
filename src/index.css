@@ -200,13 +200,19 @@ ul {
   padding: 0px;
 }
 
-fieldset.MuiOutlinedInput-notchedOutline {
+.textfield-input fieldset.MuiOutlinedInput-notchedOutline {
   border-color: var(--dark-purple) !important;
 }
 
 .textfield-outlined {
   margin: 8px !important;
   min-width: 170px !important;
+  width: 100%;
+}
+
+.textfield-input {
+  display: flex;
+  align-items: center;
 }
 
 .MuiOutlinedInput-input {
@@ -218,7 +224,7 @@ fieldset.MuiOutlinedInput-notchedOutline {
 }
 
 .select-input {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   align-items: center;
 }
@@ -232,17 +238,31 @@ fieldset.MuiOutlinedInput-notchedOutline {
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: black;
+  background-color: var(--dark-purple);
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  padding-bottom: 10px;
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
+  top: -15px;
+  left: 125%;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--dark-purple) transparent transparent;
 }

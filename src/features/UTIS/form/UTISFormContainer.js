@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Prompt } from "react-router";
 
+import { useForm } from "react-hook-form";
+
 import Paper from "@material-ui/core/Paper";
 import { Details } from "./Details";
 import { Students } from "./Students";
@@ -12,6 +14,8 @@ export const UTISFormContainer = () => {
   const [tab, setTab] = useState("details");
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(false);
 
+  const { control, errors, handleSubmit } = useForm();
+
   const [utis, setUtis] = useState({
     name: "",
     category: "",
@@ -21,6 +25,11 @@ export const UTISFormContainer = () => {
     grade: "",
     students: [],
   });
+
+  const onSubmit = (data, e) => {
+    console.log("Submit event", e);
+    alert(JSON.stringify(data));
+  };
 
   useEffect(() => {
     let isEmpty = true;
@@ -42,12 +51,14 @@ export const UTISFormContainer = () => {
   }, [shouldBlockNavigation]);
 
   const handleChange = (event) => {
-    console.log(event.target.name, event.target.value);
     setUtis({ ...utis, [event.target.name]: event.target.value });
   };
 
   return (
-    <section className="utis-form-container courses-purple">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="utis-form-container courses-purple"
+    >
       <Prompt
         when={shouldBlockNavigation}
         message="Tienes cambios sin guardar, ¿Estás seguro que quieres salir?"
@@ -55,7 +66,12 @@ export const UTISFormContainer = () => {
       <Paper className="form-container" elevation={3}>
         <div className="utis-details">
           {tab === "details" ? (
-            <Details handleChange={handleChange} utis={utis} />
+            <Details
+              handleChange={handleChange}
+              utis={utis}
+              control={control}
+              errors={errors}
+            />
           ) : (
             <Students setUtis={setUtis} utis={utis} />
           )}
@@ -80,10 +96,10 @@ export const UTISFormContainer = () => {
             </p>
           </div>
           <div className="utis-details-button-group">
-            <a>Guardar</a>
+            <input type="submit" value="Guardar"></input>
           </div>
         </div>
       </Paper>
-    </section>
+    </form>
   );
 };

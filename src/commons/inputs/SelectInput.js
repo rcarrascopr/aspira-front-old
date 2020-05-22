@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Controller } from "react-hook-form";
+
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,6 +10,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { TextField } from "@material-ui/core";
+
+import Error from "./Error";
 
 export const SelectInput = (props) => {
   const useStyles = makeStyles((theme) => ({
@@ -44,35 +48,59 @@ export const SelectInput = (props) => {
   };
   return (
     <div className="select-input">
-    <FormControl
-      variant="outlined"
-      className={classes.formControl}
-      error={props.error}
-    >
-      <InputLabel
-        id={`${props.name}-select`}
-        className={`${
-          props.invert ? "dark-purple-text" : "white-text"
-        } bigger-text`}
-      >
-        {props.label}
-      </InputLabel>
-      <Select
+      <FormControl
         variant="outlined"
-        className={`${props.invert ? "invert" : ""}`}
-        value={props.value}
-        name={props.name}
-        onChange={props.handleChange}
-        labelWidth={props.labelWidth}
-        inputProps={{
-          id: `${props.name}-select`,
-          classes: { icon: classes.icon },
-        }}
+        className={classes.formControl}
+        error={props.errors}
       >
-        {generateSemesters()}
-      </Select>
-    </FormControl>
-    {props.error && <p className="tooltip">⚠️ <span className="tooltiptext">error message goes here</span></p>}
+        <InputLabel
+          id={`${props.name}-select`}
+          className={`${
+            props.invert ? "dark-purple-text" : "white-text"
+          } bigger-text`}
+        >
+          {props.label}
+        </InputLabel>
+        {props.control ? (
+          <Controller
+            as={
+              <Select
+                variant="outlined"
+                className={`${props.invert ? "invert" : ""}`}
+                value={props.value}
+                name={props.name}
+                onChange={props.handleChange}
+                labelWidth={props.labelWidth}
+                inputProps={{
+                  id: `${props.name}-select`,
+                  classes: { icon: classes.icon },
+                }}
+              >
+                {generateSemesters()}
+              </Select>
+            }
+            name={props.name}
+            control={props.control}
+            rules={{ required: true }}
+          />
+        ) : (
+          <Select
+            variant="outlined"
+            className={`${props.invert ? "invert" : ""}`}
+            value={props.value}
+            name={props.name}
+            onChange={props.handleChange}
+            labelWidth={props.labelWidth}
+            inputProps={{
+              id: `${props.name}-select`,
+              classes: { icon: classes.icon },
+            }}
+          >
+            {generateSemesters()}
+          </Select>
+        )}
+      </FormControl>
+      <Error errors={props.errors} />
     </div>
   );
 };
