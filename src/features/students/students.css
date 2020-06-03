@@ -1,0 +1,144 @@
+.students-container {
+  width: 100vw;
+  background-color: var(--students-purple);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.student-list-container {
+  height: 710px;
+  max-width: 610px;
+  min-width: 580px;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-around; */
+}
+
+.student-list-container .header {
+  width: 100%;
+}
+
+.student-list-container .header,
+.header-with-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-list-container .header h1 {
+  padding-left: 10px;
+}
+
+.student-list-container a {
+  font-size: 1.05em;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid var(--dark-purple);
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--dark-purple);
+  display: flex;
+  align-items: center;
+}
+
+.student-list-container a img {
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+}
+
+.student-list-container .header span {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.student-list-container hr {
+  width: 100%;
+}
+
+.student-list-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.list-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.list-item-content p {
+  margin: 10px;
+}
+
+.list-item-content .name-circle {
+  margin: 10px;
+}
+
+.student-details-container {
+  height: 710px;
+  max-width: 610px;
+  min-width: 580px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.student-profile-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.student-profile-details ul {
+  margin: 20px;
+  margin-bottom: 30px;
+}
+
+.student-profile-details ul p {
+  font-weight: 700;
+  margin: 0;
+  margin-left: 20px;
+  font-size: 1.3em;
+}
+
+.student-profile-details ul li {
+  background-color: white;
+  margin-left: 20px;
+  font-size: 1em;
+}
+
+.lined-button {
+  padding: 10px 20px;
+  border: 2px solid #282460;
+  border-radius: 6px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.lined-button img {
+  height: 20px;
+  width: 16px;
+}
+
+.student-details-buttons {
+  display: flex;
+  justify-content: center;
+}

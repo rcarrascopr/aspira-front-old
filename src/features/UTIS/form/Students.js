@@ -46,7 +46,7 @@ export const Students = (props) => {
     <div className="utis-students-container">
       <h1 className="dark-purple-text">UTIS: Estudiantes</h1>
       <div className="utis-students-header">
-        <p className="dark-purple-text">Lista de estudiantes Matriculados</p>
+        <p className="dark-purple-text">Lista de estudiantes matriculados</p>
         <a onClick={handleClickOpen}>+ Añadir a lista</a>
         <AddStudentModal
           open={open}
