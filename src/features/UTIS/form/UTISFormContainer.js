@@ -96,7 +96,13 @@ export const UTISFormContainer = () => {
             </p>
           </div>
           <div className="utis-details-button-group">
-            <input type="submit" value="Guardar"></input>
+            {/* {tab === "details" ? (
+              <a className="primary-btn" onClick={() => setTab("students")}>
+                Próximo
+              </a>
+            ) : ( */}
+              <input type="submit" className="primary-btn" value="Guardar" />
+            {/* )} */}
           </div>
         </div>
       </Paper>
