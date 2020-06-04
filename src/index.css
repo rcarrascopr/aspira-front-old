@@ -274,3 +274,24 @@ ul {
   border-style: solid;
   border-color: transparent var(--dark-purple) transparent transparent;
 }
+
+.primary-btn {
+  margin: 0px;
+  width: 160px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 9px;
+  border-width: 0px;
+  background-color: var(--dark-purple);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}

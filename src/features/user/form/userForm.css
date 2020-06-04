@@ -1,0 +1,30 @@
+.user-form-container {
+    background-color: var(--students-purple);
+    padding: 30px 200px;
+}
+
+.user-form {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 5px 40px rgba(91, 65, 162, 0.3);
+  padding: 30px;
+}
+
+.user-form h1 {
+    margin: 0px 0px 30px 0px;
+}
+
+.name-inputs {
+    display: flex;
+    width: 100%;
+}
+
+.details-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    /* margin-right: 20%; */
+}
+
+.details-inputs .textfield-input {
+    width: 45%;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import genders from "../../../commons/genders";
 import grades from "../../../commons/grades";
@@ -6,9 +6,17 @@ import titles from "../../../commons/titles";
 import centers from "../../../commons/centers";
 
 import { SelectInput } from "../../../commons/inputs/SelectInput";
+import Error from "../../../commons/inputs/Error";
 
-import TextField from "@material-ui/core/TextField";
+import {
+  FormControl, 
+  MenuItem, 
+  Select, 
+  TextField
+} from "@material-ui/core";
+
 import { useForm, Controller } from "react-hook-form";
+import "./userForm.css";
 
 export default function UserForm(props) {
   const { control, errors, handleSubmit } = useForm();
@@ -17,7 +25,7 @@ export default function UserForm(props) {
     first_name: { type: "text", value: "", required: true, label: "Nombre" },
     second_name: {
       type: "text",
-      value: "vinh",
+      value: "",
       required: false,
       label: "Segundo nombre",
     },
@@ -25,13 +33,13 @@ export default function UserForm(props) {
       type: "text",
       value: "",
       required: true,
-      label: "Apellido",
+      label: "Apellido 1",
     },
     maternal_surname: {
       type: "text",
       value: "",
       required: false,
-      label: "Apellido",
+      label: "Apellido 2",
     },
     email: {
       type: "email",
@@ -39,6 +47,7 @@ export default function UserForm(props) {
       required: true,
       label: "Correo electrónico",
     },
+    phone_number: { type: "tel", value: "", required: true, label: "Teléfono" },
     password: {
       type: "password",
       value: "",
@@ -51,7 +60,6 @@ export default function UserForm(props) {
       required: true,
       label: "Confirmar contraseña",
     },
-    phone_number: { type: "tel", value: "", required: true, label: "Teléfono" },
     center: {
       type: "select",
       value: centers[0],
@@ -72,23 +80,58 @@ export default function UserForm(props) {
       label: "Género",
       items: genders,
     },
-    accountType: {
+    account_type: {
       type: "select",
-      value: "",
+      value: titles[0],
       required: true,
       label: "Título",
       items: titles,
     },
   });
 
-  // const [formData, setFormData] = useState();
+  useEffect(() => {
+    if (formData.account_type.value === "student") {
+      setFormData(
+        ...formData,
+        (grades = {
+          type: "select",
+          value: grades[0],
+          required: true,
+          label: "Grado",
+          items: grades,
+        })
+      );
+    } else {
+      setFormData({ ...formData, grades: undefined });
+    }
+  }, [formData.account_type]);
 
   const handleChange = (e) => {
     const event = e[0];
+    setFormData({
+      ...formData,
+      [event.target.name]: {
+        ...formData[event.target.name],
+        value: event.target.value,
+      },
+    });
+  };
+
+  const handleSelectChange = (event) => {
+    debugger;
     console.log(event.target.name, event.target.value);
     setFormData({
       ...formData,
+      [event.target.name]: {
+        ...formData[event.target.name],
+        value: event.target.value,
+      },
     });
+  };
+
+  const onSubmit = (data, e) => {
+    console.log("Submit event", e);
+    alert(JSON.stringify(data));
   };
 
   const nameFields = Object.keys(formData).slice(0, 4);
@@ -117,6 +160,7 @@ export default function UserForm(props) {
                 control={control}
                 rules={{ required: formData[field].required }}
               />
+              <Error errors={errors[field]} />
             </div>
           );
         })}
@@ -126,7 +170,7 @@ export default function UserForm(props) {
 
   const generateOtherFields = () => {
     return otherFields.map((field) => {
-      if (formData[field].type === "select") {
+      if (!!formData[field] && formData[field].type === "select") {
         return (
           <SelectInput
             name={field}
@@ -135,12 +179,12 @@ export default function UserForm(props) {
             value={formData[field].value}
             labelWidth={70}
             items={formData[field].items}
-            handleChange={handleChange}
+            handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
           />
         );
-      } else {
+      } else if (!!formData[field]) {
         return (
           <div className="textfield-input">
             <Controller
@@ -160,6 +204,7 @@ export default function UserForm(props) {
               control={control}
               rules={{ required: formData[field].required }}
             />
+            <Error errors={errors[field]} />
           </div>
         );
       }
@@ -167,27 +212,16 @@ export default function UserForm(props) {
   };
 
   return (
-    <form>
-      {generateNameFields()}
-      {generateOtherFields()}
+    <div className="user-form-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="user-form">
+        <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
+        {generateNameFields()}
+        <div className="details-inputs">{generateOtherFields()}</div>
 
-      {/* <SelectInput
-        name="category"
-        label="Categoría"
-        invert={true}
-        value={props.utis.category}
-        labelWidth={70}
-        items={[
-          "Socio-Humanístico",
-          "Científico-Técnico",
-          "Ocupacional",
-          "Cultural",
-          "Comunitaria",
-        ]}
-        handleChange={props.handleChange}
-        control={props.control}
-        errors={props.errors["category"]}
-      /> */}
-    </form>
+        <div className="flex-end">
+          <input type="submit" className="primary-btn " value="Guardar" />
+        </div>
+      </form>
+    </div>
   );
 }

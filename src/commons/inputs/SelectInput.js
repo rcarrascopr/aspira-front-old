@@ -14,6 +14,7 @@ import { TextField } from "@material-ui/core";
 import Error from "./Error";
 
 export const SelectInput = (props) => {
+  console.log("handleChange: ", props.handleChange)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -29,7 +30,7 @@ export const SelectInput = (props) => {
   }));
 
   const classes = useStyles();
-  const generateSemesters = () => {
+  const generateOptions = () => {
     return props.items.map((object, i) => {
       if (typeof object === "string") {
         return (
@@ -76,7 +77,7 @@ export const SelectInput = (props) => {
                   classes: { icon: classes.icon },
                 }}
               >
-                {generateSemesters()}
+                {generateOptions()}
               </Select>
             }
             name={props.name}
@@ -96,7 +97,7 @@ export const SelectInput = (props) => {
               classes: { icon: classes.icon },
             }}
           >
-            {generateSemesters()}
+            {generateOptions()}
           </Select>
         )}
       </FormControl>
