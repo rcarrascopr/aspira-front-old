@@ -14,7 +14,6 @@ import { TextField } from "@material-ui/core";
 import Error from "./Error";
 
 export const SelectInput = (props) => {
-  console.log("handleChange: ", props.handleChange)
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -68,9 +67,9 @@ export const SelectInput = (props) => {
               <Select
                 variant="outlined"
                 className={`${props.invert ? "invert" : ""}`}
-                value={props.value}
-                name={props.name}
-                onChange={props.handleChange}
+                // value={props.value}
+                // name={props.name}
+                // onChange={props.handleChange}
                 labelWidth={props.labelWidth}
                 inputProps={{
                   id: `${props.name}-select`,
@@ -80,6 +79,7 @@ export const SelectInput = (props) => {
                 {generateOptions()}
               </Select>
             }
+            defaultValue={props.defaultValue}
             name={props.name}
             control={props.control}
             rules={{ required: true }}
@@ -88,9 +88,9 @@ export const SelectInput = (props) => {
           <Select
             variant="outlined"
             className={`${props.invert ? "invert" : ""}`}
-            value={props.value}
+            // value={props.value}
             name={props.name}
-            onChange={props.handleChange}
+            // onChange={props.handleChange}
             labelWidth={props.labelWidth}
             inputProps={{
               id: `${props.name}-select`,
