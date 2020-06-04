@@ -10,7 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import { NameCircle } from "../../../commons/NameCircle";
 
-import grades from "../../../commons/grades";
+import grades from "../../../commons/data/grades";
 import fake_students from "../../../commons/fake_students";
 import { name, last_name } from "../../../commons/sort_methods";
 
@@ -39,9 +39,9 @@ export const AddStudentModal = (props) => {
 
     if (formData.filter !== "") {
       sorted_students = fake_students.filter((s) =>
-        `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`.toLowerCase().includes(
-          formData.filter.toLowerCase()
-        )
+        `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
+          .toLowerCase()
+          .includes(formData.filter.toLowerCase())
       );
     } else {
       sorted_students = fake_students;
@@ -111,7 +111,6 @@ export const AddStudentModal = (props) => {
           labelWidth={70}
           items={grades}
           handleChange={handleChange}
-        
         />
 
         <div className="search-form">
