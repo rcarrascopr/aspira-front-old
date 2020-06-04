@@ -1,1 +1,1 @@
-export default ["9no", "10mo", "11mo", "12mo"];
+export default [9, 10, 11, 12];
