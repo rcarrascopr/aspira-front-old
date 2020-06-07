@@ -4,7 +4,13 @@
 
 :root {
   --dark-purple: #282460;
-  --students-purple: #8DA5DE;
+  --students-purple: #8da5de;
+  --events-purple: #8495bc;
+  --general-events: #60e5bd;
+  --faculty-events: #72dbff;
+  --administration-events: #b9a9f2;
+  --event-list-item-color: #7289be;
+  --event-list-item-color-hover: #6076aa;
 }
 
 body {
@@ -66,7 +72,7 @@ a {
 }
 
 .light-gray {
-  background-color: #F2F3F6;
+  background-color: #f2f3f6;
 }
 
 .white {
@@ -170,7 +176,6 @@ hr {
   padding: 0px;
   display: flex;
   justify-content: space-between;
-
 }
 
 .search {
@@ -240,7 +245,6 @@ ul {
 .tooltip {
   position: relative;
   display: inline-block;
-
 }
 
 .tooltip .tooltiptext {
@@ -291,7 +295,59 @@ ul {
   font-size: 0.9em;
 }
 
+.secondary-btn-outline {
+  font-size: 1em;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid white;
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: white;
+}
+
+.secondary-btn-outline {
+  font-size: 1em;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid white;
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: white;
+}
+
+.secondary-btn-outline:hover {
+  background-color: white;
+  color: var(--dark-purple);
+}
+
 .flex-end {
   display: flex;
   justify-content: flex-end;
+}
+
+.event-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px 20px;
+}
+
+.event-circle-general {
+  background-color: var(--general-events);
+}
+
+.event-circle-faculty {
+  background-color: var(--faculty-events);
+}
+
+.event-circle-administration {
+  background-color: var(--administration-events);
 }
