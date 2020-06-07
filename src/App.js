@@ -9,6 +9,7 @@ import UTISContainer from "./features/UTIS/UTISContainer";
 import { UTISFormContainer } from "./features/UTIS/form/UTISFormContainer";
 import { StudentsContainer } from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
+import EventsContainer from "./features/events/EventsContainer";
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
@@ -44,8 +45,9 @@ function App(props) {
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
-          <PrivateRoute path="/:estudiantes/create" component={UserForm}/>
+          <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />
+          <PrivateRoute path="/eventos" component={EventsContainer} />
           {generateLoginSignupRoutes()}
         </Switch>
       </div>
