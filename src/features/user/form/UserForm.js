@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import genders from "../../../commons/genders";
-import grades from "../../../commons/grades";
-import titles from "../../../commons/titles";
-import centers from "../../../commons/centers";
+import grades from "../../../commons/data/grades";
+import { userFormData as formData } from "../../../commons/form-data/userFormData";
 
 import { SelectInput } from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
-import { FormControl, MenuItem, Select, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 import { useForm, Controller } from "react-hook-form";
 import "./userForm.css";
@@ -17,93 +15,7 @@ export default function UserForm(props) {
   const { control, errors, handleSubmit, watch } = useForm();
 
   const accountType = watch("account_type");
-
-  const formData = {
-    first_name: { type: "text", required: true, label: "Nombre" },
-    second_name: {
-      type: "text",
-
-      required: false,
-      label: "Segundo nombre",
-    },
-    paternal_surname: {
-      type: "text",
-
-      required: true,
-      label: "Apellido 1",
-    },
-    maternal_surname: {
-      type: "text",
-
-      required: false,
-      label: "Apellido 2",
-    },
-    email: {
-      type: "email",
-
-      required: true,
-      label: "Correo electrónico",
-    },
-    phone_number: { type: "tel", required: true, label: "Teléfono" },
-    password: {
-      type: "password",
-
-      required: true,
-      label: "Contraseña",
-    },
-    password_confirmation: {
-      type: "password",
-
-      required: true,
-      label: "Confirmar contraseña",
-    },
-    center: {
-      type: "select",
-
-      required: true,
-      label: "Centro",
-      items: centers,
-    },
-    residence_municipality: {
-      type: "text",
-
-      required: true,
-      label: "Municipio",
-    },
-    gender: {
-      type: "select",
-
-      required: true,
-      label: "Género",
-      items: genders,
-    },
-    account_type: {
-      type: "select",
-
-      required: true,
-      label: "Título",
-      items: titles,
-    },
-  };
-
-  useEffect(() => {
-    if (accountType === "student") {
-      formData.grades = {
-        type: "select",
-        required: true,
-        label: "Grado",
-        items: grades,
-      };
-      console.log(formData)
-    } else {
-      delete formData.grades;
-    }
-  }, [watch("account_type")]);
-
-  const onSubmit = (data, e) => {
-    console.log("Submit event", e);
-    alert(JSON.stringify(data));
-  };
+  // const accountType = "student";
 
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
@@ -151,6 +63,7 @@ export default function UserForm(props) {
             // handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
+            defaultValue={formData[field].defaultValue}
           />
         );
       } else if (!!formData[field]) {
@@ -179,13 +92,37 @@ export default function UserForm(props) {
     });
   };
 
+  const generateAcademicLevels = () => {
+    if (accountType === "student") {
+      return (
+        // Using SelectInput component
+
+        <SelectInput
+          name="academic_level"
+          label="Grados"
+          invert={true}
+          labelWidth={70}
+          items={grades}
+          // handleChange={handleSelectChange}
+          control={control}
+          defaultValue={grades[0]}
+          errors={errors["academic_level"]}
+        />
+      );
+    }
+  };
+
+  const onSubmit = (data, event) => {
+    console.log(`Submitted data: `, data, `\n Event: `, event);
+  };
+
   return (
     <div className="user-form-container">
       <form onSubmit={handleSubmit(onSubmit)} className="user-form">
         <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
         {generateNameFields()}
         <div className="details-inputs">{generateOtherFields()}</div>
-
+        {generateAcademicLevels()}
         <div className="flex-end">
           <input type="submit" className="primary-btn " value="Guardar" />
         </div>
