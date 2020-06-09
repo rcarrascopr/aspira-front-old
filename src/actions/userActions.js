@@ -30,3 +30,35 @@ export function logoutAction() {
     });
   };
 }
+
+export function userCreate(data) {
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(
+      `${api_url}${
+        data.account_type === "admin" ? "signup" : data.account_type + "s"
+      }`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: data }),
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJSON) => {
+        if (responseJSON.error) {
+          console.log(responseJSON.error);
+        } else {
+          console.log("Success", responseJSON);
+          dispatch({ type: "CREATE_USER" });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}

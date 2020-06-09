@@ -41,12 +41,12 @@ export const userFormData = {
     required: true,
     label: "Confirmar contraseña",
   },
-  center: {
+  center_id: {
     type: "select",
-    defaultValue: centers[0],
+    defaultValue: "",
     required: true,
     label: "Centro",
-    items: centers,
+    items: null,
   },
   residence_municipality: {
     type: "text",

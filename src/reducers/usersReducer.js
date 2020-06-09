@@ -6,7 +6,7 @@ export default function usersReducer(
   action
 ) {
   switch (action.type) {
-    case "LOADING":
+    case "LOADING_USER":
       return { ...state, loading: true };
     // case "FETCH_CURRENT_USER":
     //   return { loading: false, currentUser: action.payload };
@@ -18,6 +18,8 @@ export default function usersReducer(
       return { loading: false, currentUser: null };
     // case "SIGNUP":
     //   return { ...state, loading: false };
+    case "CREATE_USER":
+      return { ...state, loading: false };
     default:
       return state;
   }

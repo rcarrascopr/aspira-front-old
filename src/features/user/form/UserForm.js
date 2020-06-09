@@ -9,11 +9,20 @@ import Error from "../../../commons/inputs/Error";
 import { TextField } from "@material-ui/core";
 
 import { useForm, Controller } from "react-hook-form";
+import { connect } from "react-redux";
+
+import { userCreate } from "../../../actions/userActions";
 import "./userForm.css";
 
-export default function UserForm(props) {
-  const { control, errors, handleSubmit, watch } = useForm();
+function UserForm(props) {
+  const { control, errors, handleSubmit, watch, setValue } = useForm();
 
+  console.log("centers: ", props.centers)
+  formData.center_id.items = props.centers
+  if (props.centers.length > 0){
+    setValue("center_id", 1)
+  }
+  
   const accountType = watch("account_type");
   // const accountType = "student";
 
@@ -60,6 +69,7 @@ export default function UserForm(props) {
             invert={true}
             labelWidth={70}
             items={formData[field].items}
+            // value={typeof formData[field] === "string" ? formData[field] : formData[field].id}
             // handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
@@ -114,6 +124,7 @@ export default function UserForm(props) {
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
+    props.userCreate(data);
   };
 
   return (
@@ -121,8 +132,10 @@ export default function UserForm(props) {
       <form onSubmit={handleSubmit(onSubmit)} className="user-form">
         <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
         {generateNameFields()}
-        <div className="details-inputs">{generateOtherFields()}</div>
-        {generateAcademicLevels()}
+        <div className="details-inputs">
+          {generateOtherFields()} {generateAcademicLevels()}
+        </div>
+
         <div className="flex-end">
           <input type="submit" className="primary-btn " value="Guardar" />
         </div>
@@ -130,3 +143,18 @@ export default function UserForm(props) {
     </div>
   );
 }
+
+let mapStateToProps = (state) => {
+  return {
+    loading: state.users.loading,
+    centers: state.centers.centers
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    userCreate: (data) => dispatch(userCreate(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
