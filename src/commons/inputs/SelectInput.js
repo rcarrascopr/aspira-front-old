@@ -36,10 +36,10 @@ export const SelectInput = (props) => {
           <MenuItem key={i} value={object}>
             {object}
           </MenuItem>
-        );
+        );  
       } else {
         return (
-          <MenuItem key={object.id} value={object.name}>
+          <MenuItem key={object.id} value={object.id}>
             {object.name}
           </MenuItem>
         );
@@ -67,7 +67,6 @@ export const SelectInput = (props) => {
               <Select
                 variant="outlined"
                 className={`${props.invert ? "invert" : ""}`}
-                // value={props.value}
                 // name={props.name}
                 // onChange={props.handleChange}
                 labelWidth={props.labelWidth}
@@ -88,9 +87,9 @@ export const SelectInput = (props) => {
           <Select
             variant="outlined"
             className={`${props.invert ? "invert" : ""}`}
-            // value={props.value}
+            value={props.value}
             name={props.name}
-            // onChange={props.handleChange}
+            onChange={props.handleChange}
             labelWidth={props.labelWidth}
             inputProps={{
               id: `${props.name}-select`,
