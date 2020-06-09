@@ -1,0 +1,40 @@
+.utis-show-container {
+  padding: 90px;
+  background-color: var(--courses-purple);
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-list-container {
+    width: 700px;
+}
+
+.product-list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-card {
+  box-sizing: border-box;
+  border-radius: 6px;
+  border-left: 20px solid var(--gph-purple);
+  height: 115px;  
+  background-color: white;
+  margin: 20px 0px;
+  padding: 20px 20px;
+}
+
+.product-card-content {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.course-card-wrapper .card{
+ margin-bottom: 20px;
+}
+
+.grade-icon {
+    height: 20px;
+    margin-right: 6px;
+}
