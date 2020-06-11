@@ -2,25 +2,26 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../../actions/productActions";
 
+import "./Product.css";
+
 export const Product = ({ fetchProduct, product, loading }) => {
   console.log("props: ", { product, loading });
 
-  const productId = document.location.hash.split("products/").pop().toString();
+  const productId = document.location.hash.split("products/").pop();
+
   useEffect(() => {
     console.log("Current product's id: ", productId);
     fetchProduct(productId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
-  // useEffect(() => console.log("I got a product: ", product), []);
-
   const renderProduct = () => {
     if (!!product) {
       const { title, introduction, description, steps, students } = product;
       return (
         <div>
-          <div className="product-container">
-            <h1 className="title">{title}</h1>
+          <div className="product-container ocupacional">
+            <h2 className="title">{title}</h2>
             <h5>Introduction</h5>
             <p className="introduction">{introduction}</p>
 
