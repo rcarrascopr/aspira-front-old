@@ -1,0 +1,59 @@
+.product-details-container {
+  padding: 50px;
+  width: 700px;
+}
+
+.product-details-header {
+  margin-bottom: 40px;
+}
+
+.product-scrollable-container {
+  margin-bottom: 20px;
+  width: 480px;
+  height: 350px;
+  overflow-y: scroll;
+}
+
+.product-scrollable-container, .product-scrollable-container > * {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-right: 25px;
+}
+
+.step {
+  background-color: var(--dark-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4em;
+  width: 80px;
+  height: 56px;
+  font-weight: 700;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.step-trash {
+    height: 56px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+}
+
+.step-trash img {
+    height: 20px;
+    width: auto;
+}
+
+.instructions-steps-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+
+}
+
+.instructions-steps-btn-group, .instructions-steps-btn-group > * {
+    margin: 0px 15px;
+}
