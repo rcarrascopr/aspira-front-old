@@ -5,11 +5,8 @@ import { Controller } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { TextField } from "@material-ui/core";
 
 import Error from "./Error";
 
@@ -36,7 +33,7 @@ export const SelectInput = (props) => {
           <MenuItem key={i} value={object}>
             {object}
           </MenuItem>
-        );  
+        );
       } else {
         return (
           <MenuItem key={object.id} value={object.id}>
