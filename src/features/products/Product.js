@@ -19,24 +19,26 @@ export const Product = ({ fetchProduct, product, loading }) => {
     if (!!product) {
       const { title, introduction, description, steps, students } = product;
       return (
-        <div>
-          <div className="product-container ocupacional">
+        <div className="product-container">
+          <div className="info-wrapper">
             <h2 className="title">{title}</h2>
-            <h5>Introduction</h5>
-            <p className="introduction">{introduction}</p>
+            <div className="info-container">
+              <h5>Introduction</h5>
+              <p className="introduction">{introduction}</p>
 
-            <h5>Description</h5>
-            <p className="description">{description}</p>
+              <h5>Description</h5>
+              <p className="description">{description}</p>
 
-            <h5>Steps</h5>
-            {steps.map((s, index) => {
-              return (
-                <span>
-                  <div className="step-number">{index + 1}</div>
-                  <p className="instruction">{s}</p>
-                </span>
-              );
-            })}
+              <h5>Steps</h5>
+              {steps.map((s, index) => {
+                return (
+                  <div className="step">
+                    <p className="step-number">{index + 1}</p>
+                    <p className="step-instruction">{s}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="students-container">
