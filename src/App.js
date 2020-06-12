@@ -11,7 +11,7 @@ import { StudentsContainer } from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
-import ProductForm from "./features/products/form/ProductForm";
+import ProductFormContainer from "./features/products/form/ProductFormContainer";
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
@@ -46,9 +46,12 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={() => <DashboardContainer />} />
           <PrivateRoute path="/centers" component={CenterContainer} />
-          <PrivateRoute path="/utis/products/create" component={ProductForm} />
-          <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
+          <PrivateRoute
+            path="/utis/:id/products/create"
+            component={ProductFormContainer}
+          />
+          <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />

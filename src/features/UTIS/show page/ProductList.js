@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 function ProductList(props) {
   const handleClick = () => {
-    props.history.push("/utis/products/create");
+    props.history.push("/utis/1/products/create");
   };
   const generateProductListItems = () => {
     return props.products.map((product) => {
