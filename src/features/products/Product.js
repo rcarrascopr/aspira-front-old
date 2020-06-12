@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../../actions/productActions";
+import { Button } from "@material-ui/core";
 
 import "./Product.css";
 
@@ -15,6 +16,11 @@ export const Product = ({ fetchProduct, product, loading }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
+  const buttonStyles = {
+    color: "#383784",
+    textTransform: "capitalize",
+    borderRadius: "5px",
+  };
   const renderProduct = () => {
     if (!!product) {
       const { title, introduction, description, steps, students } = product;
@@ -23,21 +29,23 @@ export const Product = ({ fetchProduct, product, loading }) => {
           <div className="info-wrapper">
             <h2 className="title">{title}</h2>
             <div className="info-container">
-              <h5>Introduction</h5>
+              <p>Introduction</p>
               <p className="introduction">{introduction}</p>
 
-              <h5>Description</h5>
+              <p>Description</p>
               <p className="description">{description}</p>
 
-              <h5>Steps</h5>
-              {steps.map((s, index) => {
-                return (
-                  <div className="step">
-                    <p className="step-number">{index + 1}</p>
-                    <p className="step-instruction">{s}</p>
-                  </div>
-                );
-              })}
+              <p>Steps</p>
+              <div className="steps-container">
+                {steps.map((s, index) => {
+                  return (
+                    <div key={index + 1} className="step-box">
+                      <p className="step">{index + 1}</p>
+                      <p className="step-instruction">{s}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -47,25 +55,43 @@ export const Product = ({ fetchProduct, product, loading }) => {
               {students.map((student) => {
                 const fullName = `${student.first_name} ${student.paternal_surname}`;
                 return (
-                  <li>
-                    <span>
-                      <p>{fullName}</p>
-                      <a href={`/students/${student.id}`}>Detalles</a>
-                    </span>
+                  <li className="students-list-item">
+                    <p>{fullName}</p>
+                    <a href={`/students/${student.id}`}>Detalles</a>
                   </li>
                 );
               })}
             </ul>
-            <span className="buttons-container">
-              <button className="green-button">
-                <strong>2</strong>
-                Green Button
-              </button>
-              <button className="red-button">
-                <strong>3</strong>
-                Red Button
-              </button>
-            </span>
+            <div className="buttons-container">
+              <Button
+                variant="contained"
+                color="primary"
+                className="button-main"
+                disableElevation={true}
+                href="#"
+                style={{
+                  ...buttonStyles,
+                  background: "#c9ffa7",
+                }}
+              >
+                <strong>5</strong>
+                <p className="button-text">Entregados</p>
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className="button-main"
+                disableElevation={true}
+                href="#"
+                style={{
+                  ...buttonStyles,
+                  background: "#f26e6e",
+                }}
+              >
+                <strong>4</strong>
+                <p className="button-text">No Entregados</p>
+              </Button>
+            </div>
           </div>
         </div>
       );
