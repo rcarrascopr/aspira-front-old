@@ -6,7 +6,7 @@ export default function centersReducer(
     case "LOADING":
       return { ...state, loading: true };
     case "FETCH_CENTERS":
-      return { ...state, centers: [...action.payload], loading: false };
+      return { ...state, centers: action.payload, loading: false };
     default:
       return state;
   }
