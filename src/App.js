@@ -51,12 +51,12 @@ function App(props) {
             path="/utis/:id/products/create"
             component={ProductFormContainer}
           />
+          <PrivateRoute path="/utis/:utisid/products/:id" component={Product} />
           <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />
           <PrivateRoute path="/eventos" component={EventsContainer} />
-          <PrivateRoute path="/products/:id" component={Product} />
 
           {generateLoginSignupRoutes()}
         </Switch>
