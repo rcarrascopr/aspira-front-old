@@ -12,7 +12,12 @@
   --event-list-item-color: #7289be;
   --event-list-item-color-hover: #6076aa;
   --courses-purple: #dde7ff;
+  --text-color-claro: #383784;
   --gph-purple: #5d7fcd;
+
+  /* buttons */
+  --button-green: #c9ffa7;
+  --button-red: #f26e6e;
 }
 
 body {

@@ -1,0 +1,94 @@
+div.product-container {
+  background-color: var(--courses-purple);
+  color: ##27265e;
+  display: flex;
+  margin: 0 60px 0 60px;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 30px 0px;
+}
+
+div.info-wrapper {
+  width: 60%;
+}
+
+div.info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* div.info-container > * {
+  background-color: white;
+  padding: 5px 0px;
+} */
+
+.step-instruction {
+  background-color: white;
+}
+
+.step-box {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px 0px 0px 4px;
+  background-color: var(--courses-purple);
+  height: 100px;
+}
+
+.step {
+  background-color: var(--dark-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4em;
+  width: 80px;
+  height: 56px;
+  font-weight: 700;
+}
+
+.step-number {
+  background-color: var(--text-color-claro);
+  color: white;
+  padding: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: 700;
+}
+
+.step-instruction {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  border-radius: 0 4px 4px 0;
+}
+
+div.students-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 40%;
+}
+
+.students-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-main {
+  box-shadow: "none";
+  font-size: 16;
+  padding: "6px 12px";
+  line-height: 1.5;
+}

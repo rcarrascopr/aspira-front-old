@@ -11,18 +11,19 @@ import { StudentsContainer } from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
-import ProductFormContainer from "./features/products/form/ProductFormContainer"
+import ProductFormContainer from "./features/products/form/ProductFormContainer";
 import { connect } from "react-redux";
 import { PrivateRoute } from "./commons/PrivateRoute";
 
 import { fetchCenters } from "./actions/centerActions";
+import Product from "./features/products/Product";
 
 function App(props) {
   useEffect(() => {
     if (props.currentUser && props.currentUser.role === "Admin") {
       props.fetch_centers();
     }
-  }, [props.currentUser]);
+  }, [props, props.currentUser]);
 
   const generateLoginSignupRoutes = () => {
     if (!props.currentUser) {
@@ -46,13 +47,17 @@ function App(props) {
           <Route exact path="/" render={() => <DashboardContainer />} />
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
-          <PrivateRoute path="/utis/:id/products/create" component={ProductFormContainer}/>
+          <PrivateRoute
+            path="/utis/:id/products/create"
+            component={ProductFormContainer}
+          />
+          <PrivateRoute path="/utis/:utisid/products/:id" component={Product} />
           <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />
           <PrivateRoute path="/eventos" component={EventsContainer} />
-         
+
           {generateLoginSignupRoutes()}
         </Switch>
       </div>
