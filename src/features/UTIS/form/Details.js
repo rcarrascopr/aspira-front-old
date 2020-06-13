@@ -5,34 +5,25 @@ import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
-export const Details = (props) => {
-  const { centers } = props;
+export const Details = ({ centers, formData, handleChange }) => {
   return (
     <div className="utis-details-container">
       <h1 className="dark-purple-text">UTIS: Detalles</h1>
       <div className="textfield-input">
-        <Controller
-          as={
-            <TextField
-              id="utis-name"
-              name="name"
-              label="Nombre"
-              value={props.utis.name}
-              variant="outlined"
-              onChange={props.handleChange}
-              className={"dark-purple-text textfield-outlined"}
-              error={props.errors["name"]}
-            />
-          }
-          name="name"
-          control={props.control}
-          rules={{ required: true }}
+        <TextField
+          name="utisName"
+          label="Nombre"
+          variant="outlined"
+          className={"dark-purple-text textfield-outlined"}
+          defaulValue={formData.utisName}
+          value={formData.utisName}
+          onChange={handleChange}
         />
 
-        <Error errors={props.errors["name"]} />
+        {/* <Error errors={props.errors["name"]} /> */}
       </div>
 
-      <SelectInput
+      {/* <SelectInput
         name="category"
         label="Categoría"
         invert={true}
@@ -95,7 +86,7 @@ export const Details = (props) => {
         handleChange={props.handleChange}
         control={props.control}
         errors={props.errors["grade"]}
-      />
+      /> */}
     </div>
   );
 };
