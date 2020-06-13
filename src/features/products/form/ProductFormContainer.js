@@ -27,15 +27,17 @@ const tabs = ["information", "instructions", "skills"];
 // ];
 
 function ProductFormContainer(props) {
-  const [currentTab, setCurrentTab] = useState("information");
+  // const [currentTab, setCurrentTab] = useState("information");
+  const [currentStep, setCurrentStep] = useState(0);
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(false);
 
-  const { control, errors, handleSubmit, watch, reset} = useForm({
+  const { control, errors, handleSubmit, watch, reset, getValues } = useForm({
     defaultValues: props.productFormData,
   });
 
   const onSubmit = (data, e) => {
-    props.setProductFormData({ ...props.productFormData, ...data });
+    console.log(data);
+    // props.setProductFormData({ ...props.productFormData, ...data });
   };
 
   useEffect(() => {
@@ -43,8 +45,8 @@ function ProductFormContainer(props) {
   }, []);
 
   useEffect(() => {
-    reset(props.productFormData)
-  }, [currentTab]);
+    reset(props.productFormData);
+  }, [currentStep]);
 
   useEffect(() => {
     let isEmpty = true;
@@ -66,17 +68,14 @@ function ProductFormContainer(props) {
   }, [shouldBlockNavigation]);
 
   const generateForm = () => {
-    switch (currentTab) {
-      case "instructions":
-        return (
-          <InstructionsForm control={control} errors={errors} watch={watch} />
-        );
-      case "skills":
-        return <SkillsForm control={control} errors={errors} watch={watch} />;
+    const childrenProps = { control, errors };
+    switch (currentStep) {
+      case 1:
+        return <InstructionsForm {...childrenProps} />;
+      case 2:
+        return <SkillsForm {...childrenProps} />;
       default:
-        return (
-          <InformationForm control={control} errors={errors} watch={watch} />
-        );
+        return <InformationForm {...childrenProps} />;
     }
   };
 
@@ -84,13 +83,55 @@ function ProductFormContainer(props) {
     return tabs.map((tab, index) => (
       <p
         key={index}
-        className={`dark-purple-text ${tab === currentTab ? "active-tab" : ""}`}
-        onClick={() => setCurrentTab(tab)}
+        className={`dark-purple-text ${
+          index === currentStep ? "active-tab" : ""
+        }`}
+        // onClick={() => setCurrentTab(tab)}
       >
         {tab}
       </p>
     ));
   };
+
+  /* Code for button navigation and keeping track of current step in the form process */
+
+  const handleClick = (name) => {
+    if (name === "previous" && currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    } else if (name === "next" && currentStep <= 1) {
+      setCurrentStep(currentStep + 1);
+    }
+
+    props.setProductFormData({
+      ...props.productFormData,
+      ...getValues({ nest: true }),
+    });
+  };
+
+  const generateButtons = () => {
+    const hidden = currentStep === 0 ? "hidden" : "";
+    return (
+      <>
+        <a
+          className={`primary-btn ${hidden}`}
+          onClick={() => handleClick("previous")}
+        >
+          Atrás
+        </a>
+
+        {currentStep !== 2 && (
+          <a className="primary-btn" onClick={() => handleClick("next")}>
+            Próximo
+          </a>
+        )}
+        {currentStep === 2 && (
+          <input type="submit" className="primary-btn" value="Guardar" />
+        )}
+      </>
+    );
+  };
+
+  /* End of button navigation */
 
   return (
     <div>
@@ -110,7 +151,7 @@ function ProductFormContainer(props) {
             <div className="utis-details-options">
               <div className="side-tabs">{generateTabs()}</div>
               <div className="utis-details-button-group">
-                <input type="submit" className="primary-btn" value="Guardar" />
+                {generateButtons()}
               </div>
             </div>
           </Paper>
