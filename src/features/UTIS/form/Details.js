@@ -6,6 +6,7 @@ import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
 export const Details = (props) => {
+  const { centers } = props;
   return (
     <div className="utis-details-container">
       <h1 className="dark-purple-text">UTIS: Detalles</h1>
@@ -21,7 +22,6 @@ export const Details = (props) => {
               onChange={props.handleChange}
               className={"dark-purple-text textfield-outlined"}
               error={props.errors["name"]}
-        
             />
           }
           name="name"
@@ -66,9 +66,9 @@ export const Details = (props) => {
         name="center"
         label="Centro"
         invert={true}
-        value={props.utis.center}
+        value={centers[0]}
         labelWidth={70}
-        items={["Aguada", "Moca", "Carolina"]}
+        items={centers}
         handleChange={props.handleChange}
         control={props.control}
         errors={props.errors["center"]}
