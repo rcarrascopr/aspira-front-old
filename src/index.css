@@ -147,6 +147,10 @@ hr {
   font-weight: 700;
 }
 
+.MuiInputBase-root.Mui-disabled {
+  opacity: 0.4;
+}
+
 .scrollable::-webkit-scrollbar {
   width: 8px;
 }

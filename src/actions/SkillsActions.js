@@ -8,6 +8,7 @@ export function getSkills() {
           return response.json();
         })
         .then((responseJSON) => {
+            console.log("FETCHED SKILLS", responseJSON)
           dispatch({ type: "FETCH_SKILLS", payload: responseJSON });
         })
         .catch((error) => {});

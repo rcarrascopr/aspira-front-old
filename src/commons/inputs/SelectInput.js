@@ -52,6 +52,7 @@ export const SelectInput = (props) => {
         variant="outlined"
         className={classes.formControl}
         error={props.errors}
+        disabled={props.disabled}
       >
         <InputLabel
           id={`${props.name}-select`}

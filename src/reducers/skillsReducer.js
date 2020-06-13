@@ -6,7 +6,7 @@ export default function skillsReducer(
     case "LOADING_SKILLS":
       return { ...state, loading: true };
     case "FETCH_SKILLS":
-      return { ...state, centers: [...action.payload], loading: false };
+      return { ...state, skills: [...action.payload], loading: false };
     default:
       return state;
   }

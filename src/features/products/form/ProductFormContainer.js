@@ -10,6 +10,7 @@ import SkillsForm from "./SkillsForm";
 import InstructionsForm from "./InstructionsForm";
 
 import { getSkills } from "../../../actions/SkillsActions";
+import { setProductFormAction } from "../../../actions/productFormAction";
 
 import "./ProductFormContainer.css";
 
@@ -29,21 +30,21 @@ function ProductFormContainer(props) {
   const [currentTab, setCurrentTab] = useState("information");
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(false);
 
-  const { control, errors, handleSubmit, watch } = useForm({
-    defaultValues: {
-      steps: [],
-      level_ids: [1],
-    },
+  const { control, errors, handleSubmit, watch, reset} = useForm({
+    defaultValues: props.productFormData,
   });
 
   const onSubmit = (data, e) => {
-    console.log("Submit event", e);
-    alert(JSON.stringify(data));
+    props.setProductFormData({ ...props.productFormData, ...data });
   };
 
   useEffect(() => {
     props.getSkills();
-  });
+  }, []);
+
+  useEffect(() => {
+    reset(props.productFormData)
+  }, [currentTab]);
 
   useEffect(() => {
     let isEmpty = true;
@@ -67,11 +68,15 @@ function ProductFormContainer(props) {
   const generateForm = () => {
     switch (currentTab) {
       case "instructions":
-        return <InstructionsForm control={control} errors={errors} />;
+        return (
+          <InstructionsForm control={control} errors={errors} watch={watch} />
+        );
       case "skills":
-        return <SkillsForm control={control} errors={errors} />;
+        return <SkillsForm control={control} errors={errors} watch={watch} />;
       default:
-        return <InformationForm control={control} errors={errors} />;
+        return (
+          <InformationForm control={control} errors={errors} watch={watch} />
+        );
     }
   };
 
@@ -115,10 +120,20 @@ function ProductFormContainer(props) {
   );
 }
 
-let mapDispatchToProps = (dispatch) => {
+let mapStateToProps = (state) => {
   return {
-    getSkills: () => dispatch(getSkills),
+    productFormData: state.productForm.productFormData,
   };
 };
 
-export default connect(null, mapDispatchToProps)(ProductFormContainer);
+let mapDispatchToProps = (dispatch) => {
+  return {
+    getSkills: () => dispatch(getSkills()),
+    setProductFormData: (formData) => dispatch(setProductFormAction(formData)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductFormContainer);
