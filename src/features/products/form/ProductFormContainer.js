@@ -11,6 +11,7 @@ import InstructionsForm from "./InstructionsForm";
 
 import { getSkills } from "../../../actions/SkillsActions";
 import { setProductFormAction } from "../../../actions/productFormAction";
+import { createProduct } from "../../../actions/productActions";
 
 import "./ProductFormContainer.css";
 
@@ -36,7 +37,30 @@ function ProductFormContainer(props) {
   });
 
   const onSubmit = (data, e) => {
-    console.log(data);
+    let level_ids = props.productFormData.levels.map((level) => level.level.id);
+
+    console.log(
+      JSON.stringify({
+        ...props.productFormData,
+        level_ids,
+        course_id: props.match.params.id,
+      })
+    );
+
+    props
+      .createProduct({
+        ...props.productFormData,
+        level_ids,
+        course_id: props.match.params.id,
+      })
+      .then((product) => {
+        if (product.id) {
+          props.history.push(
+            `/courses/${props.match.params.id}/products/${product.id}`
+          );
+        }
+      });
+
     // props.setProductFormData({ ...props.productFormData, ...data });
   };
 
@@ -171,6 +195,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     getSkills: () => dispatch(getSkills()),
     setProductFormData: (formData) => dispatch(setProductFormAction(formData)),
+    createProduct: (formData) => dispatch(createProduct(formData)),
   };
 };
 
