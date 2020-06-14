@@ -10,6 +10,8 @@ import SkillsForm from "./SkillsForm";
 import InstructionsForm from "./InstructionsForm";
 
 import { getSkills } from "../../../actions/SkillsActions";
+import { setProductFormAction } from "../../../actions/productFormAction";
+import { createProduct } from "../../../actions/productActions";
 
 import "./ProductFormContainer.css";
 
@@ -26,24 +28,49 @@ const tabs = ["information", "instructions", "skills"];
 // ];
 
 function ProductFormContainer(props) {
-  const [currentTab, setCurrentTab] = useState("information");
+  // const [currentTab, setCurrentTab] = useState("information");
+  const [currentStep, setCurrentStep] = useState(0);
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(false);
 
-  const { control, errors, handleSubmit, watch } = useForm({
-    defaultValues: {
-      steps: [],
-      level_ids: [1],
-    },
+  const { control, errors, handleSubmit, watch, reset, getValues } = useForm({
+    defaultValues: props.productFormData,
   });
 
   const onSubmit = (data, e) => {
-    console.log("Submit event", e);
-    alert(JSON.stringify(data));
+    let level_ids = props.productFormData.levels.map((level) => level.level.id);
+
+    console.log(
+      JSON.stringify({
+        ...props.productFormData,
+        level_ids,
+        course_id: props.match.params.id,
+      })
+    );
+
+    props
+      .createProduct({
+        ...props.productFormData,
+        level_ids,
+        course_id: props.match.params.id,
+      })
+      .then((product) => {
+        if (product.id) {
+          props.history.push(
+            `/courses/${props.match.params.id}/products/${product.id}`
+          );
+        }
+      });
+
+    // props.setProductFormData({ ...props.productFormData, ...data });
   };
 
   useEffect(() => {
     props.getSkills();
-  });
+  }, []);
+
+  useEffect(() => {
+    reset(props.productFormData);
+  }, [currentStep]);
 
   useEffect(() => {
     let isEmpty = true;
@@ -65,13 +92,14 @@ function ProductFormContainer(props) {
   }, [shouldBlockNavigation]);
 
   const generateForm = () => {
-    switch (currentTab) {
-      case "instructions":
-        return <InstructionsForm control={control} errors={errors} />;
-      case "skills":
-        return <SkillsForm control={control} errors={errors} />;
+    const childrenProps = { control, errors };
+    switch (currentStep) {
+      case 1:
+        return <InstructionsForm {...childrenProps} />;
+      case 2:
+        return <SkillsForm {...childrenProps} />;
       default:
-        return <InformationForm control={control} errors={errors} />;
+        return <InformationForm {...childrenProps} />;
     }
   };
 
@@ -79,13 +107,55 @@ function ProductFormContainer(props) {
     return tabs.map((tab, index) => (
       <p
         key={index}
-        className={`dark-purple-text ${tab === currentTab ? "active-tab" : ""}`}
-        onClick={() => setCurrentTab(tab)}
+        className={`dark-purple-text ${
+          index === currentStep ? "active-tab" : ""
+        }`}
+        // onClick={() => setCurrentTab(tab)}
       >
         {tab}
       </p>
     ));
   };
+
+  /* Code for button navigation and keeping track of current step in the form process */
+
+  const handleClick = (name) => {
+    if (name === "previous" && currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    } else if (name === "next" && currentStep <= 1) {
+      setCurrentStep(currentStep + 1);
+    }
+
+    props.setProductFormData({
+      ...props.productFormData,
+      ...getValues({ nest: true }),
+    });
+  };
+
+  const generateButtons = () => {
+    const hidden = currentStep === 0 ? "hidden" : "";
+    return (
+      <>
+        <a
+          className={`primary-btn ${hidden}`}
+          onClick={() => handleClick("previous")}
+        >
+          Atrás
+        </a>
+
+        {currentStep !== 2 && (
+          <a className="primary-btn" onClick={() => handleClick("next")}>
+            Próximo
+          </a>
+        )}
+        {currentStep === 2 && (
+          <input type="submit" className="primary-btn" value="Guardar" />
+        )}
+      </>
+    );
+  };
+
+  /* End of button navigation */
 
   return (
     <div>
@@ -105,7 +175,7 @@ function ProductFormContainer(props) {
             <div className="utis-details-options">
               <div className="side-tabs">{generateTabs()}</div>
               <div className="utis-details-button-group">
-                <input type="submit" className="primary-btn" value="Guardar" />
+                {generateButtons()}
               </div>
             </div>
           </Paper>
@@ -115,10 +185,21 @@ function ProductFormContainer(props) {
   );
 }
 
-let mapDispatchToProps = (dispatch) => {
+let mapStateToProps = (state) => {
   return {
-    getSkills: () => dispatch(getSkills),
+    productFormData: state.productForm.productFormData,
   };
 };
 
-export default connect(null, mapDispatchToProps)(ProductFormContainer);
+let mapDispatchToProps = (dispatch) => {
+  return {
+    getSkills: () => dispatch(getSkills()),
+    setProductFormData: (formData) => dispatch(setProductFormAction(formData)),
+    createProduct: (formData) => dispatch(createProduct(formData)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductFormContainer);

@@ -1,82 +1,88 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import { Controller, useFieldArray } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
+import { setProductFormAction } from "../../../actions/productFormAction";
+
+import SkillsFormModal from "./SkillsFormModal";
+import Level from "./Level";
+
 import { connect } from "react-redux";
 
 function SkillsForm(props) {
-  const { fields, append, remove } = useFieldArray({
-    control: props.control,
-    name: "level_ids",
-  });
+  const [open, setOpen] = useState(false);
+  const [levels, setLevels] = useState([]);
 
-  const generateSkillsForms = () => {
-    return fields.map((field, index) => {
+  const addLevel = (data) => {
+    setLevels([...levels, data]);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const removeLevel = (index) => {
+    let levelsCopy = [...levels];
+    levelsCopy.splice(index, 1);
+    setLevels(levelsCopy);
+  };
+
+  const generateLevels = () => {
+    return levels.map((level, index) => {
       return (
-        <fieldset>
-          {" "}
-          <SelectInput
-            label="Destreza"
-            invert={true}
-            labelWidth={70}
-            items={props.skills}
+        <>
+          <Level
+            skill={level.skill}
+            dimension={level.dimension}
+            level={level.level}
+            removeLevel={removeLevel}
+            index={index}
           />
-          <SelectInput
-            label="Dimensión"
-            invert={true}
-            labelWidth={70}
-            items={[]}
-            // value={typeof formData[field] === "string" ? formData[field] : formData[field].id}
-            // handleChange={handleSelectChange}
-          />
-          <SelectInput
-            name="level_ids"
-            label={"Nivel"}
-            invert={true}
-            labelWidth={70}
-            items={[]}
-            // value={typeof formData[field] === "string" ? formData[field] : formData[field].id}
-            // handleChange={handleSelectChange}
-            control={props.control}
-            errors={props.errors["level_ids"]}
-          />
-          <div className="step-trash" onClick={() => handleRemove(index)}>
-            <img src="/assets/trash_icon.png" alt="Delete" />
-          </div>
-        </fieldset>
+
+          {levels.length !== index + 1 && <hr />}
+        </>
       );
     });
   };
 
-  const handleRemove = () => {
-    console.log(fields.length, fields);
-    if (fields.length > 0) remove(fields.length - 1);
-  };
+  useEffect(() => {
+    setLevels(props.productFormData.levels || []);
+  }, []);
+
+  useEffect(() => {
+    props.setProductFormData({ ...props.productFormData, levels });
+  }, [levels]);
+
   return (
     <div className="product-details-container">
       <h2 className="dark-purple-text product-details-header">
         Destrezas a desarrollar
       </h2>
       <div className="product-scrollable-container scrollable">
-        {generateSkillsForms()}
+        {generateLevels()}
       </div>
       <div className="instructions-steps-btn-group">
-        <a
-          className="primary-btn rounded"
-          onClick={() => {
-            append("");
-          }}
-        >
+        <a className="primary-btn rounded" onClick={handleClickOpen}>
           +
         </a>
         {/* <a className="primary-btn rounded" onClick={handleRemove}>
           -
         </a> */}
       </div>
+      <SkillsFormModal
+        open={open}
+        handleClose={handleClose}
+        skills={props.skills}
+        append={addLevel}
+      />
     </div>
   );
 }
@@ -84,7 +90,14 @@ function SkillsForm(props) {
 let mapStateToProps = (state) => {
   return {
     skills: state.skills.skills,
+    productFormData: state.productForm.productFormData,
   };
 };
 
-export default connect(mapStateToProps)(SkillsForm);
+let mapDispatchToProps = (dispatch) => {
+  return {
+    setProductFormData: (formData) => dispatch(setProductFormAction(formData)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkillsForm);

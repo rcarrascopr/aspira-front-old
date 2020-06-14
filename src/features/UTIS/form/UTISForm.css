@@ -115,7 +115,7 @@
   padding: 15px 25px;
   font-size: 1.1em;
   margin: 0px;
-  cursor: pointer;
+  /* cursor: pointer; */
   border-left: 10px solid rgba(0, 0, 0, 0);
 }
 
@@ -125,9 +125,14 @@
 }
 
 .utis-details-button-group {
-  padding: 0px 30px;
+  width: auto;
+  padding: 0px 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
+}
+
+.utis-details-button-group > * {
+  width: 90px !important;
 }
 
 .primary-btn {

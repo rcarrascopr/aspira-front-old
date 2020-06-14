@@ -75,19 +75,21 @@ function App(props) {
       <div>
         <Switch>
           <Route exact path="/" render={() => <DashboardContainer />} />
-          <Route exact path="/login" component={Signin} />
-          <Route exact path="/testing2" component={UTISFormContainer2} />
-          <Route exact path="/testing" component={UTISFormContainer} />
-          {/* <PrivateRoute path="/centers" component={CenterContainer} />
-          <Route path="/utis" component={UTISContainer}>
-            <Route path="/create" component={UTISFormContainer} />
-            <Route
-              path="/:utisid/products/create"
-              component={ProductFormContainer}
-            />
-            <Route path="/:utisid/products/:id" component={Product} /> */}
-          {/* <Route path="/:utisid" component={UTISShowContainer} /> */}
-          {/* </Route> */}
+          <PrivateRoute path="/centers" component={CenterContainer} />
+          <PrivateRoute path="/utis/create" component={UTISFormContainer} />
+          <PrivateRoute
+            path="/utis/:id/products/create"
+            component={ProductFormContainer}
+          />
+          <PrivateRoute
+            path="/utis/:id/products/:productid"
+            component={Product}
+          />
+          <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
+          <PrivateRoute path="/utis" component={UTISContainer} />
+          <PrivateRoute path="/:estudiantes/create" component={UserForm} />
+          <PrivateRoute path="/estudiantes" component={StudentsContainer} />
+          <PrivateRoute path="/eventos" component={EventsContainer} />
 
           {/* <Route path="/:estudiantes/create" component={UserForm} />
           <Route path="/estudiantes" component={StudentsContainer} />
