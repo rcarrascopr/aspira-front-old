@@ -3,18 +3,17 @@ import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 
-
-
 import Error from "../../../commons/inputs/Error";
 
 export default function InstructionsForm(props) {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, prepend, remove } = useFieldArray({
     control: props.control,
     name: "steps",
   });
 
   const generateSteps = () => {
     return fields.map((field, index) => {
+      console.log(field);
       return (
         <div key={field.id} className="textfield-input">
           <div className="step">{index + 1}</div>
@@ -27,7 +26,7 @@ export default function InstructionsForm(props) {
                 error={props.errors["steps"]}
               />
             }
-            name={`steps[${index}] `}
+            name={`steps[${index}]`}
             control={props.control}
             rules={{ required: true }}
           />
