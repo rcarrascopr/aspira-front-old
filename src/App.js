@@ -8,7 +8,7 @@ import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
 import { DashboardContainer } from "./features/dashboard/DashboardContainer";
 import UTISContainer from "./features/UTIS/UTISContainer";
-import UTISFormContainer from "./features/UTIS/form/UTISFormContainer";
+import { UTISFormContainer } from "./features/UTIS/form/UTISFormContainer";
 import UTISFormContainer2 from "./features/UTIS/form/UTISFormContainer2";
 import { StudentsContainer } from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
@@ -76,7 +76,7 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={() => <DashboardContainer />} />
           <PrivateRoute path="/centers" component={CenterContainer} />
-          <PrivateRoute path="/utis/create" component={UTISFormContainer} />
+          <PrivateRoute path="/utis/create" component={UTISFormContainer2} />
           <PrivateRoute
             path="/utis/:id/products/create"
             component={ProductFormContainer}
@@ -95,7 +95,7 @@ function App(props) {
           <Route path="/estudiantes" component={StudentsContainer} />
           <Route path="/eventos" component={EventsContainer} />
  */}
-          {/* {generateLoginSignupRoutes()} */}
+          {generateLoginSignupRoutes()}
           {routes.map((route, index) => (
             <RoutesWithSubRoutes key={index} {...route} />
           ))}
