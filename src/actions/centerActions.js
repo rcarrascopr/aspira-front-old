@@ -2,7 +2,7 @@ import { api_url } from "../commons/api_url";
 
 export function fetchCenters() {
   return (dispatch) => {
-    dispatch({ type: "LOADING" });
+    dispatch({ type: "LOADING_CENTERS" });
     return fetch(`${api_url}centers`, {
       // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
