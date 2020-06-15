@@ -2,6 +2,7 @@ export default function usersReducer(
   state = {
     loading: false,
     currentUser: JSON.parse(localStorage.getItem("currentUser")),
+    teachers: [],
   },
   action
 ) {
@@ -20,6 +21,8 @@ export default function usersReducer(
     //   return { ...state, loading: false };
     case "CREATE_USER":
       return { ...state, loading: false };
+    case "FETCH_TEACHERS":
+      return { ...state, teachers: action.payload, loading: false };
     default:
       return state;
   }
