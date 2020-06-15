@@ -11,6 +11,7 @@ export default function utisReducer(
       grade: "",
       students: [""],
     },
+    newCourse: {},
   },
   action
 ) {
@@ -20,8 +21,9 @@ export default function utisReducer(
     case "FETCH_COURSES":
       return { ...state, courses: [...action.payload], loading: false };
     case "SET_UTIS_FORM_DATA":
-      debugger;
-      return { ...state, utisFormData: action.payload };
+      return { ...state, utisFormData: action.payload, loading: false };
+    case "SET_NEW_COURSE":
+      return { ...state, newCourse: action.payload };
     default:
       return state;
   }
