@@ -62,3 +62,21 @@ export function userCreate(data) {
       });
   };
 }
+
+export function fetchTeachers() {
+  //localhost:3000/teachers
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(`${api_url}teachers`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJSON) => {
+        console.log("FETCHED Teachers", responseJSON);
+        dispatch({ type: "FETCH_TEACHERS", payload: responseJSON });
+      })
+      .catch((error) => {});
+  };
+}
