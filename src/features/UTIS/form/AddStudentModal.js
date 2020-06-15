@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
 
 import SelectInput from "../../../commons/inputs/SelectInput";
 import { NameCircle } from "../../../commons/NameCircle";
 
 import grades from "../../../commons/data/grades";
-import fake_students from "../../../commons/fake_students";
 import { name, last_name } from "../../../commons/sort_methods";
 
 export const AddStudentModal = (props) => {
