@@ -1,8 +1,8 @@
 div.product-container {
   background-color: var(--courses-purple);
-  color: ##27265e;
+  color: #27265e;
   display: flex;
-  margin: 0 60px 0 60px;
+  padding: 0px 60px 0px 60px;
   justify-content: space-between;
 }
 
@@ -55,7 +55,6 @@ div.info-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   font-weight: 700;
 }
 
