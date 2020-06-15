@@ -33,6 +33,23 @@ export function createCourse(formData) {
       body: JSON.stringify({ course: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "CREATE_NEW_COURSE", payload: data }));
+      .then((data) =>
+        dispatch({ type: "CREATE_CURRENT_COURSE", payload: data })
+      );
+  };
+}
+
+export function fetchOneCourse(courseId) {
+  const url = `${api_url}courses/${courseId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_COURSES" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "SET_CURRENT_COURSE", payload: data }));
   };
 }
