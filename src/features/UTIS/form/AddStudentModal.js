@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useFormContext } from "react-hook-form";
 import {
   Button,
   Dialog,
@@ -19,62 +20,72 @@ export const AddStudentModal = (props) => {
     sortBy: "Nombre",
     filter: "",
   });
+  const { students, selectedStudents, setSelectedStudents } = useFormContext();
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const addStudent = (event, student) => {
-    if (!props.utis.students.find((s) => s.id === student.id)) {
-      props.setUtis({
-        ...props.utis,
-        students: [...props.utis.students, student],
-      });
+    let existingStudent;
+    if (selectedStudents.length > 0) {
+      existingStudent = selectedStudents.find((s) => s.id === student.id);
+    }
+    if (!existingStudent) {
+      setSelectedStudents((prevState) => [...prevState, student]);
     }
   };
 
   const generateStudents = () => {
-    let sorted_students;
+    // if (formData.filter !== "") {
+    //   sorted_students = fake_students.filter((s) =>
+    //     `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
+    //       .toLowerCase()
+    //       .includes(formData.filter.toLowerCase())
+    //   );
+    // } else {
+    //   sorted_students = students;
+    // }
 
-    if (formData.filter !== "") {
-      sorted_students = fake_students.filter((s) =>
-        `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
-          .toLowerCase()
-          .includes(formData.filter.toLowerCase())
-      );
-    } else {
-      sorted_students = fake_students;
-    }
+    // if (formData.sortBy === "Apellido") {
+    //   sorted_students = sorted_students.sort(last_name);
+    // } else {
+    //   sorted_students = students;
+    // }
 
-    if (formData.sortBy === "Apellido") {
-      sorted_students = sorted_students.sort(last_name);
-    } else {
-      sorted_students = sorted_students.sort(name);
-    }
-
-    return sorted_students.map((student) => (
-      <li key={student.id} className="student-list-item">
-        {" "}
-        <div>
-          <NameCircle
-            size="small"
-            initials={student.first_name[0] + student.paternal_surname[0]}
+    const generateIcon = (student) => {
+      const existingStudent = selectedStudents.find((s) => s.id === student.id);
+      return existingStudent ? (
+        <span className="icon" role="img" aria-label="check mark">
+          ✔️
+        </span>
+      ) : (
+        <p className="icon">
+          <img
+            src="/assets/add_icon.png"
+            alt="Add icon"
+            onClick={(event) => addStudent(event, student)}
           />
-          <p className="dark-purple-text">{`${student.first_name} ${student.paternal_surname} ${student.maternal_surname}`}</p>
-        </div>
-        {props.utis.students.find((s) => s.id === student.id) ? (
-          <p className="icon">✔️</p>
-        ) : (
-          <p className="icon">
-            <img
-              src="/assets/add_icon.png"
-              alt="Add icon"
-              onClick={(event) => addStudent(event, student)}
+        </p>
+      );
+    };
+
+    return (
+      students &&
+      students.map((student) => (
+        <li key={student.id} className="student-list-item">
+          {" "}
+          <div>
+            <NameCircle
+              size="small"
+              initials={student.first_name[0] + student.paternal_surname[0]}
             />
-          </p>
-        )}
-      </li>
-    ));
+            <p className="dark-purple-text">{`${student.first_name} ${student.paternal_surname} ${student.maternal_surname}`}</p>
+          </div>
+          {generateIcon(student)}
+        </li>
+      ))
+    );
   };
 
   return (
