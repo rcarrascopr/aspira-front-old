@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import SelectInput from "../../../commons/inputs/SelectInput";
@@ -27,7 +25,7 @@ export default function SkillsFormModal(props) {
         (dimension) => dimension.id === data["dimension"]
       );
       let level = dimension.levels.find((level) => level.id === data["level"]);
-      props.append({skill, dimension, level});
+      props.append({ skill, dimension, level });
     }
   };
   return (
@@ -85,7 +83,10 @@ export default function SkillsFormModal(props) {
                     (dimension) => dimension.id === data["dimension"]
                   )
                   .levels.map((level) => {
-                    return { name: `(${level.level}) ${level.description}`, id: level.id };
+                    return {
+                      name: `(${level.level}) ${level.description}`,
+                      id: level.id,
+                    };
                   })
               : []
           }
