@@ -1,8 +1,8 @@
 div.product-container {
   background-color: var(--courses-purple);
-  color: ##27265e;
+  color: #27265e;
   display: flex;
-  margin: 0 60px 0 60px;
+  padding: 0px 60px;
   justify-content: space-between;
 }
 
@@ -24,28 +24,12 @@ div.info-container {
   padding: 5px 0px;
 } */
 
-.step-instruction {
-  background-color: white;
-}
-
 .step-box {
   display: flex;
   flex-direction: row;
   border-radius: 4px 0px 0px 4px;
   background-color: var(--courses-purple);
   height: 100px;
-}
-
-.step {
-  background-color: var(--dark-purple);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.4em;
-  width: 80px;
-  height: 56px;
-  font-weight: 700;
 }
 
 .step-number {
@@ -55,15 +39,18 @@ div.info-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  width: 80px;
   font-weight: 700;
 }
 
 .step-instruction {
   display: flex;
   align-items: center;
-  padding: 0 5px;
+  padding: 0 10px;
+  width: 100%;
   border-radius: 0 4px 4px 0;
+  background-color: white;
+  
 }
 
 div.students-container {
@@ -91,4 +78,9 @@ div.students-container {
   font-size: 16;
   padding: "6px 12px";
   line-height: 1.5;
+}
+
+.large-paragraph {
+  background-color: white;
+  padding: 20px;
 }

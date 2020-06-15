@@ -29,18 +29,18 @@ export const Product = ({ fetchProduct, product, loading }) => {
           <div className="info-wrapper">
             <h2 className="title">{title}</h2>
             <div className="info-container">
-              <p>Introduction</p>
-              <p className="introduction">{introduction}</p>
+              <p className="dark-purple-text">Introduction</p>
+              <p className="large-paragraph dark-purple-text">{introduction}</p>
 
-              <p>Description</p>
-              <p className="description">{description}</p>
+              <p className="dark-purple-text">Description</p>
+              <p className="large-paragraph dark-purple-text">{description}</p>
 
               <p>Steps</p>
               <div className="steps-container">
                 {steps.map((s, index) => {
                   return (
                     <div key={index + 1} className="step-box">
-                      <p className="step">{index + 1}</p>
+                      <p className="step-number">{index + 1}</p>
                       <p className="step-instruction">{s}</p>
                     </div>
                   );
