@@ -75,7 +75,13 @@ export const UTISFormContainer2 = (props) => {
     const formData = { ...utisFormData };
     delete formData.students;
     formData.student_ids = utisFormData.students.map((s) => s.id);
-    createCourse(formData);
+    createCourse(formData).then((action) => {
+      const course = action.payload;
+      if (course.id) {
+        debugger;
+        props.history.push(`/utis/${course.id}`);
+      }
+    });
   };
 
   const generateForm = () => {
