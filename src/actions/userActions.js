@@ -74,7 +74,6 @@ export function fetchTeachers() {
         return response.json();
       })
       .then((responseJSON) => {
-        console.log("FETCHED Teachers", responseJSON);
         dispatch({ type: "FETCH_TEACHERS", payload: responseJSON });
       })
       .catch((error) => {});
