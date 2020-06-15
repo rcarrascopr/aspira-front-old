@@ -3,7 +3,7 @@ export default function centersReducer(
   action
 ) {
   switch (action.type) {
-    case "LOADING":
+    case "LOADING_CENTERS":
       return { ...state, loading: true };
     case "FETCH_CENTERS":
       return { ...state, centers: action.payload, loading: false };
