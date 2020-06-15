@@ -1,14 +1,12 @@
 import React from "react";
-
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 import grades from "../../../commons/data/grades";
 
 export const Details = (props) => {
-  const { centers, semesters, teachers, control, errors } = props;
-  console.log("props from Details: ", props);
+  const { centers, semesters, teachers, control, errors } = useFormContext();
   return (
     <div className="utis-details-container">
       <h1 className="dark-purple-text">UTIS: Detalles</h1>
