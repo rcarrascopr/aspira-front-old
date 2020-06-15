@@ -22,7 +22,7 @@ export default function utisReducer(
       return { ...state, courses: [...action.payload], loading: false };
     case "SET_UTIS_FORM_DATA":
       return { ...state, utisFormData: action.payload, loading: false };
-    case "SET_NEW_COURSE":
+    case "CREATE_NEW_COURSE" || "SET_NEW_COURSE":
       return { ...state, newCourse: action.payload };
     default:
       return state;

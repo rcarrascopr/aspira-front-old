@@ -33,6 +33,6 @@ export function createCourse(formData) {
       body: JSON.stringify({ course: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "SET_NEW_COURSE", payload: data }));
+      .then((data) => dispatch({ type: "CREATE_NEW_COURSE", payload: data }));
   };
 }
