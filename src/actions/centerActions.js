@@ -15,3 +15,21 @@ export function fetchCenters() {
       });
   };
 }
+
+export function fetchStudentsFromCenter(centerId) {
+  const url = `${api_url}centers/${centerId}`;
+  return (dispatch) => {
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: "FETCH_CENTER_STUDENTS", payload: data });
+      })
+      .catch((error) => console.log("Error from centersAction: ", error));
+  };
+}
