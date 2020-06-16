@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 
-import fake_students from "../../../commons/fake_students";
-
 import { PersonListContainer } from "../../../commons/person list/PersonListContainer";
 import CourseContext from "../../../contexts/CourseContext";
 
