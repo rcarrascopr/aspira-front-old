@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
@@ -16,7 +16,7 @@ import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
 
 import Product from "./features/products/Product";
-import RoutesWithSubRoutes from "./commons/RoutesWithSubRoutes";
+import AdminContainer from "./features/admin/AdminContainer";
 
 function App(props) {
   // useEffect(() => {
@@ -39,35 +39,6 @@ function App(props) {
     }
   };
 
-  const routes = [
-    // {
-    //   path: "/",
-    //   component: DashboardContainer,
-    // },
-    // {
-    //   path: "/login",
-    //   component: Signin,
-    // },
-    {
-      path: "/centers",
-      component: CenterContainer,
-    },
-    {
-      path: "/utis",
-      component: UTISContainer,
-      routes: [
-        {
-          path: "/create",
-          component: UTISFormContainer,
-        },
-        {
-          path: "/:id",
-          component: UTISShowContainer,
-        },
-      ],
-    },
-  ];
-
   return (
     <div className="App">
       <Navbar />
@@ -86,18 +57,17 @@ function App(props) {
           />
           <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
-          <PrivateRoute path="/:estudiantes/create" component={UserForm} />
-          <PrivateRoute path="/estudiantes" component={StudentsContainer} />
           <PrivateRoute path="/eventos" component={EventsContainer} />
+
+          <PrivateRoute exact path="/admin" component={AdminContainer} />
+          <PrivateRoute path="/users/:id/edit" component={UserForm} />
+          <PrivateRoute path="/users/create" component={UserForm} />
 
           {/* <Route path="/:estudiantes/create" component={UserForm} />
           <Route path="/estudiantes" component={StudentsContainer} />
           <Route path="/eventos" component={EventsContainer} />
  */}
           {generateLoginSignupRoutes()}
-          {routes.map((route, index) => (
-            <RoutesWithSubRoutes key={index} {...route} />
-          ))}
         </Switch>
       </div>
     </div>

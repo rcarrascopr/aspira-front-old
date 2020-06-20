@@ -60,6 +60,7 @@ export const UTISFormContainer2 = (props) => {
     fetchTeachers();
   }, [fetchCenters, fetchSemesters, fetchTeachers]);
 
+  //fetch students belonging to a center if one is selected
   useEffect(() => {
     const centerId = utisFormData.center_id;
     if (centerId) fetchStudentsFromCenter(centerId);
@@ -78,7 +79,6 @@ export const UTISFormContainer2 = (props) => {
     createCourse(formData).then((action) => {
       const course = action.payload;
       if (course.id) {
-        debugger;
         props.history.push(`/utis/${course.id}`);
       }
     });

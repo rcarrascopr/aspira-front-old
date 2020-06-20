@@ -63,8 +63,25 @@ export function userCreate(data) {
   };
 }
 
+export function fetchUser(userId) {
+  const url = `${api_url}users/${userId}`;
+
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(url, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJSON) => {
+        dispatch({ type: "FETCH_USER", payload: responseJSON });
+      })
+      .catch((error) => console.log(error));
+  };
+}
+
 export function fetchTeachers() {
-  //localhost:3000/teachers
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
     return fetch(`${api_url}teachers`, {
@@ -76,6 +93,6 @@ export function fetchTeachers() {
       .then((responseJSON) => {
         dispatch({ type: "FETCH_TEACHERS", payload: responseJSON });
       })
-      .catch((error) => {});
+      .catch((error) => console.log(error));
   };
 }
