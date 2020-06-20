@@ -5,32 +5,31 @@ export default function usersReducer(
     fetchedUser: "",
     teachers: [],
     defaultValues: {
-      id: 26,
-      email: "prosacco_nanci@aspira.edu",
-      jti: "8aa72ef5-41ad-49d6-8359-4bbb943d81d3",
-      created_at: "2020-06-10T20:04:34.077Z",
-      updated_at: "2020-06-15T02:25:21.574Z",
-      first_name: "Nanci",
-      second_name: "Prosacco",
-      maternal_surname: "Abbott",
-      paternal_surname: "Kshlerin",
-      center_id: 2,
+      id: "",
+      email: "",
+      created_at: "",
+      updated_at: "",
+      first_name: "",
+      second_name: "",
+      maternal_surname: "",
+      paternal_surname: "",
+      center_id: 1,
       academic_level: "9",
-      badge_id: "S2020140626",
-      gender: "F",
-      phone_number: "958-451-7943",
-      residence_municipality: "Buckbury",
+      badge_id: "",
+      gender: "",
+      phone_number: "",
+      residence_municipality: "",
     },
   },
   action
 ) {
   switch (action.type) {
     case "LOADING_USER":
-      return { ...state, loading: true };
+      return { ...state, loading: true, fetchedUser: "", error: "" };
     // case "FETCH_CURRENT_USER":
     //   return { loading: false, currentUser: action.payload };
     case "LOGIN":
-      return { loading: false, currentUser: action.payload };
+      return { loading: false, currentUser: action.payload, error: "" };
     case "LOGOUT_USER":
       localStorage.removeItem("token");
       localStorage.removeItem("currentUser");
@@ -44,12 +43,14 @@ export default function usersReducer(
         ...state,
         loading: false,
         fetchedUser: action.payload,
+        error: "",
       };
     case "FETCH_TEACHERS":
       return {
         ...state,
         teachers: action.payload,
         loading: false,
+        error: "",
       };
     default:
       return state;
