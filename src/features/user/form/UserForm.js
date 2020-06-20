@@ -127,12 +127,17 @@ function UserForm(props) {
   };
 
   useEffect(() => {
+    //fetch user if route params contain user id
     console.log("fetching user");
     if (userId && Number.isInteger(userId)) {
       props.fetchUser(userId);
     }
+    //remove password field, will use different form to change passwords
+    delete formData.password;
+    delete formData.password_confirmation;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+    if (!props.isAdmin) delete formData.account_type;
+  }, [props, userId]);
 
   useEffect(() => {
     if (props.centers.length === 0) {
