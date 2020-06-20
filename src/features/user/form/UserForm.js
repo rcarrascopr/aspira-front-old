@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from "react";
-
-import grades from "../../../commons/data/grades";
-import { userFormData as formData } from "../../../commons/form-data/userFormData";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+import { TextField } from "@material-ui/core";
 
 import { SelectInput } from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
+import grades from "../../../commons/data/grades";
+import { userFormData as formData } from "../../../commons/form-data/userFormData";
 
-import { TextField } from "@material-ui/core";
-
-import { useForm, Controller } from "react-hook-form";
-import { connect } from "react-redux";
-
-import { userCreate } from "../../../actions/userActions";
+import { userCreate, fetchUser } from "../../../actions/userActions";
+import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
 function UserForm(props) {
-  const { control, errors, handleSubmit, watch, setValue } = useForm();
+  console.log("props from userForm", props);
+  const defaultValues = props.fetchedUser
+    ? props.fetchedUser
+    : props.defaultValues;
 
-  console.log("centers: ", props.centers)
-  formData.center_id.items = props.centers
-  if (props.centers.length > 0){
-    setValue("center_id", 1)
-  }
-  
+  const { control, errors, handleSubmit, watch } = useForm({
+    defaultValues,
+  });
+
+  const userId = parseInt(props.match.params.id, 10);
   const accountType = watch("account_type");
-  // const accountType = "student";
-
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
   const otherFields = others.slice(4, others.length);
 
+  formData.center_id.items = props.centers;
+
   const generateNameFields = () => {
     return (
       <div className="name-inputs">
-        {nameFields.map((field) => {
+        {nameFields.map((field, index) => {
           return (
-            <div className="textfield-input">
+            <div className="textfield-input" key={index}>
               <Controller
                 as={
                   <TextField
@@ -73,7 +73,7 @@ function UserForm(props) {
             // handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
-            defaultValue={formData[field].defaultValue}
+            // defaultValue={formData[field].defaultValue}
           />
         );
       } else if (!!formData[field]) {
@@ -82,7 +82,6 @@ function UserForm(props) {
             <Controller
               as={
                 <TextField
-                  id="student-name"
                   label={formData[field].label}
                   variant="outlined"
                   className={"dark-purple-text textfield-outlined"}
@@ -115,7 +114,7 @@ function UserForm(props) {
           items={grades}
           // handleChange={handleSelectChange}
           control={control}
-          defaultValue={grades[0]}
+          // defaultValue={grades[0]}
           errors={errors["academic_level"]}
         />
       );
@@ -126,6 +125,21 @@ function UserForm(props) {
     console.log(`Submitted data: `, data, `\n Event: `, event);
     props.userCreate(data);
   };
+
+  useEffect(() => {
+    console.log("fetching user");
+    if (userId && Number.isInteger(userId)) {
+      props.fetchUser(userId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
+
+  useEffect(() => {
+    if (props.centers.length === 0) {
+      props.fetchCenters();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="user-form-container">
@@ -147,13 +161,18 @@ function UserForm(props) {
 let mapStateToProps = (state) => {
   return {
     loading: state.users.loading,
-    centers: state.centers.centers
+    centers: state.centers.centers,
+    fetchedUser: state.users.fetchedUser,
+    defaultValues: state.users.defaultValues,
+    currentUser: state.users.currentUser,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
     userCreate: (data) => dispatch(userCreate(data)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+    fetchCenters: () => dispatch(fetchCenters()),
   };
 };
 
