@@ -68,16 +68,22 @@ export function fetchUser(userId) {
 
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
+
     return fetch(url, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((response) => {
-        return response.json();
+        if (response.status >= 200 && response.status < 300) {
+          return response.json();
+        } else {
+          debugger;
+          throw Error(response.statusText);
+        }
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_USER", payload: responseJSON });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   };
 }
 
