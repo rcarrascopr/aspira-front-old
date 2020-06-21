@@ -1,6 +1,7 @@
 export default function usersReducer(
   state = {
     loading: false,
+    error: "",
     currentUser: JSON.parse(localStorage.getItem("currentUser")),
     fetchedUser: "",
     teachers: [],
@@ -52,6 +53,10 @@ export default function usersReducer(
         loading: false,
         error: "",
       };
+    case "SET_USER_ERRORS":
+      return { ...state, error: action.payload, loading: false };
+    case "CLEAR_USER_ERRORS":
+      return { ...state, error: "" };
     default:
       return state;
   }
