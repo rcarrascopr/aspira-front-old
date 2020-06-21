@@ -76,14 +76,21 @@ export function fetchUser(userId) {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
         } else {
-          debugger;
           throw Error(response.statusText);
         }
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_USER", payload: responseJSON });
       })
-      .catch((error) => alert(error));
+      .catch((error) => dispatch({ type: "SET_USER_ERRORS", payload: error }));
+  };
+}
+
+export function userNotFoundError(props) {
+  return (dispatch) => {
+    dispatch({ type: "CLEAR_USER_ERROR" });
+    alert(props.error.message);
+    props.history.push("/");
   };
 }
 
