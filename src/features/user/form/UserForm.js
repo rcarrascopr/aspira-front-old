@@ -8,7 +8,11 @@ import Error from "../../../commons/inputs/Error";
 import grades from "../../../commons/data/grades";
 import { userFormData as formData } from "../../../commons/form-data/userFormData";
 
-import { userCreate, fetchUser } from "../../../actions/userActions";
+import {
+  userCreate,
+  fetchUser,
+  userNotFoundError,
+} from "../../../actions/userActions";
 import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
@@ -128,9 +132,14 @@ function UserForm(props) {
 
   useEffect(() => {
     //fetch user if route params contain user id
-    console.log("fetching user");
     if (userId && Number.isInteger(userId)) {
       props.fetchUser(userId);
+    }
+
+    if (props.error && props.isAdmin) {
+      props.history.push("/admin");
+    } else if (props.error) {
+      props.userNotFoundError(props);
     }
     //remove password field, will use different form to change passwords
     delete formData.password;
@@ -166,6 +175,7 @@ function UserForm(props) {
 let mapStateToProps = (state) => {
   return {
     loading: state.users.loading,
+    error: state.users.error,
     centers: state.centers.centers,
     fetchedUser: state.users.fetchedUser,
     defaultValues: state.users.defaultValues,
@@ -178,6 +188,7 @@ let mapDispatchToProps = (dispatch) => {
     userCreate: (data) => dispatch(userCreate(data)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
     fetchCenters: () => dispatch(fetchCenters()),
+    userNotFoundError: (props) => dispatch(userNotFoundError(props)),
   };
 };
 
