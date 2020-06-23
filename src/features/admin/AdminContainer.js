@@ -10,12 +10,12 @@ export default function AdminContainer() {
         <h1>Hello from AdminContainer!</h1>
         {/* <Link to="/users/13/edit">Edit User</Link> */}
         <hr />
-        {/* <Switch>
+        <Switch>
           <PrivateRoute
             path="/users/:id/edit"
             render={() => <UserForm isAdmin={true} />}
           />
-        </Switch> */}
+        </Switch>
       </>
     </BrowserRouter>
   );

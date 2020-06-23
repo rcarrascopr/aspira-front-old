@@ -17,7 +17,7 @@ import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
 function UserForm(props) {
-  console.log("props from userForm", props);
+  console.log(props);
   const defaultValues = props.fetchedUser
     ? props.fetchedUser
     : props.defaultValues;
@@ -27,6 +27,7 @@ function UserForm(props) {
   });
 
   const userId = parseInt(props.match.params.id, 10);
+  const isEdit = props ? true : false;
   const accountType = watch("account_type");
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
@@ -139,6 +140,7 @@ function UserForm(props) {
     if (props.error && props.isAdmin) {
       props.history.push("/admin");
     } else if (props.error) {
+      debugger;
       props.userNotFoundError(props);
     }
     //remove password field, will use different form to change passwords
