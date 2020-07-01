@@ -167,7 +167,7 @@ function UserForm(props) {
         </div>
 
         <div className="flex-end">
-          <input type="submit" className="primary-btn " value="Guardar" />
+          <input type="submit" className="primary-btn" value="Guardar" />
         </div>
       </form>
     </div>
