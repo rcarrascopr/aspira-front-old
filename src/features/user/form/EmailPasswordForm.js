@@ -101,13 +101,13 @@ function EmailPasswordForm({ currentUser }) {
       <p className="email-display">Current Email: {currentUser.email} </p>
       <form className="email-password-form" onSubmit={handleSubmit(onSubmit)}>
         <button name="email" onClick={handleClick}>
-          Change Email?
+          Cambiar Correo Electrónico?
         </button>
         <br />
         {generateEmailFields()}
         <br />
         <button name="password" onClick={handleClick}>
-          Change Password?
+          Cambiar Contraseña?
         </button>
         <br />
         {generatePasswordFields()}
