@@ -11,6 +11,7 @@ import UTISContainer from "./features/UTIS/UTISContainer";
 import UTISFormContainer from "./features/UTIS/form/UTISFormContainer";
 import { StudentsContainer } from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
+import EmailPasswordForm from "./features/user/form/EmailPasswordForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
@@ -60,6 +61,11 @@ function App(props) {
           <PrivateRoute path="/eventos" component={EventsContainer} />
 
           <PrivateRoute exact path="/admin" component={AdminContainer} />
+          <PrivateRoute
+            exact
+            path="/users/email-password"
+            component={EmailPasswordForm}
+          />
           <PrivateRoute path="/users/:id/edit" component={UserForm} />
           <PrivateRoute path="/users/create" component={UserForm} />
 
