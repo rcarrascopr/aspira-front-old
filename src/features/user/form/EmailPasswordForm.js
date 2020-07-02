@@ -93,9 +93,7 @@ function EmailPasswordForm({ currentUser }) {
   };
 
   const onSubmit = (data, event) => {
-    event.preventDefault();
     console.log("hello");
-    debugger;
   };
 
   return (
