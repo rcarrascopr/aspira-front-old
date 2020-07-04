@@ -41,10 +41,11 @@ function App(props) {
 
   return (
     <div className="App">
-      <Navbar />
+      {props.currentUser && <Navbar />}
+
       <div>
         <Switch>
-          <Route exact path="/" render={() => <DashboardContainer />} />
+          <PrivateRoute exact path="/" component={DashboardContainer} />
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
           <PrivateRoute
