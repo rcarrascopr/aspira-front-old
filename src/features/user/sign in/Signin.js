@@ -3,19 +3,18 @@ import { connect } from "react-redux";
 import { loginAction } from "../../../actions/userActions";
 import { withRouter } from "react-router-dom";
 
-const Signin = props => {
-  const [user, setUser] = useState({ email: "", password: "" });
+import Error from "../../../commons/inputs/Error";
+import { TextField } from "@material-ui/core";
+import { useForm, Controller } from "react-hook-form";
 
-  const handleChange = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value
-    });
-  };
+import "./signin.css";
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    props.login({ user }).then(() => {
+const Signin = (props) => {
+  const { control, errors, handleSubmit } = useForm();
+
+  const onSubmit = (data, event) => {
+    console.log(`Submitted data: `, data, `\n Event: `, event);
+    props.login({ user: data }).then(() => {
       if (localStorage.getItem("token")) {
         props.history.push("/");
       } else {
@@ -25,40 +24,72 @@ const Signin = props => {
   };
 
   return (
-    <div>
-      <h1>Hello</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-          ></input>
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-          ></input>
-        </label>
-        <input type="submit" value="Submit"></input>
-      </form>
+    <div className="signin-wrapper">
+      <div className="signin-card very-light-purple">
+        <div className="signin-image-wrapper">
+          <div className="signin-image-layer" />
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="signin-content">
+          <img
+            className="signin-logo"
+            src="/assets/logo_aspira.png"
+            alt="Logo Aspira"
+          />
+
+          <div className="textfield-input" style={{ width: "60%" }}>
+            <Controller
+              as={
+                <TextField
+                  id="email"
+                  label="Correo Electrónico"
+                  variant="outlined"
+                  className={"dark-purple-text textfield-outlined"}
+                  error={errors["email"]}
+                  type={"email"}
+                />
+              }
+              // onChange={handleChange}
+              name={"email"}
+              control={control}
+              rules={{ required: true }}
+            />
+            <Error errors={errors["email"]} />
+          </div>
+          <div className="textfield-input" style={{ width: "60%" }}>
+            <Controller
+              as={
+                <TextField
+                  id="password"
+                  label="Contraseña"
+                  variant="outlined"
+                  className={"dark-purple-text textfield-outlined"}
+                  error={errors["password"]}
+                  type={"password"}
+                />
+              }
+              // onChange={handleChange}
+              name={"password"}
+              control={control}
+              rules={{ required: true }}
+            />
+            <Error errors={errors["password"]} />
+          </div>
+
+          <input type="submit" className="primary-btn" value="Acceder"></input>
+        </form>
+      </div>
+      <p className="dark-purple-text"> Todos los derechos reservados - Aspira de Puerto Rico</p>
     </div>
   );
 };
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return { current_user: state.users.current_user };
 };
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = (dispatch) => {
   return {
-    login: formData => dispatch(loginAction(formData))
+    login: (formData) => dispatch(loginAction(formData)),
   };
 };
 
