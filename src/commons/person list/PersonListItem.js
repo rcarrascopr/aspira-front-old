@@ -3,7 +3,7 @@ import { NameCircle } from "../NameCircle";
 
 export const PersonListItem = (props) => {
   return (
-    <li key={props.item.id} className="list-item">
+    <li key={props.item.id} className="list-item" onClick={(event) => props.handleClick(event, props.item)}>
       <div className="list-item-content">
         <NameCircle
           size="small"
