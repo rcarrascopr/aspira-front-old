@@ -10,13 +10,12 @@ export const name = (obj1, obj2) => {
   return obj1.first_name.localeCompare(obj2.first_name);
 };
 
-
 export const last_name = (obj1, obj2) => {
   return obj1.paternal_surname.localeCompare(obj2.paternal_surname);
 };
 
 export const filterPeople = (obj1, filter) => {
-  `${obj1.first_name} ${obj1.paternal_surname} ${obj1.maternal_surname}`.toLowerCase().includes(
-    filter.toLowerCase()
-  )
-}
+  return `${obj1.first_name} ${obj1.paternal_surname} ${obj1.maternal_surname}`
+    .toLowerCase()
+    .includes(filter.toLowerCase());
+};
