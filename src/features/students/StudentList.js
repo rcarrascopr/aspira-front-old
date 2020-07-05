@@ -2,7 +2,10 @@ import React from "react";
 
 import SelectInput from "../../commons/inputs/SelectInput";
 import { PersonListContainer } from "../../commons/person list/PersonListContainer";
-import fake_students from "../../commons/fake_students";
+// import fake_students from "../../commons/fake_students";
+
+import grades from "../../commons/data/grades";
+import centers from "../../commons/data/centers";
 
 import { filterPeople, last_name, name } from "../../commons/sort_methods";
 
@@ -11,12 +14,11 @@ export const StudentList = (props) => {
     let sorted_students;
 
     if (props.formData.filter !== "") {
-      sorted_students = fake_students.filter(
-        filterPeople,
-        props.formData.filter
+      sorted_students = props.students.filter((student) =>
+        filterPeople(student, props.formData.filter)
       );
     } else {
-      sorted_students = fake_students;
+      sorted_students = props.students;
     }
 
     if (props.formData.sortBy === "Apellido") {
@@ -25,7 +27,24 @@ export const StudentList = (props) => {
       sorted_students = sorted_students.sort(name);
     }
 
-    return <PersonListContainer items={sorted_students} />;
+    if (props.formData.grade) {
+      sorted_students = sorted_students.filter(
+        (student) => student.academic_level == props.formData.grade
+      );
+    }
+
+    if (props.formData.center) {
+      sorted_students = sorted_students.filter(
+        (student) => student.center.name == props.formData.center
+      );
+    }
+
+    return (
+      <PersonListContainer
+        items={sorted_students}
+        selectItem={props.setCurrentStudent}
+      />
+    );
   };
 
   return (
@@ -48,7 +67,7 @@ export const StudentList = (props) => {
           invert={true}
           value={props.formData.center}
           labelWidth={50}
-          items={["Aguada", "Moca", "Mayaguez", "Carolina"]}
+          items={centers}
           handleChange={props.handleChange}
         />
         <SelectInput
@@ -66,7 +85,7 @@ export const StudentList = (props) => {
           invert={true}
           value={props.formData.grade}
           labelWidth={50}
-          items={["10mo"]}
+          items={grades}
           handleChange={props.handleChange}
         />
         <div className="search-form">
@@ -82,6 +101,7 @@ export const StudentList = (props) => {
             src="/assets/search_icon.png"
           />
         </div>
+        {generateStudents()}
       </div>
     </div>
   );
