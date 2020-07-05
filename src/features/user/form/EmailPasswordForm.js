@@ -2,11 +2,24 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
+import Error from "../../../commons/inputs/Error";
+import ShowPasswordCheckbox from "../../../commons/inputs/ShowPasswordCheckbox";
 
 function EmailPasswordForm({ currentUser }) {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
-  const { control, handleSubmit } = useForm();
+  const [passwordOrText, setPasswordOrText] = useState("password");
+  const { control, errors, watch, handleSubmit } = useForm({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+    defaultValues: {
+      current_password: "password",
+      password: "password1",
+      password_confirmation: "password1",
+      email: "v@ee.com",
+      email_confirmation: "v@ee.com",
+    },
+  });
 
   const handleClick = (event) => {
     const name = event.target.name;
@@ -23,6 +36,12 @@ function EmailPasswordForm({ currentUser }) {
     }
   };
 
+  const handleCheckboxChange = (event) => {
+    const checked = event.target.checked;
+    const state = checked ? "text" : "password";
+    setPasswordOrText(state);
+  };
+
   const generateEmailFields = () => {
     if (emailState) {
       return (
@@ -34,16 +53,46 @@ function EmailPasswordForm({ currentUser }) {
           <Controller
             as={
               <TextField
-                id="email"
-                label="New Email"
+                id="email-field"
+                label="Nuevo Correo Electrónico"
                 variant="outlined"
-                type="text"
+                type="email"
               />
             }
-            name={"email-field"}
+            name={"email"}
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "invalid email address",
+              },
+            }}
           />
+          <Error errors={errors["email"]} />
+          <Controller
+            as={
+              <TextField
+                id="email-field"
+                label="Confirme Nuevo Correo Electrónico"
+                variant="outlined"
+                type="email"
+              />
+            }
+            name={"email_confirmation"}
+            control={control}
+            rules={{
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "invalid email address",
+              },
+              validate: (value) =>
+                value === watch("email") ||
+                "El correo electrónico no coincide.",
+            }}
+          />
+          <Error errors={errors["email_confirmation"]} />
         </div>
       );
     } else {
@@ -62,28 +111,39 @@ function EmailPasswordForm({ currentUser }) {
           <Controller
             as={
               <TextField
-                id="password"
-                label="New Password"
+                id="password-field"
+                label="Nueva Contraseña"
                 variant="outlined"
-                type="password"
+                type={passwordOrText}
               />
             }
-            name={"password-field"}
+            name={"password"}
             control={control}
             rules={{ required: true }}
           />
+          <Error errors={errors["password"]} />
           <Controller
             as={
               <TextField
-                id="password_confirmation"
-                label="Confirm New Password"
+                id="password-field"
+                label="Confirmar Nueva Contraseña"
                 variant="outlined"
-                type="password"
+                type={passwordOrText}
               />
             }
-            name={"password-field"}
+            name={"password_confirmation"}
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              validate: (value) =>
+                value === watch("password") || "La contraseña no coincide",
+            }}
+          />
+          <Error errors={errors["password_confirmation"]} />
+          <br />
+          <ShowPasswordCheckbox
+            checked={passwordOrText === "password" ? false : true}
+            handleChange={handleCheckboxChange}
           />
         </div>
       );
@@ -92,8 +152,8 @@ function EmailPasswordForm({ currentUser }) {
     }
   };
 
-  const onSubmit = (data, event) => {
-    console.log("hello");
+  const onSubmit = (data) => {
+    console.log(`data: ${JSON.stringify(data)} \n errors: ${errors}`);
   };
 
   return (
@@ -116,15 +176,20 @@ function EmailPasswordForm({ currentUser }) {
         <Controller
           as={
             <TextField
-              id="current_password"
               label="Current Password"
               variant="outlined"
-              type="password"
+              type={passwordOrText}
             />
           }
-          name={"current-password-field"}
+          name={"current_password"}
           control={control}
           rules={{ required: true }}
+        />
+        <Error errors={errors["current_password"]} />
+        <br />
+        <ShowPasswordCheckbox
+          checked={passwordOrText === "password" ? false : true}
+          handleChange={handleCheckboxChange}
         />
         <br />
         <input type="submit" className="primary-btn" value="Guardar" />
