@@ -6,6 +6,7 @@ import utisReducer from "./utisReducer";
 import productsReducer from "./productsReducer";
 import skillsReducer from "./skillsReducer";
 import productFormReducer from "./productFormReducer";
+import studentsReducer from "./studentsReducer";
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   skills: skillsReducer,
   productForm: productFormReducer,
+  students: studentsReducer,
 });
 
 export default rootReducer;
