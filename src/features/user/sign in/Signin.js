@@ -10,7 +10,9 @@ import { useForm, Controller } from "react-hook-form";
 import "./signin.css";
 
 const Signin = (props) => {
-  const { control, errors, handleSubmit } = useForm();
+  const { control, errors, handleSubmit } = useForm({
+    defaultValues: { email: "", password: "" },
+  });
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
@@ -78,7 +80,10 @@ const Signin = (props) => {
           <input type="submit" className="primary-btn" value="Acceder"></input>
         </form>
       </div>
-      <p className="dark-purple-text"> Todos los derechos reservados - Aspira de Puerto Rico</p>
+      <p className="dark-purple-text">
+        {" "}
+        Todos los derechos reservados - Aspira de Puerto Rico
+      </p>
     </div>
   );
 };
