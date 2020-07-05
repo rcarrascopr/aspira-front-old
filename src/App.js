@@ -7,7 +7,7 @@ import CenterContainer from "./features/centers/CenterContainer";
 import { DashboardContainer } from "./features/dashboard/DashboardContainer";
 import UTISContainer from "./features/UTIS/UTISContainer";
 import { UTISFormContainer } from "./features/UTIS/form/UTISFormContainer";
-import { StudentsContainer } from "./features/students/StudentsContainer";
+import StudentsContainer from "./features/students/StudentsContainer";
 import UserForm from "./features/user/form/UserForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
