@@ -4,7 +4,7 @@ import { StudentList } from "./StudentList";
 import StudentDetails from "./StudentDetails";
 import { LoadingScreen } from "../../commons/LoadingScreen";
 
-import { fetchStudents } from "../../actions/studentActions";
+import { fetchStudents, fetchStudent } from "../../actions/studentActions";
 
 import { connect } from "react-redux";
 
@@ -12,9 +12,9 @@ import "./students.css";
 
 const StudentsContainer = (props) => {
   const [formData, setFormData] = useState({
-    center: "",
+    center: "Todos",
     sortBy: "Nombre",
-    grade: "",
+    grade: "Todos",
     filter: "",
   });
 
@@ -23,6 +23,12 @@ const StudentsContainer = (props) => {
   useEffect(() => {
     props.fetchStudents();
   }, []);
+
+  useEffect(() => {
+    if (currentStudent && currentStudent.id) {
+      props.fetchStudent(currentStudent.id);
+    }
+  }, [currentStudent]);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -40,7 +46,7 @@ const StudentsContainer = (props) => {
         handleChange={handleChange}
         setCurrentStudent={setCurrentStudent}
       />
-      <StudentDetails />
+      <StudentDetails currentStudent={props.currentStudent} />
     </section>
   );
 };
@@ -48,12 +54,14 @@ const StudentsContainer = (props) => {
 let mapStateToProps = (state) => {
   return {
     students: state.students.students,
+    currentStudent: state.students.currentStudent,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
     fetchStudents: () => dispatch(fetchStudents()),
+    fetchStudent: (id) => dispatch(fetchStudent(id)),
   };
 };
 

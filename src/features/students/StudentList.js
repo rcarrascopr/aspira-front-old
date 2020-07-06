@@ -27,13 +27,14 @@ export const StudentList = (props) => {
       sorted_students = sorted_students.sort(name);
     }
 
-    if (props.formData.grade) {
+    
+    if (props.formData.grade !== "Todos") {
       sorted_students = sorted_students.filter(
         (student) => student.academic_level == props.formData.grade
       );
     }
 
-    if (props.formData.center) {
+    if (props.formData.center !== "Todos") {
       sorted_students = sorted_students.filter(
         (student) => student.center.name == props.formData.center
       );
@@ -67,7 +68,7 @@ export const StudentList = (props) => {
           invert={true}
           value={props.formData.center}
           labelWidth={50}
-          items={centers}
+          items={["Todos", ...centers]}
           handleChange={props.handleChange}
         />
         <SelectInput
@@ -85,7 +86,7 @@ export const StudentList = (props) => {
           invert={true}
           value={props.formData.grade}
           labelWidth={50}
-          items={grades}
+          items={["Todos", ...grades]}
           handleChange={props.handleChange}
         />
         <div className="search-form">
