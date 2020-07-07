@@ -17,17 +17,15 @@ import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
 function UserForm(props) {
-  console.log(props);
-  const defaultValues = props.fetchedUser
-    ? props.fetchedUser
-    : props.defaultValues;
+  const { formDefaultValues } = props;
+  debugger;
 
-  const { control, errors, handleSubmit, watch } = useForm({
-    defaultValues,
+  const { control, errors, handleSubmit, watch, reset } = useForm({
+    defaultValues: formDefaultValues,
   });
 
   const userId = parseInt(props.match.params.id, 10);
-  const isEdit = props ? true : false;
+  const { isEdit } = props;
   const accountType = watch("account_type");
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
@@ -51,7 +49,6 @@ function UserForm(props) {
                     error={errors[field]}
                   />
                 }
-                // onChange={handleChange}
                 name={field}
                 control={control}
                 rules={{ required: formData[field].required }}
@@ -74,11 +71,8 @@ function UserForm(props) {
             invert={true}
             labelWidth={70}
             items={formData[field].items}
-            // value={typeof formData[field] === "string" ? formData[field] : formData[field].id}
-            // handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
-            // defaultValue={formData[field].defaultValue}
           />
         );
       } else if (!!formData[field]) {
@@ -94,7 +88,6 @@ function UserForm(props) {
                   type={formData[field].type}
                 />
               }
-              // onChange={handleChange}
               name={field}
               control={control}
               rules={{ required: formData[field].required }}
@@ -117,9 +110,7 @@ function UserForm(props) {
           invert={true}
           labelWidth={70}
           items={grades}
-          // handleChange={handleSelectChange}
           control={control}
-          // defaultValue={grades[0]}
           errors={errors["academic_level"]}
         />
       );
@@ -128,12 +119,12 @@ function UserForm(props) {
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
-    props.userCreate(data);
+    isEdit ? props.userEdit(data) : props.userCreate(data);
   };
 
   useEffect(() => {
     //fetch user if route params contain user id
-    if (userId && Number.isInteger(userId)) {
+    if (isEdit && Number.isInteger(userId)) {
       props.fetchUser(userId);
     }
 
@@ -147,7 +138,7 @@ function UserForm(props) {
     delete formData.password_confirmation;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (!props.isAdmin) delete formData.account_type;
-  }, [props, userId]);
+  }, []);
 
   useEffect(() => {
     if (props.centers.length === 0) {
@@ -155,6 +146,10 @@ function UserForm(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    reset(formDefaultValues);
+  }, [formDefaultValues]);
 
   return (
     <div className="user-form-container">
@@ -178,8 +173,7 @@ let mapStateToProps = (state) => {
     loading: state.users.loading,
     error: state.users.error,
     centers: state.centers.centers,
-    fetchedUser: state.users.fetchedUser,
-    defaultValues: state.users.defaultValues,
+    formDefaultValues: state.users.defaultValues,
     currentUser: state.users.currentUser,
   };
 };
