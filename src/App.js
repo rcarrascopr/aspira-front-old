@@ -46,6 +46,7 @@ function App(props) {
       <div>
         <Switch>
           <Route exact path="/" render={() => <DashboardContainer />} />
+          {generateLoginSignupRoutes()}
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
           <PrivateRoute
@@ -73,7 +74,6 @@ function App(props) {
           <Route path="/estudiantes" component={StudentsContainer} />
           <Route path="/eventos" component={EventsContainer} />
  */}
-          {generateLoginSignupRoutes()}
         </Switch>
       </div>
     </div>
