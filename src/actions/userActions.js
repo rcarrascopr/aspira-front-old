@@ -73,6 +73,11 @@ export function userCreate(data) {
   };
 }
 
+// action to edit user's information on their account
+export function userEdit(data) {
+  const url = api_url + "";
+}
+
 // action to update user's email and/or password
 export function accountUpdate(data) {
   const url = api_url + "signup";
