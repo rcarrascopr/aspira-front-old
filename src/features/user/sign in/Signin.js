@@ -3,23 +3,21 @@ import { connect } from "react-redux";
 import { loginAction } from "../../../actions/userActions";
 import { withRouter } from "react-router-dom";
 
-const Signin = props => {
+const Signin = (props) => {
   const [user, setUser] = useState({ email: "", password: "" });
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setUser({
       ...user,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     props.login({ user }).then(() => {
       if (localStorage.getItem("token")) {
         props.history.push("/");
-      } else {
-        alert("error");
       }
     });
   };
@@ -52,13 +50,13 @@ const Signin = props => {
   );
 };
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return { current_user: state.users.current_user };
 };
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = (dispatch) => {
   return {
-    login: formData => dispatch(loginAction(formData))
+    login: (formData) => dispatch(loginAction(formData)),
   };
 };
 
