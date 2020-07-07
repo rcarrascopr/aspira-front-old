@@ -3,7 +3,6 @@ const initialState = {
   error: "",
   success: "",
   currentUser: JSON.parse(localStorage.getItem("currentUser")),
-  fetchedUser: "",
   teachers: [],
   defaultValues: {
     id: "",
@@ -26,7 +25,7 @@ const initialState = {
 export default function usersReducer(state = initialState, action) {
   switch (action.type) {
     case "LOADING_USER":
-      return { ...state, loading: true, fetchedUser: "", error: "" };
+      return { ...state, loading: true, error: "" };
     // case "FETCH_CURRENT_USER":
     //   return { loading: false, currentUser: action.payload };
     case "LOGIN":
@@ -43,7 +42,7 @@ export default function usersReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        fetchedUser: action.payload,
+        defaultValues: { ...state.defaultValues, ...action.payload },
         error: "",
       };
     case "FETCH_TEACHERS":
