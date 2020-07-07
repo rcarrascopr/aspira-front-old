@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { TextField } from "@material-ui/core";
 import Error from "../../../commons/inputs/Error";
 import ShowPasswordCheckbox from "../../../commons/inputs/ShowPasswordCheckbox";
 
-function EmailPasswordForm({ currentUser }) {
+import { accountUpdate, logoutAction } from "../../../actions/userActions";
+
+function EmailPasswordForm({
+  currentUser,
+  accountUpdate,
+  logoutAction,
+  error,
+  success,
+  history,
+}) {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
   const [passwordOrText, setPasswordOrText] = useState("password");
@@ -13,22 +22,22 @@ function EmailPasswordForm({ currentUser }) {
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: {
-      current_password: "password",
-      password: "password1",
-      password_confirmation: "password1",
-      email: "v@ee.com",
-      email_confirmation: "v@ee.com",
+      current_password: "",
+      password: "",
+      password_confirmation: "",
+      email: "",
+      email_confirmation: "",
     },
   });
 
   const handleClick = (event) => {
     const name = event.target.name;
-    if (name === "email") {
+    if (name === "email-enabler") {
       setEmailState(!emailState);
       event.target.innerText = emailState
         ? "Cambiar Correo Electrónico?"
         : "Eliminar Nuevo Correo Electrónico";
-    } else if (name === "password") {
+    } else if (name === "password-enabler") {
       setPasswordState(!passwordState);
       event.target.innerText = passwordState
         ? "Cambiar Contraseña?"
@@ -153,22 +162,46 @@ function EmailPasswordForm({ currentUser }) {
   };
 
   const onSubmit = (data) => {
-    console.log(`data: ${JSON.stringify(data)} \n errors: ${errors}`);
+    const count = Object.keys(data).length;
+    if (count < 3) {
+      alert("No changes were made.");
+      return;
+    } else if (data.email === data.email_confirmation) {
+      delete data.email_confirmation;
+    } else {
+      alert("Emails do not match!");
+      return;
+    }
+    accountUpdate(data);
   };
+
+  useEffect(() => {
+    if (success) {
+      logoutAction();
+      history.push("/login");
+      alert(success);
+    } else if (error) {
+      alert(error);
+    }
+  }, [error, success]);
 
   return (
     <div className="password-form-container">
       <p className="email-display">Current Email: {currentUser.email} </p>
       <form className="email-password-form" onSubmit={handleSubmit(onSubmit)}>
-        <button name="email" onClick={handleClick}>
+        <a name="email-enabler" href="javascript:void(0)" onClick={handleClick}>
           Cambiar Correo Electrónico?
-        </button>
+        </a>
         <br />
         {generateEmailFields()}
         <br />
-        <button name="password" onClick={handleClick}>
+        <a
+          name="password-enabler"
+          href="javascript:void(0)"
+          onClick={handleClick}
+        >
           Cambiar Contraseña?
-        </button>
+        </a>
         <br />
         {generatePasswordFields()}
         <br />
@@ -200,6 +233,13 @@ function EmailPasswordForm({ currentUser }) {
 
 const mapStateToProps = (state) => ({
   currentUser: state.users.currentUser,
+  error: state.users.error,
+  success: state.users.success,
 });
 
-export default connect(mapStateToProps)(EmailPasswordForm);
+const mapDispatchToProps = (dispatch) => ({
+  accountUpdate: (data) => dispatch(accountUpdate(data)),
+  logoutAction: () => dispatch(logoutAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmailPasswordForm);
