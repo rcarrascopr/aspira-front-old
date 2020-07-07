@@ -140,7 +140,6 @@ function UserForm(props) {
     if (props.error && props.isAdmin) {
       props.history.push("/admin");
     } else if (props.error) {
-      debugger;
       props.userNotFoundError(props);
     }
     //remove password field, will use different form to change passwords
