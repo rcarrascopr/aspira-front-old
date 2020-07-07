@@ -11,23 +11,33 @@ export function loginAction(formData) {
       body: JSON.stringify(formData),
     })
       .then((response) => {
-        return response.json();
+        if (response.status >= 200 && response.status < 300) {
+          return response.json();
+        } else {
+          throw Error(response.statusText);
+        }
       })
       .then((responseJSON) => {
         localStorage.setItem("token", responseJSON.token);
         localStorage.setItem("currentUser", JSON.stringify(responseJSON));
         dispatch({ type: "LOGIN", payload: responseJSON });
       })
-      .catch((error) => {});
+      .catch((error) => {
+        alert(`${error}. Correo electrónico o contraseña no válidos.`);
+      });
   };
 }
 
 export function logoutAction() {
+  const url = api_url + "logout";
   return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      dispatch({ type: "LOGOUT_USER" });
-      resolve();
-    });
+    return fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then(dispatch({ type: "LOGOUT_USER" }));
   };
 }
 
@@ -59,6 +69,31 @@ export function userCreate(data) {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+}
+
+// action to update user's email and/or password
+export function accountUpdate(data) {
+  const url = api_url + "signup";
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ account_update: data }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //store success or error in global store for useEffect to be called within <EmailPasswordForm />
+        if (data.status >= 200 && data.status < 300) {
+          dispatch({ type: "SET_USER_SUCCESS", payload: data.success });
+        } else {
+          dispatch({ type: "SET_USER_ERRORS", payload: data.errors });
+        }
       });
   };
 }
