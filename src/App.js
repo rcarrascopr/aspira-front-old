@@ -67,7 +67,12 @@ function App(props) {
             path="/users/email-password"
             component={EmailPasswordForm}
           />
-          <PrivateRoute path="/users/:id/edit" component={UserForm} />
+          <PrivateRoute
+            path="/users/:id/edit"
+            component={UserForm}
+            customProps={{ isEdit: true }}
+            // render={(props) => <UserForm {...props} isEdit={true} />}
+          />
           <PrivateRoute path="/users/create" component={UserForm} />
 
           {/* <Route path="/:estudiantes/create" component={UserForm} />
