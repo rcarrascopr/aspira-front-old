@@ -13,12 +13,8 @@ const CourseCard = (props) => {
       <div className="course-card-content">
         <h2 className="dark-purple-text">{props.name}</h2>
         <div>
-          <p className="dark-purple-text">
-            {props.students ? props.students.length : 0} Estudiantes
-          </p>
-          <p className="dark-purple-text">
-            {props.products ? props.products.length : 0} Productos
-          </p>
+          <p className="dark-purple-text">{props.total_students} Estudiantes</p>
+          <p className="dark-purple-text">{props.total_products} Productos</p>
         </div>
       </div>
     </div>
