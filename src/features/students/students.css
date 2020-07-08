@@ -142,3 +142,9 @@
   display: flex;
   justify-content: center;
 }
+
+.student-details-header {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
