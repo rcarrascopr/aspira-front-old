@@ -8,6 +8,7 @@ import { DashboardContainer } from "./features/dashboard/DashboardContainer";
 import UTISContainer from "./features/UTIS/UTISContainer";
 import { UTISFormContainer } from "./features/UTIS/form/UTISFormContainer";
 import StudentsContainer from "./features/students/StudentsContainer";
+import FacultyContainer from "./features/faculty/FacultyContainer";
 import UserForm from "./features/user/form/UserForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
@@ -60,6 +61,8 @@ function App(props) {
           <PrivateRoute path="/utis" component={UTISContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />
+          <PrivateRoute path="/:facultad/create" component={UserForm} />
+          <PrivateRoute path="/facultad" component={FacultyContainer} />
           <PrivateRoute path="/eventos" component={EventsContainer} />
 
           {generateLoginSignupRoutes()}
