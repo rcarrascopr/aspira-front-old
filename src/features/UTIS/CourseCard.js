@@ -15,12 +15,16 @@ const CourseCard = (props) => {
     <div className="course-card white">
       <div className={`course-card-header ${cardColors[props.category]}`} />
       <div className="course-card-content">
-        <h2 className="dark-purple-text pointer" onClick={() => handleClick(props.id)}>
+        <h2
+          className="dark-purple-text pointer"
+          onClick={() => handleClick(props.id)}
+        >
           {props.name}
         </h2>
         <div>
           <p className="dark-purple-text">{props.total_students} Estudiantes</p>
           <p className="dark-purple-text">{props.total_products} Productos</p>
+          <p className="dark-purple-text">Grado {props.grade}</p>
 
           <div
             style={{
