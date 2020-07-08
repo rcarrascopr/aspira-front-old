@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
+import grades from "../../../commons/data/grades";
+
 export const Details = (props) => {
   return (
     <div className="utis-details-container">
@@ -21,7 +23,6 @@ export const Details = (props) => {
               onChange={props.handleChange}
               className={"dark-purple-text textfield-outlined"}
               error={props.errors["name"]}
-        
             />
           }
           name="name"
@@ -91,7 +92,7 @@ export const Details = (props) => {
         invert={true}
         value={props.utis.grade}
         labelWidth={50}
-        items={["10mo"]}
+        items={grades}
         handleChange={props.handleChange}
         control={props.control}
         errors={props.errors["grade"]}
