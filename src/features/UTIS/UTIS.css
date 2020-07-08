@@ -131,6 +131,10 @@
   font-weight: 400;
 }
 
+.course-card h2:hover {
+ text-decoration: underline;
+}
+
 .course-card-content p {
   margin: 0px;
 }
