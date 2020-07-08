@@ -306,6 +306,20 @@ ul {
   font-size: 0.9em;
 }
 
+.primary-btn-outline {
+  font-size: 1em;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid var(--dark-purple);
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: white;
+}
+
 .secondary-btn-outline {
   font-size: 1em;
   padding: 10px;
@@ -397,4 +411,8 @@ ul {
 
 .hidden {
   visibility: hidden;
+}
+
+.pointer {
+  cursor: pointer;
 }

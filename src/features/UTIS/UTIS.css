@@ -31,6 +31,10 @@
   text-decoration: none;
 }
 
+.utis-container img.icon {
+  height: 20px;
+}
+
 .btn {
   border-color: #282460;
   color: #282460;
@@ -98,7 +102,7 @@
   border-radius: 6px;
   /* padding: 15px; */
   margin: 15px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .course-card-create {
