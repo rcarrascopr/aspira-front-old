@@ -5,7 +5,7 @@ export const PersonListItem = (props) => {
   return (
     <li
       key={props.item.id}
-      className="list-item"
+      className={`list-item ${props.handleClick ? "pointer" : ""}`}
       onClick={(event) => props.handleClick(event, props.item)}
     >
       <div className="list-item-content">
