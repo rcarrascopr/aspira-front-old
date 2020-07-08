@@ -57,6 +57,7 @@ function App(props) {
             path="/utis/:id/products/:productid"
             component={Product}
           />
+           <PrivateRoute path="/utis/:id/edit" component={UTISShowContainer} />
           <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
           <PrivateRoute path="/utis" component={UTISContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
