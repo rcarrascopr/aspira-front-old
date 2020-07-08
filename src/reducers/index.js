@@ -8,6 +8,7 @@ import skillsReducer from "./skillsReducer";
 import productFormReducer from "./productFormReducer";
 import studentsReducer from "./studentsReducer";
 import facultyReducer from "./facultyReducer";
+import semestersReducer from "./semestersReducer";
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   productForm: productFormReducer,
   students: studentsReducer,
   faculty: facultyReducer,
+  semesters: semestersReducer,
 });
 
 export default rootReducer;
