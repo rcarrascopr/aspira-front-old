@@ -74,8 +74,21 @@ export function userCreate(data) {
 }
 
 // action to edit user's information on their account
-export function userEdit(data) {
-  const url = api_url + "";
+export function userEdit(data, userId) {
+  const url = api_url + `users/${userId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: { account_update: JSON.stringify(data) },
+    }).then((response) => {
+      debugger;
+    });
+  };
 }
 
 // action to update user's email and/or password
@@ -105,7 +118,7 @@ export function accountUpdate(data) {
 
 export function fetchUser(userId) {
   const url = `${api_url}users/${userId}`;
-
+  debugger;
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
 
