@@ -8,7 +8,7 @@ export default function facultyReducer(
     case "FETCH_FACULTY_USERS":
       return { ...state, faculty: [...action.payload], loading: false };
     case "FETCH_FACULTY_USER":
-      return { ...state, currentFaculty: action.payload, loading: true };
+      return { ...state, currentFaculty: action.payload, loading: false };
     default:
       return state;
   }

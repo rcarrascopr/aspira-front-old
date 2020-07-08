@@ -8,7 +8,7 @@ export default function studentsReducer(
     case "FETCH_STUDENTS":
       return { ...state, students: [...action.payload], loading: false };
     case "FETCH_STUDENT":
-      return { ...state, currentStudent: action.payload, loading: true };
+      return { ...state, currentStudent: action.payload, loading: false };
     default:
       return state;
   }
