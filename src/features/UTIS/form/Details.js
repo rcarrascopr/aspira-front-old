@@ -5,7 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 
+import centers from "../../../commons/data/centers";
 import grades from "../../../commons/data/grades";
+import categories from "../../../commons/data/categories";
 
 export const Details = (props) => {
   return (
@@ -39,13 +41,7 @@ export const Details = (props) => {
         invert={true}
         value={props.utis.category}
         labelWidth={70}
-        items={[
-          "Socio-Humanístico",
-          "Científico-Técnico",
-          "Ocupacional",
-          "Cultural",
-          "Comunitaria",
-        ]}
+        items={categories}
         handleChange={props.handleChange}
         control={props.control}
         errors={props.errors["category"]}
@@ -69,7 +65,7 @@ export const Details = (props) => {
         invert={true}
         value={props.utis.center}
         labelWidth={70}
-        items={["Aguada", "Moca", "Carolina"]}
+        items={centers}
         handleChange={props.handleChange}
         control={props.control}
         errors={props.errors["center"]}
