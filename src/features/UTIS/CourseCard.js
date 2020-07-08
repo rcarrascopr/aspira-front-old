@@ -14,9 +14,11 @@ const CourseCard = (props) => {
         <h2 className="dark-purple-text">{props.name}</h2>
         <div>
           <p className="dark-purple-text">
-            {props.students.length} Estudiantes
+            {props.students ? props.students.length : 0} Estudiantes
           </p>
-          <p className="dark-purple-text">{props.products}6 Productos</p>
+          <p className="dark-purple-text">
+            {props.products ? props.products.length : 0} Productos
+          </p>
         </div>
       </div>
     </div>
