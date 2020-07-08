@@ -10,6 +10,7 @@ import { userFormData as formData } from "../../../commons/form-data/userFormDat
 
 import {
   userCreate,
+  userEdit,
   fetchUser,
   userNotFoundError,
 } from "../../../actions/userActions";
@@ -17,20 +18,16 @@ import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
 function UserForm(props) {
-  const { formDefaultValues } = props;
-  debugger;
-
+  const { isEdit, formDefaultValues } = props;
   const { control, errors, handleSubmit, watch, reset } = useForm({
     defaultValues: formDefaultValues,
   });
 
   const userId = parseInt(props.match.params.id, 10);
-  const { isEdit } = props;
   const accountType = watch("account_type");
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
   const otherFields = others.slice(4, others.length);
-
   formData.center_id.items = props.centers;
 
   const generateNameFields = () => {
@@ -119,12 +116,13 @@ function UserForm(props) {
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
-    isEdit ? props.userEdit(data) : props.userCreate(data);
+    isEdit ? props.userEdit(data, userId) : props.userCreate(data);
   };
 
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
+      debugger;
       props.fetchUser(userId);
     }
 
@@ -181,6 +179,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
   return {
     userCreate: (data) => dispatch(userCreate(data)),
+    userEdit: (data, userId) => dispatch(userEdit(data, userId)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
     fetchCenters: () => dispatch(fetchCenters()),
     userNotFoundError: (props) => dispatch(userNotFoundError(props)),
