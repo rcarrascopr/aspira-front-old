@@ -38,11 +38,15 @@ export default function usersReducer(state = initialState, action) {
     //   return { ...state, loading: false };
     case "CREATE_USER":
       return { ...state, loading: false };
-    case "FETCH_USER":
+    case "SET_USER":
+      const payload = action.payload;
+      // payload.center_id = payload.center.id;
+      // delete payload.center;
+      const newDefaultValues = { ...state.defaultValues, ...payload };
       return {
         ...state,
         loading: false,
-        defaultValues: { ...state.defaultValues, ...action.payload },
+        defaultValues: newDefaultValues,
         error: "",
       };
     case "FETCH_TEACHERS":
