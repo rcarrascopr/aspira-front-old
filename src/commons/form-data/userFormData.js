@@ -1,5 +1,6 @@
 import genders from "../data/genders";
 import titles from "../data/titles";
+import municipalites from "../data/municipalities";
 
 export const userFormData = {
   first_name: {
@@ -51,9 +52,10 @@ export const userFormData = {
     items: [],
   },
   residence_municipality: {
-    type: "text",
+    type: "select",
     required: true,
     label: "Municipio",
+    items: municipalites,
   },
   gender: {
     type: "select",
