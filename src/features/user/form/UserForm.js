@@ -148,7 +148,9 @@ function UserForm(props) {
   return (
     <div className="user-form-container">
       <form onSubmit={handleSubmit(onSubmit)} className="user-form">
-        <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
+        <h1 className="dark-purple-text text-align-center">
+          {props.match.params.id ? "Editar" : "Crear"} cuenta
+        </h1>
         {generateNameFields()}
         <div className="details-inputs">
           {generateOtherFields()}
