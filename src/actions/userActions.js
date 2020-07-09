@@ -45,9 +45,7 @@ export function userCreate(data) {
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
     return fetch(
-      `${api_url}${
-        data.account_type === "admin" ? "signup" : data.account_type + "s"
-      }`,
+      `${api_url}${data.role === "admin" ? "signup" : data.role + "s"}`,
       {
         method: "POST",
         headers: {
@@ -84,10 +82,19 @@ export function userEdit(data, userId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: { account_update: JSON.stringify(data) },
-    }).then((response) => {
-      debugger;
-    });
+      body: JSON.stringify({ user_update: data }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errors) {
+          alert(data.errors);
+          return;
+        } else {
+          dispatch({ type: "SET_USER", payload: data });
+          alert("Información actualizada con éxito.");
+          return;
+        }
+      });
   };
 }
 
@@ -118,7 +125,6 @@ export function accountUpdate(data) {
 
 export function fetchUser(userId) {
   const url = `${api_url}users/${userId}`;
-  debugger;
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
 
@@ -133,7 +139,7 @@ export function fetchUser(userId) {
         }
       })
       .then((responseJSON) => {
-        dispatch({ type: "FETCH_USER", payload: responseJSON });
+        dispatch({ type: "SET_USER", payload: responseJSON });
       })
       .catch((error) => dispatch({ type: "SET_USER_ERRORS", payload: error }));
   };
