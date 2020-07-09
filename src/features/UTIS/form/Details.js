@@ -1,10 +1,9 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
+
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
-import grades from "../../../commons/data/grades";
-
 import centers from "../../../commons/data/centers";
 import grades from "../../../commons/data/grades";
 import categories from "../../../commons/data/categories";
