@@ -2,7 +2,7 @@ div.product-container {
   background-color: var(--courses-purple);
   color: #27265e;
   display: flex;
-  padding: 0px 60px;
+  padding: 0px 60px 0px 60px;
   justify-content: space-between;
 }
 
@@ -39,7 +39,6 @@ div.info-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
   font-weight: 700;
 }
 
@@ -50,7 +49,6 @@ div.info-container {
   width: 100%;
   border-radius: 0 4px 4px 0;
   background-color: white;
-  
 }
 
 div.students-container {

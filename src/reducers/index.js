@@ -1,25 +1,29 @@
 import { combineReducers } from "redux";
 // import reducers
-import usersReducer from "./usersReducer";
 import centersReducer from "./centersReducer";
-import utisReducer from "./utisReducer";
+import productFormReducer from "./productFormReducer";
 import productsReducer from "./productsReducer";
+import semestersReducer from "./semestersReducer";
 import skillsReducer from "./skillsReducer";
 import productFormReducer from "./productFormReducer";
 import studentsReducer from "./studentsReducer";
 import facultyReducer from "./facultyReducer";
 import semestersReducer from "./semestersReducer";
+import usersReducer from "./usersReducer";
+import utisReducer from "./utisReducer";
 
 const rootReducer = combineReducers({
-  users: usersReducer,
   centers: centersReducer,
-  utis: utisReducer,
+  productForm: productFormReducer,
   products: productsReducer,
+  semesters: semestersReducer,
   skills: skillsReducer,
   productForm: productFormReducer,
   students: studentsReducer,
   faculty: facultyReducer,
   semesters: semestersReducer,
+  users: usersReducer,
+  utis: utisReducer,
 });
 
 export default rootReducer;

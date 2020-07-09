@@ -1,15 +1,16 @@
 import React from "react";
-
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
+import grades from "../../../commons/data/grades";
 
 import centers from "../../../commons/data/centers";
 import grades from "../../../commons/data/grades";
 import categories from "../../../commons/data/categories";
 
 export const Details = (props) => {
+  const { centers, semesters, teachers, control, errors } = useFormContext();
   return (
     <div className="utis-details-container">
       <h1 className="dark-purple-text">UTIS: Detalles</h1>
@@ -17,81 +18,68 @@ export const Details = (props) => {
         <Controller
           as={
             <TextField
-              id="utis-name"
-              name="name"
               label="Nombre"
-              value={props.utis.name}
               variant="outlined"
-              onChange={props.handleChange}
               className={"dark-purple-text textfield-outlined"}
-              error={props.errors["name"]}
+              error={errors["name"]}
             />
           }
           name="name"
-          control={props.control}
+          control={control}
           rules={{ required: true }}
         />
-
-        <Error errors={props.errors["name"]} />
+        <Error errors={errors["name"]} />
       </div>
 
       <SelectInput
         name="category"
         label="Categoría"
         invert={true}
-        value={props.utis.category}
         labelWidth={70}
         items={categories}
         handleChange={props.handleChange}
-        control={props.control}
-        errors={props.errors["category"]}
+        control={control}
+        errors={errors["category"]}
       />
 
       <SelectInput
-        name="semester"
+        name="semester_id"
         label="Semestre"
         invert={true}
-        value={props.utis.semester}
         labelWidth={70}
-        items={["2020-21", "2020-22"]}
-        handleChange={props.handleChange}
-        control={props.control}
-        errors={props.errors["semester"]}
+        items={semesters}
+        control={control}
+        errors={errors["semester_id"]}
       />
 
       <SelectInput
-        name="center"
+        name="center_id"
         label="Centro"
         invert={true}
-        value={props.utis.center}
         labelWidth={70}
         items={centers}
-        handleChange={props.handleChange}
-        control={props.control}
-        errors={props.errors["center"]}
+        control={control}
+        errors={errors["center_id"]}
       />
 
       <SelectInput
-        name="teacher"
+        name="teacher_id"
         label="Coordinador/GPH"
         invert={true}
-        value={props.utis.teacher}
         labelWidth={130}
-        items={["Kenneth R. Young Castro"]}
-        handleChange={props.handleChange}
-        // control={props.control}
-        // errors={props.errors["teacher"]}
+        items={teachers}
+        control={control}
+        errors={errors["teacher_id"]}
       />
+
       <SelectInput
         name="grade"
         label="Grado"
         invert={true}
-        value={props.utis.grade}
         labelWidth={50}
         items={grades}
-        handleChange={props.handleChange}
-        control={props.control}
-        errors={props.errors["grade"]}
+        control={control}
+        errors={errors["grade"]}
       />
     </div>
   );

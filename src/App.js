@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "./commons/PrivateRoute";
 import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
@@ -10,21 +12,20 @@ import { UTISFormContainer } from "./features/UTIS/form/UTISFormContainer";
 import StudentsContainer from "./features/students/StudentsContainer";
 import FacultyContainer from "./features/faculty/FacultyContainer";
 import UserForm from "./features/user/form/UserForm";
+import EmailPasswordForm from "./features/user/form/EmailPasswordForm";
 import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
-import { connect } from "react-redux";
-import { PrivateRoute } from "./commons/PrivateRoute";
 
-import { fetchCenters } from "./actions/centerActions";
 import Product from "./features/products/Product";
+import AdminContainer from "./features/admin/AdminContainer";
 
 function App(props) {
-  useEffect(() => {
-    if (props.currentUser && props.currentUser.role === "Admin") {
-      props.fetch_centers();
-    }
-  }, [props, props.currentUser]);
+  // useEffect(() => {
+  //   if (props.currentUser && props.currentUser.role === "Admin") {
+  //     props.fetch_centers();
+  //   }
+  // }, [props, props.currentUser]);
 
   const generateLoginSignupRoutes = () => {
     if (!props.currentUser) {
@@ -46,7 +47,8 @@ function App(props) {
 
       <div>
         <Switch>
-          <PrivateRoute exact path="/" component={DashboardContainer} />
+          <Route exact path="/" render={() => <DashboardContainer />} />
+          {generateLoginSignupRoutes()}
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
           <PrivateRoute
@@ -66,7 +68,24 @@ function App(props) {
           <PrivateRoute path="/facultad" component={FacultyContainer} />
           <PrivateRoute path="/eventos" component={EventsContainer} />
 
-          {generateLoginSignupRoutes()}
+          <PrivateRoute exact path="/admin" component={AdminContainer} />
+          <PrivateRoute
+            exact
+            path="/users/email-password"
+            component={EmailPasswordForm}
+          />
+          <PrivateRoute
+            path="/users/:id/edit"
+            component={UserForm}
+            customProps={{ isEdit: true }}
+            // render={(props) => <UserForm {...props} isEdit={true} />}
+          />
+          <PrivateRoute path="/users/create" component={UserForm} />
+
+          {/* <Route path="/:estudiantes/create" component={UserForm} />
+          <Route path="/estudiantes" component={StudentsContainer} />
+          <Route path="/eventos" component={EventsContainer} />
+ */}
         </Switch>
       </div>
     </div>
@@ -79,8 +98,8 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return { fetch_centers: () => dispatch(fetchCenters()) };
-};
+// let mapDispatchToProps = (dispatch) => {
+//   return { fetch_centers: () => dispatch(fetchCenters()) };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

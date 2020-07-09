@@ -19,8 +19,6 @@ const Signin = (props) => {
     props.login({ user: data }).then(() => {
       if (localStorage.getItem("token")) {
         props.history.push("/");
-      } else {
-        alert("error");
       }
     });
   };

@@ -11,7 +11,8 @@ export function fetchSemesters() {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_SEMESTERS", payload: responseJSON });
-      });
+      })
+      .catch((error) => console.log(error));
   };
 }
 
@@ -26,6 +27,7 @@ export function fetchSemester(id) {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_SEMESTER", payload: responseJSON });
-      });
+      })
+      .catch((error) => console.log(error));
   };
 }
