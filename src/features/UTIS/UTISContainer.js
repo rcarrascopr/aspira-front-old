@@ -41,6 +41,14 @@ const UTISContainer = (props) => {
   }, []);
 
   useEffect(() => {
+    const selectedCenter = props.centers.find(
+      (c) => c.name === props.currentUser.center_name
+    );
+    // console.log("Center selected: ", selectedCenter);
+    setCurrentCenter(selectedCenter);
+  }, [props.centers]);
+
+  useEffect(() => {
     //Set sorting method
     let sort_method;
     if (sortBy === "Grado - (ascendiente ↑)") {
@@ -85,7 +93,7 @@ const UTISContainer = (props) => {
           labelWidth={50}
           items={props.centers}
           handleChange={handleChange}
-          value={currentCenter}
+          value={currentCenter ? currentCenter.id : ""}
         />
         <SelectInput
           name="sortBy"
@@ -109,6 +117,7 @@ const UTISContainer = (props) => {
 let mapStateToProps = (state) => {
   return {
     centers: state.centers.centers,
+    currentUser: state.users.currentUser,
   };
 };
 
