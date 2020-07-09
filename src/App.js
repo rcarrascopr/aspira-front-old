@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { PrivateRoute } from "./commons/PrivateRoute";
 import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
@@ -36,6 +36,7 @@ function App(props) {
             path="/login"
             render={(props) => <Signin {...props} />}
           />
+          <Route path="/" render={() => <Redirect to="/login" />} />
         </React.Fragment>
       );
     }
@@ -47,7 +48,6 @@ function App(props) {
 
       <div>
         <Switch>
-          <Route exact path="/" render={() => <DashboardContainer />} />
           {generateLoginSignupRoutes()}
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
@@ -102,4 +102,4 @@ let mapStateToProps = (state) => {
 //   return { fetch_centers: () => dispatch(fetchCenters()) };
 // };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
