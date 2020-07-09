@@ -26,7 +26,7 @@ const FacultyContainer = (props) => {
 
   useEffect(() => {
     if (currentFaculty && currentFaculty.id) {
-      props.fetchFacultyUser(currentFaculty.id);
+      props.fetchFacultyUser(currentFaculty.role, currentFaculty.id);
     }
   }, [currentFaculty]);
 
@@ -61,7 +61,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
   return {
     fetchFacultyUsers: () => dispatch(fetchFacultyUsers()),
-    fetchFacultyUser: (id) => dispatch(fetchFacultyUser(id)),
+    fetchFacultyUser: (role, id) => dispatch(fetchFacultyUser(role, id)),
   };
 };
 
