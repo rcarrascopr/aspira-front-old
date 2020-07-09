@@ -15,10 +15,11 @@ export function fetchFacultyUsers() {
   };
 }
 
-export function fetchFacultyUser(id) {
+export function fetchFacultyUser(role, id) {
+  let apiEndPoint = role === "Teacher" ? "teachers" : "users";
   return (dispatch) => {
     dispatch({ type: "LOADING_FACULTY" });
-    return fetch(`${api_url}users/${id}`, {
+    return fetch(`${api_url}${apiEndPoint}/${id}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((response) => {
