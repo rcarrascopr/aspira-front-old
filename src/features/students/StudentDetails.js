@@ -36,6 +36,7 @@ export default function StudentDetails(props) {
           <li>{props.currentStudent.phone_number}</li>
           <li>{props.currentStudent.badge_id}</li>
           <li>Grade: {props.currentStudent.academic_level}</li>
+          <li>{props.currentStudent.center.name}</li>
         </ul>
       </div>
       <div className="student-courses-details">

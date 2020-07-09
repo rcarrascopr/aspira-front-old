@@ -2,6 +2,8 @@ import React from "react";
 
 import { NameCircle } from "../../commons/NameCircle";
 
+import CoursesListContainer from "../../commons/courses list/CoursesListContainer";
+
 export default function FacultyDetails(props) {
   if (!(props.currentFaculty && props.currentFaculty.id)) {
     return (
@@ -41,9 +43,19 @@ export default function FacultyDetails(props) {
           <li>{props.currentFaculty.email}</li>
           <li>{props.currentFaculty.residence_municipality}</li>
           <li>{props.currentFaculty.role}</li>
+          <li>{props.currentFaculty.center.name}</li>
         </ul>
       </div>
-      <div className="student-courses-details"></div>
+      <div className="student-courses-details">
+        {props.currentFaculty.courses && (
+          <>
+            <h3 className="dark-purple-text student-details-header">
+              UTI que está ofreciendo
+            </h3>
+            <CoursesListContainer items={props.currentFaculty.courses} />
+          </>
+        )}
+      </div>
       <div className="student-details-buttons dark-purple-text">
         <a className="lined-button">Editar</a>
         <a className="lined-button">
