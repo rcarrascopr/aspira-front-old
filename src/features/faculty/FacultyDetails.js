@@ -43,7 +43,7 @@ export default function FacultyDetails(props) {
           <li>{props.currentFaculty.email}</li>
           <li>{props.currentFaculty.residence_municipality}</li>
           <li>{props.currentFaculty.role}</li>
-          <li>{props.currentFaculty.center.name}</li>
+          <li>{props.currentFaculty.center_name}</li>
         </ul>
       </div>
       <div className="student-courses-details">
