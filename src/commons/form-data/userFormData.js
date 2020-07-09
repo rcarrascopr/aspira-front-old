@@ -61,7 +61,7 @@ export const userFormData = {
     label: "Género",
     items: genders,
   },
-  account_type: {
+  role: {
     type: "select",
     required: true,
     label: "Título",
