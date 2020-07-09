@@ -16,7 +16,7 @@ import { name, last_name } from "../../../commons/sort_methods";
 
 export const AddStudentModal = (props) => {
   const [formData, setFormData] = useState({
-    grade: "",
+    grade: "Todos",
     sortBy: "Nombre",
     filter: "",
   });
@@ -37,42 +37,51 @@ export const AddStudentModal = (props) => {
   };
 
   const generateStudents = () => {
-    // if (formData.filter !== "") {
-    //   sorted_students = fake_students.filter((s) =>
-    //     `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
-    //       .toLowerCase()
-    //       .includes(formData.filter.toLowerCase())
-    //   );
-    // } else {
-    //   sorted_students = students;
-    // }
+    if (students) {
+      console.log(students);
+      let sorted_students;
+      if (formData.filter !== "") {
+        sorted_students = students.filter((s) =>
+          `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
+            .toLowerCase()
+            .includes(formData.filter.toLowerCase())
+        );
+      } else {
+        sorted_students = students;
+      }
 
-    // if (formData.sortBy === "Apellido") {
-    //   sorted_students = sorted_students.sort(last_name);
-    // } else {
-    //   sorted_students = students;
-    // }
+      if (formData.grade !== "Todos") {
+        sorted_students = sorted_students.filter(
+          (s) => formData.grade === s.academic_level
+        );
+      }
 
-    const generateIcon = (student) => {
-      const existingStudent = selectedStudents.find((s) => s.id === student.id);
-      return existingStudent ? (
-        <span className="icon" role="img" aria-label="check mark">
-          ✔️
-        </span>
-      ) : (
-        <p className="icon">
-          <img
-            src="/assets/add_icon.png"
-            alt="Add icon"
-            onClick={(event) => addStudent(event, student)}
-          />
-        </p>
-      );
-    };
+      if (formData.sortBy === "Apellido") {
+        sorted_students = sorted_students.sort(last_name);
+      } else {
+        sorted_students = sorted_students.sort(name);
+      }
 
-    return (
-      students &&
-      students.map((student) => (
+      const generateIcon = (student) => {
+        const existingStudent = selectedStudents.find(
+          (s) => s.id === student.id
+        );
+        return existingStudent ? (
+          <span className="icon" role="img" aria-label="check mark">
+            ✔️
+          </span>
+        ) : (
+          <p className="icon">
+            <img
+              src="/assets/add_icon.png"
+              alt="Add icon"
+              onClick={(event) => addStudent(event, student)}
+            />
+          </p>
+        );
+      };
+
+      return sorted_students.map((student) => (
         <li key={student.id} className="student-list-item">
           {" "}
           <div>
@@ -84,8 +93,8 @@ export const AddStudentModal = (props) => {
           </div>
           {generateIcon(student)}
         </li>
-      ))
-    );
+      ));
+    }
   };
 
   return (
@@ -119,7 +128,7 @@ export const AddStudentModal = (props) => {
           invert={true}
           value={formData.grade}
           labelWidth={70}
-          items={grades}
+          items={["Todos", ...grades]}
           handleChange={handleChange}
         />
 
