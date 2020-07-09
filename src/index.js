@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import rootReducer from "./reducers/index";
 import thunk from "redux-thunk";
 
@@ -21,9 +21,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   document.getElementById("root")
 );
