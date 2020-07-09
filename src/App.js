@@ -49,6 +49,7 @@ function App(props) {
       <div>
         <Switch>
           {generateLoginSignupRoutes()}
+          <PrivateRoute exact path="/" component={DashboardContainer} />
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/utis/create" component={UTISFormContainer} />
           <PrivateRoute
