@@ -11,23 +11,33 @@ export function loginAction(formData) {
       body: JSON.stringify(formData),
     })
       .then((response) => {
-        return response.json();
+        if (response.status >= 200 && response.status < 300) {
+          return response.json();
+        } else {
+          throw Error(response.statusText);
+        }
       })
       .then((responseJSON) => {
         localStorage.setItem("token", responseJSON.token);
         localStorage.setItem("currentUser", JSON.stringify(responseJSON));
         dispatch({ type: "LOGIN", payload: responseJSON });
       })
-      .catch((error) => {});
+      .catch((error) => {
+        alert(`${error}. Correo electrónico o contraseña no válidos.`);
+      });
   };
 }
 
 export function logoutAction() {
+  const url = api_url + "logout";
   return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      dispatch({ type: "LOGOUT_USER" });
-      resolve();
-    });
+    return fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then(dispatch({ type: "LOGOUT_USER" }));
   };
 }
 
@@ -35,9 +45,7 @@ export function userCreate(data) {
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
     return fetch(
-      `${api_url}${
-        data.account_type === "admin" ? "signup" : data.account_type + "s"
-      }`,
+      `${api_url}${data.role === "admin" ? "signup" : data.role + "s"}`,
       {
         method: "POST",
         headers: {
@@ -60,5 +68,103 @@ export function userCreate(data) {
       .catch((error) => {
         console.log(error);
       });
+  };
+}
+
+// action to edit user's information on their account
+export function userEdit(data, userId) {
+  const url = api_url + `users/${userId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ user_update: data }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errors) {
+          alert(data.errors);
+          return;
+        } else {
+          dispatch({ type: "SET_USER", payload: data });
+          alert("Información actualizada con éxito.");
+          return;
+        }
+      });
+  };
+}
+
+// action to update user's email and/or password
+export function accountUpdate(data) {
+  const url = api_url + "signup";
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ account_update: data }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //store success or error in global store for useEffect to be called within <EmailPasswordForm />
+        if (data.status >= 200 && data.status < 300) {
+          dispatch({ type: "SET_USER_SUCCESS", payload: data.success });
+        } else {
+          dispatch({ type: "SET_USER_ERRORS", payload: data.errors });
+        }
+      });
+  };
+}
+
+export function fetchUser(userId) {
+  const url = `${api_url}users/${userId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+
+    return fetch(url, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          return response.json();
+        } else {
+          throw Error(response.statusText);
+        }
+      })
+      .then((responseJSON) => {
+        dispatch({ type: "SET_USER", payload: responseJSON });
+      })
+      .catch((error) => dispatch({ type: "SET_USER_ERRORS", payload: error }));
+  };
+}
+
+export function userNotFoundError(props) {
+  return (dispatch) => {
+    dispatch({ type: "CLEAR_USER_ERROR" });
+    alert(props.error.message);
+    props.history.push("/");
+  };
+}
+
+export function fetchTeachers() {
+  return (dispatch) => {
+    dispatch({ type: "LOADING_USER" });
+    return fetch(`${api_url}teachers`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJSON) => {
+        dispatch({ type: "FETCH_TEACHERS", payload: responseJSON });
+      })
+      .catch((error) => console.log(error));
   };
 }

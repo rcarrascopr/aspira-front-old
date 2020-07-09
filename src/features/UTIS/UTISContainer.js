@@ -9,9 +9,9 @@ import CoursesContainer from "./CoursesContainer";
 
 import { grade_ascending, grade_descending } from "../../commons/sort_methods";
 
-import { fetchCourses } from "../../actions/utisActions";
+import { fetchCenters } from "../../actions/centerActions";
 
-const UTISContainer = (props) => {
+const UTISContainer = ({ centers }) => {
   const [buttonStates, setButtonStates] = useState({
     "socio-humanístico": true,
     "científico-técnico": true,
@@ -20,14 +20,14 @@ const UTISContainer = (props) => {
     comunitaria: true,
   });
 
-  const [courses, setCourses] = useState([]);
   const [sortBy, setSortBy] = useState("Grado - (ascendiente ↑)");
-  const [center, setCenter] = useState();
+  const [currentCenter, setCurrentCenter] = useState("");
+  const [courses, setCourses] = useState("");
 
   const handleChange = (event) => {
-    setCenter(
-      props.centers.find((center) => center.name === event.target.value)
-    );
+    const selectedCenter = centers.find((c) => c.id === event.target.value);
+    console.log("Center selected: ", selectedCenter);
+    setCurrentCenter(selectedCenter);
   };
 
   const handleSortChange = (event) => {
@@ -35,30 +35,20 @@ const UTISContainer = (props) => {
   };
 
   useEffect(() => {
-    if (props.centers.length > 0) {
-      setCenter(props.centers[0]);
-    }
-  }, [props.centers]);
+    fetchCenters();
+  }, [centers]);
 
   useEffect(() => {
-    props.getCourses();
-  }, []);
-
-  useEffect(() => {
+    //Set sorting method
     let sort_method;
     if (sortBy === "Grado - (ascendiente ↑)") {
       sort_method = grade_ascending;
     } else if (sortBy === "Grado - (descendiente ↓)") {
       sort_method = grade_descending;
     }
-
-    console.log(sort_method);
-    setCourses(
-      props.courses
-        .filter((course) => buttonStates[course.category.toLowerCase()])
-        .sort(sort_method)
-    );
-  }, [buttonStates, props.courses, sortBy]);
+    //get courses from selected center
+    setCourses(currentCenter.courses);
+  }, [buttonStates, currentCenter.courses, sortBy]);
 
   const handleClick = (event) => {
     setButtonStates({
@@ -67,9 +57,13 @@ const UTISContainer = (props) => {
     });
   };
 
-  if (!center) {
-    return <LoadingScreen content="Loading" />;
-  }
+  const renderCourses = () => {
+    if (!!courses) {
+      return <CoursesContainer courses={courses} setCourses={setCourses} />;
+    } else {
+      return <h2>Por favor seleccione un centro.</h2>;
+    }
+  };
 
   return (
     <section className="utis-container courses-purple">
@@ -78,10 +72,10 @@ const UTISContainer = (props) => {
           name="center"
           label="Centro"
           invert={true}
-          value={center.name}
           labelWidth={50}
-          items={props.centers}
+          items={centers}
           handleChange={handleChange}
+          value={centers[0]}
         />
         <SelectInput
           name="sortBy"
@@ -97,7 +91,7 @@ const UTISContainer = (props) => {
       <ButtonGroup buttonStates={buttonStates} handleClick={handleClick} />
       <hr />
 
-      <CoursesContainer courses={courses} setCourses={setCourses} />
+      {renderCourses()}
     </section>
   );
 };
@@ -105,14 +99,11 @@ const UTISContainer = (props) => {
 let mapStateToProps = (state) => {
   return {
     centers: state.centers.centers,
-    courses: state.utis.courses,
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    getCourses: () => dispatch(fetchCourses()),
-  };
-};
+let mapDispatchToProps = (dispatch) => ({
+  fetchCenters: dispatch(fetchCenters()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UTISContainer);

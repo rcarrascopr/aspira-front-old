@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from "react";
-
-import grades from "../../../commons/data/grades";
-import { userFormData as formData } from "../../../commons/form-data/userFormData";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+import { TextField } from "@material-ui/core";
 
 import { SelectInput } from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
+import grades from "../../../commons/data/grades";
+import { userFormData as formData } from "../../../commons/form-data/userFormData";
 
-import { TextField } from "@material-ui/core";
-
-import { useForm, Controller } from "react-hook-form";
-import { connect } from "react-redux";
-
-import { userCreate } from "../../../actions/userActions";
+import {
+  userCreate,
+  userEdit,
+  fetchUser,
+  userNotFoundError,
+} from "../../../actions/userActions";
+import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
 function UserForm(props) {
-  const { control, errors, handleSubmit, watch, setValue } = useForm();
+  const { isEdit, formDefaultValues } = props;
+  const { control, errors, handleSubmit, watch, reset } = useForm({
+    defaultValues: formDefaultValues,
+  });
 
-  console.log("centers: ", props.centers)
-  formData.center_id.items = props.centers
-  if (props.centers.length > 0){
-    setValue("center_id", 1)
-  }
-  
-  const accountType = watch("account_type");
-  // const accountType = "student";
-
+  const userId = parseInt(props.match.params.id, 10);
+  const accountType = watch("role");
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
   const otherFields = others.slice(4, others.length);
+  formData.center_id.items = props.centers;
 
   const generateNameFields = () => {
     return (
       <div className="name-inputs">
-        {nameFields.map((field) => {
+        {nameFields.map((field, index) => {
           return (
-            <div className="textfield-input">
+            <div className="textfield-input" key={index}>
               <Controller
                 as={
                   <TextField
@@ -46,7 +46,6 @@ function UserForm(props) {
                     error={errors[field]}
                   />
                 }
-                // onChange={handleChange}
                 name={field}
                 control={control}
                 rules={{ required: formData[field].required }}
@@ -69,11 +68,8 @@ function UserForm(props) {
             invert={true}
             labelWidth={70}
             items={formData[field].items}
-            // value={typeof formData[field] === "string" ? formData[field] : formData[field].id}
-            // handleChange={handleSelectChange}
             control={control}
             errors={errors[field]}
-            defaultValue={formData[field].defaultValue}
           />
         );
       } else if (!!formData[field]) {
@@ -82,7 +78,6 @@ function UserForm(props) {
             <Controller
               as={
                 <TextField
-                  id="student-name"
                   label={formData[field].label}
                   variant="outlined"
                   className={"dark-purple-text textfield-outlined"}
@@ -90,7 +85,6 @@ function UserForm(props) {
                   type={formData[field].type}
                 />
               }
-              // onChange={handleChange}
               name={field}
               control={control}
               rules={{ required: formData[field].required }}
@@ -103,19 +97,15 @@ function UserForm(props) {
   };
 
   const generateAcademicLevels = () => {
-    if (accountType === "student") {
+    if (accountType === "Student") {
       return (
-        // Using SelectInput component
-
         <SelectInput
           name="academic_level"
           label="Grados"
           invert={true}
           labelWidth={70}
           items={grades}
-          // handleChange={handleSelectChange}
           control={control}
-          defaultValue={grades[0]}
           errors={errors["academic_level"]}
         />
       );
@@ -124,8 +114,36 @@ function UserForm(props) {
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
-    props.userCreate(data);
+    isEdit ? props.userEdit(data, userId) : props.userCreate(data);
   };
+
+  useEffect(() => {
+    //fetch user if route params contain user id
+    if (isEdit && Number.isInteger(userId)) {
+      props.fetchUser(userId);
+      delete formData.email;
+      delete formData.password;
+      delete formData.password_confirmation;
+    }
+
+    if (props.error) {
+      props.userNotFoundError(props);
+    }
+    //remove password field, will use different form to change passwords
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // if (!props.isAdmin) delete formData.role;
+  }, []);
+
+  useEffect(() => {
+    if (props.centers.length === 0) {
+      props.fetchCenters();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    reset(formDefaultValues);
+  }, [formDefaultValues]);
 
   return (
     <div className="user-form-container">
@@ -133,11 +151,12 @@ function UserForm(props) {
         <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
         {generateNameFields()}
         <div className="details-inputs">
-          {generateOtherFields()} {generateAcademicLevels()}
+          {generateOtherFields()}
+          {generateAcademicLevels()}
         </div>
 
         <div className="flex-end">
-          <input type="submit" className="primary-btn " value="Guardar" />
+          <input type="submit" className="primary-btn" value="Guardar" />
         </div>
       </form>
     </div>
@@ -147,13 +166,20 @@ function UserForm(props) {
 let mapStateToProps = (state) => {
   return {
     loading: state.users.loading,
-    centers: state.centers.centers
+    error: state.users.error,
+    centers: state.centers.centers,
+    formDefaultValues: state.users.defaultValues,
+    currentUser: state.users.currentUser,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
     userCreate: (data) => dispatch(userCreate(data)),
+    userEdit: (data, userId) => dispatch(userEdit(data, userId)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+    fetchCenters: () => dispatch(fetchCenters()),
+    userNotFoundError: (props) => dispatch(userNotFoundError(props)),
   };
 };
 

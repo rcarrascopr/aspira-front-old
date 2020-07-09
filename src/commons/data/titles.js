@@ -1,1 +1,1 @@
-export default ["admin", "teacher", "student"]
+export default ["Admin", "Teacher", "Student"];

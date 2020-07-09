@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import ProductListItem from "./ProductListItem";
 
 import { withRouter } from "react-router-dom";
+import CourseContext from "../../../contexts/CourseContext";
 
 function ProductList(props) {
+  const course = useContext(CourseContext);
+
   const handleClick = () => {
     props.history.push("/utis/1/products/create");
   };
+
   const generateProductListItems = () => {
-    return props.products.map((product) => {
-      return <ProductListItem {...product} />;
-    });
+    if (!!course) {
+      return course.products.map((product) => {
+        console.log(product);
+        return <ProductListItem {...product} />;
+      });
+    }
   };
+
   return (
     <div className="product-list">
       <div className="product-list-header">
@@ -25,5 +33,4 @@ function ProductList(props) {
     </div>
   );
 }
-
 export default withRouter(ProductList);
