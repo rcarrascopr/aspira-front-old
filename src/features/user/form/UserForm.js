@@ -24,7 +24,7 @@ function UserForm(props) {
   });
 
   const userId = parseInt(props.match.params.id, 10);
-  const accountType = watch("account_type");
+  const accountType = watch("role");
   const nameFields = Object.keys(formData).slice(0, 4);
   const others = Object.keys(formData);
   const otherFields = others.slice(4, others.length);
@@ -97,10 +97,8 @@ function UserForm(props) {
   };
 
   const generateAcademicLevels = () => {
-    if (accountType === "student") {
+    if (accountType === "Student") {
       return (
-        // Using SelectInput component
-
         <SelectInput
           name="academic_level"
           label="Grados"
@@ -122,20 +120,18 @@ function UserForm(props) {
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
-      debugger;
       props.fetchUser(userId);
+      delete formData.email;
+      delete formData.password;
+      delete formData.password_confirmation;
     }
 
-    if (props.error && props.isAdmin) {
-      props.history.push("/admin");
-    } else if (props.error) {
+    if (props.error) {
       props.userNotFoundError(props);
     }
     //remove password field, will use different form to change passwords
-    delete formData.password;
-    delete formData.password_confirmation;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    if (!props.isAdmin) delete formData.account_type;
+    // if (!props.isAdmin) delete formData.role;
   }, []);
 
   useEffect(() => {
@@ -155,7 +151,8 @@ function UserForm(props) {
         <h1 className="dark-purple-text text-align-center">Crear cuenta</h1>
         {generateNameFields()}
         <div className="details-inputs">
-          {generateOtherFields()} {generateAcademicLevels()}
+          {generateOtherFields()}
+          {generateAcademicLevels()}
         </div>
 
         <div className="flex-end">
