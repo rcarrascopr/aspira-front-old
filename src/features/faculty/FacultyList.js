@@ -4,7 +4,7 @@ import SelectInput from "../../commons/inputs/SelectInput";
 import { PersonListContainer } from "../../commons/person list/PersonListContainer";
 // import fake_students from "../../commons/fake_students";
 
-import titles from "../../commons/data/titles";
+import { facultyTitles } from "../../commons/data/titles";
 import centers from "../../commons/data/centers";
 
 import { filterPeople, last_name, name } from "../../commons/sort_methods";
@@ -21,22 +21,22 @@ export const FacultyList = (props) => {
       sorted_faculty = props.faculty;
     }
 
-    if (props.formData.sortBy === "Apellido") {
-      sorted_faculty = sorted_faculty.sort(last_name);
-    } else {
-      sorted_faculty = sorted_faculty.sort(name);
-    }
-
-    if (props.formData.grade !== "Todos") {
+    if (props.formData.title !== "Todos") {
       sorted_faculty = sorted_faculty.filter(
-        (faculty) => faculty.academic_level == props.formData.grade
+        (faculty) => faculty.role == props.formData.title
       );
     }
 
     if (props.formData.center !== "Todos") {
       sorted_faculty = sorted_faculty.filter(
-        (faculty) => faculty.center.name == props.formData.center
+        (faculty) => faculty.center.id == props.formData.center
       );
+    }
+
+    if (props.formData.sortBy === "Apellido") {
+      sorted_faculty = sorted_faculty.sort(last_name);
+    } else {
+      sorted_faculty = sorted_faculty.sort(name);
     }
 
     return (
@@ -85,7 +85,7 @@ export const FacultyList = (props) => {
           invert={true}
           value={props.formData.grade}
           labelWidth={50}
-          items={["Todos", ...titles]}
+          items={["Todos", ...facultyTitles]}
           handleChange={props.handleChange}
         />
         <div className="search-form">

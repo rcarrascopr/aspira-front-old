@@ -27,7 +27,6 @@ export const StudentList = (props) => {
       sorted_students = sorted_students.sort(name);
     }
 
-    
     if (props.formData.grade !== "Todos") {
       sorted_students = sorted_students.filter(
         (student) => student.academic_level == props.formData.grade
@@ -35,9 +34,9 @@ export const StudentList = (props) => {
     }
 
     if (props.formData.center !== "Todos") {
-      sorted_students = sorted_students.filter(
-        (student) => student.center.name == props.formData.center
-      );
+      sorted_students = sorted_students.filter((student) => {
+        return student.center.id == props.formData.center;
+      });
     }
 
     return (
