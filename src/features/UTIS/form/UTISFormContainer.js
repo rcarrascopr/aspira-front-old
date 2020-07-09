@@ -16,7 +16,7 @@ import { setUTISFormData, createCourse } from "../../../actions/utisActions";
 import "./UTISForm.css";
 import "../../products/form/ProductFormContainer.css";
 
-export const UTISFormContainer2 = (props) => {
+export const UTISFormContainer = (props) => {
   const {
     centers,
     centerWithStudents,
@@ -187,4 +187,4 @@ const mapDispatchToProps = (dispatch) => ({
   createCourse: (formData) => dispatch(createCourse(formData)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UTISFormContainer2);
+export default connect(mapStateToProps, mapDispatchToProps)(UTISFormContainer);
