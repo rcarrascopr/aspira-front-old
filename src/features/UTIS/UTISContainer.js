@@ -11,7 +11,7 @@ import { grade_ascending, grade_descending } from "../../commons/sort_methods";
 
 import { fetchCenters } from "../../actions/centerActions";
 
-const UTISContainer = ({ centers }) => {
+const UTISContainer = (props) => {
   const [buttonStates, setButtonStates] = useState({
     "socio-humanístico": true,
     "científico-técnico": true,
@@ -21,12 +21,14 @@ const UTISContainer = ({ centers }) => {
   });
 
   const [sortBy, setSortBy] = useState("Grado - (ascendiente ↑)");
-  const [currentCenter, setCurrentCenter] = useState("");
-  const [courses, setCourses] = useState("");
+  const [currentCenter, setCurrentCenter] = useState();
+  const [courses, setCourses] = useState([]);
 
   const handleChange = (event) => {
-    const selectedCenter = centers.find((c) => c.id === event.target.value);
-    console.log("Center selected: ", selectedCenter);
+    const selectedCenter = props.centers.find(
+      (c) => c.id === event.target.value
+    );
+    // console.log("Center selected: ", selectedCenter);
     setCurrentCenter(selectedCenter);
   };
 
@@ -36,7 +38,7 @@ const UTISContainer = ({ centers }) => {
 
   useEffect(() => {
     fetchCenters();
-  }, [centers]);
+  }, []);
 
   useEffect(() => {
     //Set sorting method
@@ -47,8 +49,14 @@ const UTISContainer = ({ centers }) => {
       sort_method = grade_descending;
     }
     //get courses from selected center
-    setCourses(currentCenter.courses);
-  }, [buttonStates, currentCenter.courses, sortBy]);
+    if (currentCenter) {
+      setCourses(
+        currentCenter.courses
+          .filter((course) => buttonStates[course.category.toLowerCase()])
+          .sort(sort_method)
+      );
+    }
+  }, [buttonStates, sortBy, currentCenter]);
 
   const handleClick = (event) => {
     setButtonStates({
@@ -58,10 +66,12 @@ const UTISContainer = ({ centers }) => {
   };
 
   const renderCourses = () => {
-    if (!!courses) {
+    if (courses.length > 0) {
       return <CoursesContainer courses={courses} setCourses={setCourses} />;
     } else {
-      return <h2>Por favor seleccione un centro.</h2>;
+      return (
+        <h2 className="dark-purple-text">Por favor seleccione un centro.</h2>
+      );
     }
   };
 
@@ -73,9 +83,9 @@ const UTISContainer = ({ centers }) => {
           label="Centro"
           invert={true}
           labelWidth={50}
-          items={centers}
+          items={props.centers}
           handleChange={handleChange}
-          value={centers[0]}
+          value={currentCenter}
         />
         <SelectInput
           name="sortBy"
