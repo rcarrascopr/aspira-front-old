@@ -1,5 +1,5 @@
 export default function centersReducer(
-  state = { loading: false, centers: [], centerWithStudents: "" },
+  state = { loading: false, centers: [], centerWithStudents: {} },
   action
 ) {
   switch (action.type) {
