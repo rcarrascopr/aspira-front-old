@@ -2,6 +2,8 @@ import React from "react";
 
 import { NameCircle } from "../../commons/NameCircle";
 
+import { Link } from "react-router-dom";
+
 import CoursesListContainer from "../../commons/courses list/CoursesListContainer";
 
 export default function FacultyDetails(props) {
@@ -57,7 +59,12 @@ export default function FacultyDetails(props) {
         )}
       </div>
       <div className="student-details-buttons dark-purple-text">
-        <a className="lined-button">Editar</a>
+        <Link
+          className="lined-button"
+          to={`/users/${props.currentFaculty.id}/edit`}
+        >
+          Editar
+        </Link>
         <a className="lined-button">
           <img src="/assets/trash_icon.png" alt="" />
         </a>
