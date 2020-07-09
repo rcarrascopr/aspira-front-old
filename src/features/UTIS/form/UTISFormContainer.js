@@ -16,7 +16,7 @@ import { setUTISFormData, createCourse } from "../../../actions/utisActions";
 import "./UTISForm.css";
 import "../../products/form/ProductFormContainer.css";
 
-export const UTISFormContainer = (props) => {
+const UTISFormContainer = (props) => {
   const {
     centers,
     centerWithStudents,
@@ -36,7 +36,7 @@ export const UTISFormContainer = (props) => {
   });
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const students = centerWithStudents.students;
+  const students = centerWithStudents ? centerWithStudents.students : [];
 
   const contextObjects = {
     control,
@@ -65,7 +65,7 @@ export const UTISFormContainer = (props) => {
     const centerId = utisFormData.center_id;
     if (centerId) fetchStudentsFromCenter(centerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchStudentsFromCenter, utisFormData.center_id]);
+  }, [utisFormData.center_id]);
 
   useEffect(() => {
     reset(utisFormData);
@@ -110,7 +110,6 @@ export const UTISFormContainer = (props) => {
 
   /* Beginning of code for button navigation and keeping track of current step in the form process */
   const handleClick = (name) => {
-    console.log("button name: ", name);
     if (name === "previous" && currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else if (name === "next" && currentStep <= 0) {
@@ -157,11 +156,7 @@ export const UTISFormContainer = (props) => {
           {generateForm()}
         </Paper>
         <div className="utis-details-options">
-          <div className="side-tabs">
-            <p>Current Step: {currentStep}</p>
-
-            {generateTabs()}
-          </div>
+          <div className="side-tabs">{generateTabs()}</div>
           <div className="utis-details-button-group"> {generateButtons()}</div>
         </div>
       </form>
