@@ -16,9 +16,9 @@ const initialState = {
     center_id: 1,
     academic_level: "9",
     badge_id: "",
-    gender: "",
+    gender: "M",
     phone_number: "",
-    residence_municipality: "",
+    residence_municipality: "Carolina",
   },
 };
 
