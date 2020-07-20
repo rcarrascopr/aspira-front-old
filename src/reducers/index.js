@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 // import reducers
 import centersReducer from "./centersReducer";
+import eventsReducer from "./eventsReducer";
 import productFormReducer from "./productFormReducer";
 import productsReducer from "./productsReducer";
 import skillsReducer from "./skillsReducer";
@@ -12,6 +13,7 @@ import utisReducer from "./utisReducer";
 
 const rootReducer = combineReducers({
   centers: centersReducer,
+  events: eventsReducer,
   productForm: productFormReducer,
   products: productsReducer,
   semesters: semestersReducer,
