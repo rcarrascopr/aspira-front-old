@@ -1,44 +1,25 @@
 import React, { useState } from "react";
 
 import EventsListContainer from "./EventsListContainer";
-import EventsShow from "./EventsShow";
-import SemesterShow from "./SemesterShow";
+import EventSemesterDetails from "./EventSemesterDetails";
+
+import { SelectInput } from "../../commons/inputs/SelectInput";
+
+import centers from "../../commons/data/centers";
 
 import "./EventsContainer.css";
 
-const events = [
-  {
-    id: 1,
-    name: "Receso navideño",
-    category: "general",
-    description: "Empezamos la navidad.",
-    date: "27 de Febrero de 2020",
-  },
-  {
-    id: 2,
-    name: "Semana de la puertorriqueñidad",
-    category: "faculty",
-    description: "Celebramos nuestras raices.",
-    date: "27 de Febrero de 2020",
-  },
-  {
-    id: 3,
-    name: "Dia de la amistad",
-    category: "administration",
-    description: "Celebramos la amistad. Feriado.",
-    date: "27 de Febrero de 2020",
-  },
-  {
-    id: 4,
-    name: "Semana de acción de gracia",
-    category: "general",
-    description: "Damos las gracias por lo que tenemos.",
-    date: "27 de Febrero de 2020",
-  },
-];
+import events from "../../commons/data/events";
 
 export default function EventsContainer() {
+  const [currentCenter, setCurrentCenter] = useState(events[0].id);
   const [activeTab, setActiveTab] = useState("Eventos próximos");
+  const [currentEvent, setCurrentEvent] = useState({});
+  const [cardContent, setCardContent] = useState("");
+
+  const handleChange = (event) => {
+    setCurrentCenter(event.target.value);
+  };
 
   return (
     <section className="events-container">
@@ -46,10 +27,26 @@ export default function EventsContainer() {
         events={events}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        currentEvent={currentEvent}
+        setCurrentEvent={setCurrentEvent}
+        setCardContent={setCardContent}
+        currentCenter={currentCenter}
       />
-      <EventsShow event={{}} />
-
-     
+      <section className="event-semester-details">
+        <SelectInput
+          name="center"
+          label="Centro"
+          value={currentCenter}
+          labelWidth={50}
+          items={centers}
+          handleChange={handleChange}
+        />
+        <EventSemesterDetails
+          activeTab={activeTab}
+          cardContent={cardContent}
+          currentCenter={currentCenter}
+        />
+      </section>
     </section>
   );
 }

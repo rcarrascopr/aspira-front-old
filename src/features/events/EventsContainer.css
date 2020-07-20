@@ -1,6 +1,8 @@
 .events-container {
-  padding: 80px;
+  padding: 30px;
   background-color: var(--events-purple);
+  display: flex;
+  justify-content: space-around;
 }
 
 .events-list-container {
@@ -65,4 +67,18 @@
 
 .event-item-content p {
   margin: 3px;
+}
+
+.event-card {
+  margin-top: 30px;
+  height: 600px;
+  max-width: 610px;
+  min-width: 580px;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

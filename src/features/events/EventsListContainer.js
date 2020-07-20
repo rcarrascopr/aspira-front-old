@@ -2,10 +2,9 @@ import React, { useState } from "react";
 
 import Event from "./Event";
 
+
 export default function EventsListContainer(props) {
   const tabs = ["Eventos próximos", "Eventos", "Año escolar"];
-
-  const handleClick = (event) => {};
 
   const generateTabs = () => {
     return tabs.map((tab) => (
@@ -26,11 +25,19 @@ export default function EventsListContainer(props) {
     });
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    props.setCurrentEvent({});
+    props.setCardContent("create");
+  };
+
   return (
     <div className="events-list-container">
       <ul className="events-tabs-container">{generateTabs()}</ul>
       <ul className="events-list">{generateEvents()}</ul>
-      <a className="secondary-btn-outline">Crear Evento</a>
+      <a className="secondary-btn-outline" onClick={handleClick}>
+        Crear Evento
+      </a>
     </div>
   );
 }
