@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Event from "./Event";
 
-
 export default function EventsListContainer(props) {
   const tabs = ["Eventos próximos", "Eventos", "Año escolar"];
 
@@ -21,7 +20,7 @@ export default function EventsListContainer(props) {
 
   const generateEvents = () => {
     return props.events.map((event) => {
-      return <Event event={event} />;
+      return <Event event={event} setCurrentEvent={props.setCurrentEvent} />;
     });
   };
 
@@ -34,7 +33,7 @@ export default function EventsListContainer(props) {
   return (
     <div className="events-list-container">
       <ul className="events-tabs-container">{generateTabs()}</ul>
-      <ul className="events-list">{generateEvents()}</ul>
+      <ul className="events-list scrollable">{generateEvents()}</ul>
       <a className="secondary-btn-outline" onClick={handleClick}>
         Crear Evento
       </a>
