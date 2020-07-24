@@ -11,7 +11,7 @@ export default function eventsReducer(
     case "LOADING_EVENTS":
       return { ...state, loading: true };
     case "FETCH_EVENTS":
-      return { ...state, courses: [...action.payload], loading: false };
+      return { ...state, events: [...action.payload], loading: false };
     //   case "SET_UTIS_FORM_DATA":
     //     return { ...state, utisFormData: action.payload, loading: false };
     case "CREATE_EVENT":
