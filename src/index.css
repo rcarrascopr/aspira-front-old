@@ -104,6 +104,14 @@ a {
   align-items: center;
 }
 
+.name-circle.medium {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px 20px;
+  font-size: 0.7em;
+}
+
 .name-circle.small {
   height: 30px;
   width: 30px;
