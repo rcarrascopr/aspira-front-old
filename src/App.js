@@ -7,13 +7,14 @@ import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
 import { DashboardContainer } from "./features/dashboard/DashboardContainer";
-import UTISContainer from "./features/UTIS/UTISContainer";
-import UTISFormContainer from "./features/UTIS/form/UTISFormContainer";
+import CoursesParentContainer from "./features/courses/CoursesParentContainer";
+import UTISFormContainer from "./features/courses/form/UTISFormContainer";
 import StudentsContainer from "./features/students/StudentsContainer";
 import FacultyContainer from "./features/faculty/FacultyContainer";
 import UserForm from "./features/user/form/UserForm";
 import EmailPasswordForm from "./features/user/form/EmailPasswordForm";
-import UTISShowContainer from "./features/UTIS/show page/UTISShowContainer";
+import CoursesShowContainer from "./features/courses/show page/CoursesShowContainer";
+// import UTISShowContainer from "./features/courses/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
 
@@ -51,18 +52,18 @@ function App(props) {
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />
           <PrivateRoute path="/centers" component={CenterContainer} />
-          <PrivateRoute path="/utis/create" component={UTISFormContainer} />
+          <PrivateRoute path="/cursos/create" component={UTISFormContainer} />
           <PrivateRoute
-            path="/utis/:id/products/create"
+            path="/cursos/:id/products/create"
             component={ProductFormContainer}
           />
           <PrivateRoute
-            path="/utis/:id/products/:productid"
+            path="/cursos/:id/products/:productid"
             component={Product}
           />
-          <PrivateRoute path="/utis/:id/edit" component={UTISFormContainer} />
-          <PrivateRoute path="/utis/:id" component={UTISShowContainer} />
-          <PrivateRoute path="/utis" component={UTISContainer} />
+          <PrivateRoute path="/cursos/:id/edit" component={UTISFormContainer} />
+          <PrivateRoute path="/cursos/:id" component={CoursesShowContainer} />
+          <PrivateRoute path="/cursos" component={CoursesParentContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
           <PrivateRoute path="/estudiantes" component={StudentsContainer} />
           <PrivateRoute path="/:facultad/create" component={UserForm} />

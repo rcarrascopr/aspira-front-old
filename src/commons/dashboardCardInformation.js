@@ -8,7 +8,7 @@ export default [
     icon: "/assets/icon_faculty.png",
   },
   {
-    title: "UTIS",
+    title: "Cursos",
     icon: "/assets/icon_UTIS.png",
   },
   {
