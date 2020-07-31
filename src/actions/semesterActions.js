@@ -31,3 +31,38 @@ export function fetchSemester(id) {
       .catch((error) => console.log(error));
   };
 }
+
+export function createSemester(formData) {
+  console.log("CREATE ACTION", JSON.stringify({ semester: formData }));
+  const url = `${api_url}semesters`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_SEMESTERS" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ semester: formData }),
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "CREATE_SEMESTER", payload: data }));
+  };
+}
+
+export function editSemester(semesterId, formData) {
+  const url = `${api_url}semesters/${semesterId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_SEMESTERS" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "PATCH",
+      body: JSON.stringify({ semester: formData }),
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "EDIT_SEMESTER", payload: data }));
+  };
+}
