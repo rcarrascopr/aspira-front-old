@@ -74,7 +74,7 @@ const UTISContainer = (props) => {
   };
 
   const renderCourses = () => {
-    if (courses.length > 0) {
+    if (currentCenter) {
       return <CoursesContainer courses={courses} setCourses={setCourses} />;
     } else {
       return (
