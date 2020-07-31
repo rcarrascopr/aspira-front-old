@@ -5,18 +5,21 @@ import { withRouter } from "react-router-dom";
 
 import { TextField } from "@material-ui/core";
 
-import { SelectInput } from "../../../commons/inputs/SelectInput";
-import Error from "../../../commons/inputs/Error";
+import { SelectInput } from "../../../../commons/inputs/SelectInput";
+import Error from "../../../../commons/inputs/Error";
 
-import { eventFormData as formData } from "../../../commons/form-data/eventFormData";
+import { semesterFormData as formData } from "../../../../commons/form-data/semesterFormData";
 
-import "./EventForm.css";
+import {
+  createSemester,
+  editSemester,
+} from "../../../../actions/semesterActions";
 
-import { createEvent, editEvent } from "../../../actions/eventActions";
-
-function EventForm(props) {
+function SemesterForm(props) {
   const { control, errors, handleSubmit, watch, reset } = useForm(
-    props.event && props.event.name ? { defaultValues: props.event } : {}
+    props.semester && props.semester.name
+      ? { defaultValues: props.semester }
+      : {}
   );
 
   const fieldNames = Object.keys(formData);
@@ -36,33 +39,6 @@ function EventForm(props) {
                   type={formData[field].type}
                 />
               }
-              name={field}
-              control={control}
-              rules={{ required: formData[field].required }}
-            />
-            <Error errors={errors[field]} />
-          </div>
-        );
-      } else if (!!formData[field] && formData[field].type === "textarea") {
-        return (
-          <div
-            className="textfield-input"
-            style={{ width: "400px" }}
-            key={index}
-          >
-            <Controller
-              as={
-                <TextField
-                  id={field}
-                  label={formData[field].label}
-                  variant="outlined"
-                  rows={4}
-                  multiline
-                  className={"dark-purple-text textfield-outlined"}
-                  error={errors[field]}
-                />
-              }
-              // onChange={handleChange}
               name={field}
               control={control}
               rules={{ required: formData[field].required }}
@@ -107,11 +83,10 @@ function EventForm(props) {
   };
 
   const onSubmit = (data, e) => {
-    let event = { ...data, center_id: props.center_id };
-    console.log(`Submitted data: `, event, `\n Event: `, e);
-    props.event && props.event.name
-      ? props.editEvent(props.event.id, event)
-      : props.createEvent(event);
+    console.log(`Submitted data: `, data, `\n Semester: `, e);
+    props.semester && props.semester.name
+      ? props.editSemester(props.semester.id, data)
+      : props.createSemester(data);
   };
 
   return (
@@ -134,9 +109,10 @@ function EventForm(props) {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    createEvent: (formData) => dispatch(createEvent(formData)),
-    editEvent: (eventId, formData) => dispatch(editEvent(eventId, formData)),
+    createSemester: (formData) => dispatch(createSemester(formData)),
+    editSemester: (semesterId, formData) =>
+      dispatch(editSemester(semesterId, formData)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(EventForm));
+export default connect(null, mapDispatchToProps)(withRouter(SemesterForm));

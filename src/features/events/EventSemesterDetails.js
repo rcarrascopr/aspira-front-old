@@ -1,7 +1,8 @@
 import React from "react";
 
 import EventsShow from "./EventsShow";
-import SemesterShow from "./SemesterShow";
+import SemesterShow from "./semesters/SemesterShow";
+import SemesterForm from "./semesters/form/SemesterForm";
 import EventForm from "./form/EventForm";
 
 export default function EventSemesterDetails(props) {
@@ -32,7 +33,7 @@ export default function EventSemesterDetails(props) {
         props.activeTab === "Eventos"
       ) {
         if (props.cardContent == "create") {
-          return <EventForm center_id={props.currentCenter} />;
+          return <EventForm event={{}} center_id={props.currentCenter} />;
         } else if (props.cardContent == "edit") {
           return (
             <EventForm
@@ -41,12 +42,25 @@ export default function EventSemesterDetails(props) {
             />
           );
         } else if (props.cardContent == "show") {
-          return <EventsShow event={props.currentEvent} />;
+          return (
+            <EventsShow
+              event={props.currentEvent}
+              setCardContent={props.setCardContent}
+            />
+          );
         }
       } else {
         if (props.cardContent == "create") {
+          return <SemesterForm semester={{}} />;
         } else if (props.cardContent == "edit") {
+          return <SemesterForm semester={props.currentSemester} />;
         } else if (props.cardContent == "show") {
+          return (
+            <SemesterShow
+              semester={props.currentSemester}
+              setCardContent={props.setCardContent}
+            />
+          );
         }
       }
     }

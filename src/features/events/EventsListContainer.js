@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-import Event from "./Event";
+import * as moment from "moment";
+
+import EventsList from "./EventsList";
+import SemesterList from "./semesters/SemestersList";
 
 export default function EventsListContainer(props) {
   const tabs = ["Eventos próximos", "Eventos", "Año escolar"];
@@ -18,24 +21,55 @@ export default function EventsListContainer(props) {
     ));
   };
 
-  const generateEvents = () => {
-    return props.events.map((event) => {
-      return <Event event={event} setCurrentEvent={props.setCurrentEvent} />;
-    });
+  function onCurrentWeek(date) {
+    let differenceInDays = moment(date).diff(moment(), "days");
+
+    return differenceInDays >= 0 && differenceInDays <= 6;
+  }
+
+  const generateItems = () => {
+    if (props.activeTab === "Año escolar") {
+      return (
+        <SemesterList
+          semesters={props.semesters}
+          setCurrentSemester={props.setCurrentSemester}
+        />
+      );
+    } else {
+      let sortedEvents = props.events.sort((a, b) =>
+        ("" + b.date).localeCompare(a.date)
+      );
+      if (props.activeTab === "Eventos próximos") {
+        return (
+          <EventsList
+            events={sortedEvents.filter((event) => onCurrentWeek(event.date))}
+            setCurrentEvent={props.setCurrentEvent}
+          />
+        );
+      } else {
+        return (
+          <EventsList
+            events={sortedEvents}
+            setCurrentEvent={props.setCurrentEvent}
+          />
+        );
+      }
+    }
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     props.setCurrentEvent({});
+    props.setCurrentSemester({});
     props.setCardContent("create");
   };
 
   return (
     <div className="events-list-container">
       <ul className="events-tabs-container">{generateTabs()}</ul>
-      <ul className="events-list scrollable">{generateEvents()}</ul>
+      {generateItems()}
       <a className="secondary-btn-outline" onClick={handleClick}>
-        Crear Evento
+        Crear {props.activeTab === "Año escolar" ? "Semestre" : "evento"}
       </a>
     </div>
   );

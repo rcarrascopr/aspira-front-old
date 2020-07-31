@@ -16,9 +16,10 @@ import { fetchEvents } from "../../actions/eventActions";
 import { fetchSemesters } from "../../actions/semesterActions";
 
 function EventsContainer(props) {
-  const [currentCenter, setCurrentCenter] = useState(events[0].id);
+  const [currentCenter, setCurrentCenter] = useState(centers[0].id);
   const [activeTab, setActiveTab] = useState("Eventos próximos");
   const [currentEvent, setCurrentEvent] = useState({});
+  const [currentSemester, setCurrentSemester] = useState({});
   const [cardContent, setCardContent] = useState("");
 
   useEffect(() => {
@@ -30,40 +31,57 @@ function EventsContainer(props) {
 
   useEffect(() => {
     if (!(cardContent == "show" || cardContent == "edit")) {
+      // if (currentEvent.id) {
       setCurrentEvent({});
+      // }
+      // if (currentSemester.id) {
+      setCurrentSemester({});
+      // }
     }
   }, [activeTab, currentCenter, cardContent]);
 
   useEffect(() => {
-    if (currentEvent.name) {
+    if (!!(currentEvent.name || currentSemester.name)) {
       setCardContent("show");
     }
-  }, [currentEvent]);
+  }, [currentEvent, currentSemester]);
+
+  useEffect(() => {
+    setCardContent("");
+  }, [activeTab]);
 
   const handleChange = (event) => {
     setCurrentCenter(event.target.value);
   };
 
+
   return (
     <section className="events-container">
       <EventsListContainer
-        events={props.events}
+        events={props.events.filter(
+          (event) => event.center.id === currentCenter
+        )}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentEvent={currentEvent}
         setCurrentEvent={setCurrentEvent}
         setCardContent={setCardContent}
         currentCenter={currentCenter}
+        semesters={props.semesters}
+        setCurrentSemester={setCurrentSemester}
       />
       <section className="event-semester-details">
-        <SelectInput
-          name="center"
-          label="Centro"
-          value={currentCenter}
-          labelWidth={50}
-          items={centers}
-          handleChange={handleChange}
-        />
+        {activeTab != "Año escolar" && (
+          <SelectInput
+            name="center"
+            label="Centro"
+            value={currentCenter}
+            labelWidth={50}
+            items={centers}
+            handleChange={handleChange}
+          />
+        )}
+
         <EventSemesterDetails
           activeTab={activeTab}
           cardContent={cardContent}
@@ -71,6 +89,7 @@ function EventsContainer(props) {
           currentCenter={currentCenter}
           currentEvent={currentEvent}
           semesters={props.semesters}
+          currentSemester={currentSemester}
         />
       </section>
     </section>
