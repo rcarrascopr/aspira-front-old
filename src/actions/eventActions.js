@@ -28,14 +28,12 @@ export function createEvent(formData) {
       body: JSON.stringify({ event: formData }),
     })
       .then((response) => response.json())
-      .then((data) =>
-        dispatch({ type: "CREATE_EVENT", payload: data })
-      );
+      .then((data) => dispatch({ type: "CREATE_EVENT", payload: data }));
   };
 }
 
 export function editEvent(eventId, formData) {
-  const url = `${api_url}event/${eventId}`;
+  const url = `${api_url}events/${eventId}`;
   return (dispatch) => {
     dispatch({ type: "LOADING_EVENTS" });
     return fetch(url, {
@@ -43,6 +41,8 @@ export function editEvent(eventId, formData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+      method: "PATCH",
+      body: JSON.stringify({ event: formData }),
     })
       .then((response) => response.json())
       .then((data) => dispatch({ type: "EDIT_EVENT", payload: data }));
