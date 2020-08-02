@@ -44,8 +44,11 @@ export function logoutAction() {
 export function userCreate(data) {
   return (dispatch) => {
     dispatch({ type: "LOADING_USER" });
+
     return fetch(
-      `${api_url}${data.role === "admin" ? "signup" : data.role + "s"}`,
+      `${api_url}${
+        data.role === "Admin" ? "signup" : data.role.toLowerCase() + "s"
+      }`,
       {
         method: "POST",
         headers: {
