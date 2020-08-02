@@ -8,6 +8,7 @@ export default function EventsShow(props) {
   return (
     <section className="events-show">
       <h2>{props.event.date}</h2>
+      <p>Centro: {props.event.center.name}</p>
       <p>{props.event.name}</p>
       <p>{props.event.description}</p>
       <p>
