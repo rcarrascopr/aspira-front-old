@@ -23,7 +23,7 @@ const CoursesContainer = (props) => {
   };
   return (
     <section className="courses-container">
-      <h1>Unidades Temáticas Integradas (UTIS)</h1>
+      <h1>Cursos</h1>
 
       <div className="card-group">
         <div
