@@ -21,10 +21,10 @@ export default function EventsListContainer(props) {
     ));
   };
 
-  function onCurrentWeek(date) {
+  function on2Weeks(date) {
     let differenceInDays = moment(date).diff(moment(), "days");
 
-    return differenceInDays >= 0 && differenceInDays <= 6;
+    return differenceInDays >= 0 && differenceInDays <= 13;
   }
 
   const generateItems = () => {
@@ -42,7 +42,7 @@ export default function EventsListContainer(props) {
       if (props.activeTab === "Eventos próximos") {
         return (
           <EventsList
-            events={sortedEvents.filter((event) => onCurrentWeek(event.date))}
+            events={sortedEvents.filter((event) => on2Weeks(event.date))}
             setCurrentEvent={props.setCurrentEvent}
           />
         );
