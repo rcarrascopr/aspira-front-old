@@ -1,6 +1,7 @@
 .user-form-container {
     background-color: var(--students-purple);
     padding: 30px 200px;
+    height: 100%;
 }
 
 .user-form {
