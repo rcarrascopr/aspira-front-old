@@ -6,6 +6,7 @@ export default function studentsReducer(
     case "LOADING_STUDENTS":
       return { ...state, loading: true };
     case "FETCH_STUDENTS":
+      console.log(action.payload)
       return { ...state, students: [...action.payload], loading: false };
     case "FETCH_STUDENT":
       return { ...state, currentStudent: action.payload, loading: false };
