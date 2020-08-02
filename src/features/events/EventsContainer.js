@@ -16,7 +16,7 @@ import { fetchEvents } from "../../actions/eventActions";
 import { fetchSemesters } from "../../actions/semesterActions";
 
 function EventsContainer(props) {
-  const [currentCenter, setCurrentCenter] = useState(centers[0].id);
+  const [currentCenter, setCurrentCenter] = useState("Todos");
   const [activeTab, setActiveTab] = useState("Eventos próximos");
   const [currentEvent, setCurrentEvent] = useState({});
   const [currentSemester, setCurrentSemester] = useState({});
@@ -55,10 +55,11 @@ function EventsContainer(props) {
   };
 
 
+
   return (
     <section className="events-container">
       <EventsListContainer
-        events={props.events.filter(
+        events={currentCenter === "Todos" ? props.events : props.events.filter(
           (event) => event.center.id === currentCenter
         )}
         activeTab={activeTab}
@@ -77,7 +78,7 @@ function EventsContainer(props) {
             label="Centro"
             value={currentCenter}
             labelWidth={50}
-            items={centers}
+            items={["Todos", ...centers]}
             handleChange={handleChange}
           />
         )}
