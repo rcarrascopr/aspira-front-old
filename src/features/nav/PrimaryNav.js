@@ -9,7 +9,7 @@ export const PrimaryNav = (props) => {
   const handleLogout = () => {
     props.logout().then(() => {
       if (!localStorage.getItem("token")) {
-        props.history.push("/");
+        props.history.push("/login");
       }
     });
   };
