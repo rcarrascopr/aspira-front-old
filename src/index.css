@@ -173,6 +173,31 @@ hr {
   opacity: 0.4;
 }
 
+/* events purple scrollable */
+.events-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.events-scrollable::-webkit-scrollbar-track {
+  background-color: #2a5894;
+  border-radius: 10px;
+  border: 3px solid var(--events-purple);
+}
+
+/* Handle */
+.events-scrollable::-webkit-scrollbar-thumb {
+  background: #2a5894;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.events-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #557fb6;
+}
+
+/* scrollable on white background */
+
 .scrollable::-webkit-scrollbar {
   width: 8px;
 }
@@ -432,4 +457,8 @@ ul {
 
 .pointer {
   cursor: pointer;
+}
+
+.font-weight-normal {
+  font-weight: 400 !important;
 }

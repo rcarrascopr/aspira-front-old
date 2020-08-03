@@ -10,5 +10,5 @@ export default function EventsList(props) {
       );
     });
   };
-  return <ul className="events-list scrollable">{generateEvents()}</ul>;
+  return <ul className="events-list events-scrollable">{generateEvents()}</ul>;
 }
