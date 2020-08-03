@@ -21,13 +21,17 @@ const CoursesParentContainer = (props) => {
   });
 
   const [sortBy, setSortBy] = useState("Grado - (ascendiente ↑)");
-  const [currentCenter, setCurrentCenter] = useState();
+  const [currentCenter, setCurrentCenter] = useState("Todos");
   const [courses, setCourses] = useState([]);
 
   const handleChange = (event) => {
-    const selectedCenter = props.centers.find(
-      (c) => c.id === event.target.value
-    );
+    let selectedCenter;
+    if (event.target.value === "Todos") {
+      selectedCenter = "Todos";
+    } else {
+      selectedCenter = props.centers.find((c) => c.id === event.target.value);
+    }
+
     // console.log("Center selected: ", selectedCenter);
     setCurrentCenter(selectedCenter);
   };
@@ -58,11 +62,24 @@ const CoursesParentContainer = (props) => {
     }
     //get courses from selected center
     if (currentCenter) {
-      setCourses(
-        currentCenter.courses
-          .filter((course) => buttonStates[course.category.toLowerCase()])
-          .sort(sort_method)
-      );
+      if (currentCenter === "Todos") {
+        let centerCourses = [];
+        for (let i = 0; i < props.centers.length; i++) {
+          centerCourses = [
+            ...centerCourses,
+            ...props.centers[i].courses.filter(
+              (course) => buttonStates[course.category.toLowerCase()]
+            ),
+          ];
+        }
+        setCourses(centerCourses.sort(sort_method));
+      } else {
+        setCourses(
+          currentCenter.courses
+            .filter((course) => buttonStates[course.category.toLowerCase()])
+            .sort(sort_method)
+        );
+      }
     }
   }, [buttonStates, sortBy, currentCenter]);
 
@@ -91,9 +108,11 @@ const CoursesParentContainer = (props) => {
           label="Centro"
           invert={true}
           labelWidth={50}
-          items={props.centers}
+          items={["Todos", ...props.centers]}
           handleChange={handleChange}
-          value={currentCenter ? currentCenter.id : ""}
+          value={
+            currentCenter && currentCenter.id ? currentCenter.id : currentCenter
+          }
         />
         <SelectInput
           name="sortBy"
@@ -125,4 +144,7 @@ let mapDispatchToProps = (dispatch) => ({
   fetchCenters: dispatch(fetchCenters()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesParentContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursesParentContainer);
