@@ -16,7 +16,7 @@ import { fetchEvents } from "../../actions/eventActions";
 import { fetchSemesters } from "../../actions/semesterActions";
 
 function EventsContainer(props) {
-  const [currentCenter, setCurrentCenter] = useState("Todos");
+  const [currentCenter, setCurrentCenter] = useState(centers[0].id);
   const [activeTab, setActiveTab] = useState("Eventos próximos");
   const [currentEvent, setCurrentEvent] = useState({});
   const [currentSemester, setCurrentSemester] = useState({});
@@ -78,7 +78,8 @@ function EventsContainer(props) {
             label="Centro"
             value={currentCenter}
             labelWidth={50}
-            items={["Todos", ...centers]}
+            // items={["Todos", ...centers]}
+            items={centers}
             handleChange={handleChange}
           />
         )}
