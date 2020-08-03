@@ -72,7 +72,7 @@ function EventsContainer(props) {
         setCurrentSemester={setCurrentSemester}
       />
       <section className="event-semester-details">
-        {activeTab != "Año escolar" && (
+        <div className={activeTab != "Año escolar" ? "" : "hidden"}>
           <SelectInput
             name="center"
             label="Centro"
@@ -82,7 +82,7 @@ function EventsContainer(props) {
             items={centers}
             handleChange={handleChange}
           />
-        )}
+        </div>
 
         <EventSemesterDetails
           activeTab={activeTab}
