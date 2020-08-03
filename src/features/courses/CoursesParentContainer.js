@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./UTIS.css";
+import "./Courses.css";
 import { connect } from "react-redux";
 
 import { LoadingScreen } from "../../commons/LoadingScreen";
@@ -11,7 +11,7 @@ import { grade_ascending, grade_descending } from "../../commons/sort_methods";
 
 import { fetchCenters } from "../../actions/centerActions";
 
-const UTISContainer = (props) => {
+const CoursesParentContainer = (props) => {
   const [buttonStates, setButtonStates] = useState({
     "socio-humanístico": true,
     "científico-técnico": true,
@@ -125,4 +125,4 @@ let mapDispatchToProps = (dispatch) => ({
   fetchCenters: dispatch(fetchCenters()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UTISContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesParentContainer);

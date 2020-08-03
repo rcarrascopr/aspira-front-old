@@ -37,8 +37,8 @@ export const PrimaryNav = (props) => {
           <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/facultad">
             Facultad
           </NavLink>
-          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/utis">
-            UTIS
+          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/cursos">
+            Cursos
           </NavLink>
           <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/eventos">
             Eventos

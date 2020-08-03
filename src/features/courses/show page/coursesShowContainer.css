@@ -1,0 +1,45 @@
+.courses-show-container {
+  padding: 30px;
+}
+
+.utis-list {
+  margin: auto;
+  width: 1150px;
+  /* height: 87px; */
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.utis-item {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.utis-item h2 {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    margin: 0px;
+    background-color: white;
+    font-size: 3em;
+}
+
+.utis-item-product {
+  display: flex;
+  justify-content: center;
+  background-color: var(--dark-purple);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  width: 350px;
+}
+
+.utis-item-product p {
+  color: white;
+  padding: 25px;
+  font-size: 2.25em;
+  margin: 0px;
+}
