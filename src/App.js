@@ -47,7 +47,7 @@ function App(props) {
     <div className="App">
       {props.currentUser && <Navbar />}
 
-      <div style={{position: "fixed", height: "100%", width: "100%"}}>
+      <div style={{ height: "100%", width: "100%"}}>
         <Switch>
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />

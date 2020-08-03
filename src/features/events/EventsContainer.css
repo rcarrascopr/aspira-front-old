@@ -3,7 +3,7 @@
   background-color: var(--events-purple);
   display: flex;
   justify-content: space-around;
-  height: 100%;
+  min-height: 100%;
 }
 
 .events-list-container {
