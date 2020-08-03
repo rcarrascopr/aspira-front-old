@@ -1,4 +1,10 @@
+import React from "react";
 import { api_url } from "../commons/api_url";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export function fetchSemesters() {
   return (dispatch) => {
@@ -46,7 +52,14 @@ export function createSemester(formData) {
       body: JSON.stringify({ semester: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "CREATE_SEMESTER", payload: data }));
+      .then((data) => {
+        MySwal.fire({
+          title: "El semestre se ha creado.",
+          icon: "success",
+          confirmButtonText: "continuar",
+        });
+        return dispatch({ type: "CREATE_SEMESTER", payload: data });
+      });
   };
 }
 
@@ -63,6 +76,13 @@ export function editSemester(semesterId, formData) {
       body: JSON.stringify({ semester: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "EDIT_SEMESTER", payload: data }));
+      .then((data) => {
+        MySwal.fire({
+          title: "El semestre se ha actualizado.",
+          icon: "success",
+          confirmButtonText: "continuar",
+        });
+        return dispatch({ type: "EDIT_SEMESTER", payload: data });
+      });
   };
 }

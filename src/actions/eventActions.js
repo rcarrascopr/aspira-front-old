@@ -1,4 +1,10 @@
+import React from "react";
 import { api_url } from "../commons/api_url";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export function fetchEvents() {
   return (dispatch) => {
@@ -28,7 +34,15 @@ export function createEvent(formData) {
       body: JSON.stringify({ event: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "CREATE_EVENT", payload: data }));
+      .then((data) => {
+        MySwal.fire({
+          title: "El evento se ha creado.",
+
+          icon: "success",
+          confirmButtonText: "continuar",
+        });
+        return dispatch({ type: "CREATE_EVENT", payload: data });
+      });
   };
 }
 
@@ -45,6 +59,13 @@ export function editEvent(eventId, formData) {
       body: JSON.stringify({ event: formData }),
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "EDIT_EVENT", payload: data }));
+      .then((data) => {
+        MySwal.fire({
+          title: "El evento ha sido actualizado.",
+          icon: "success",
+          confirmButtonText: "continuar",
+        });
+        return dispatch({ type: "EDIT_EVENT", payload: data });
+      });
   };
 }

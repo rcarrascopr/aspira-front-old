@@ -1,4 +1,10 @@
+import React from "react";
 import { api_url } from "../commons/api_url";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export function loginAction(formData) {
   return (dispatch) => {
@@ -64,7 +70,12 @@ export function userCreate(data) {
         if (responseJSON.error) {
           console.log(responseJSON.error);
         } else {
-          console.log("Success", responseJSON);
+          MySwal.fire({
+            title: "El usuario se ha creado.",
+            icon: "success",
+            confirmButtonText: "continuar",
+          });
+
           dispatch({ type: "CREATE_USER" });
         }
       })
@@ -93,9 +104,12 @@ export function userEdit(data, userId) {
           alert(data.errors);
           return;
         } else {
-          dispatch({ type: "SET_USER", payload: data });
-          alert("Información actualizada con éxito.");
-          return;
+          MySwal.fire({
+            title: "El usuario se ha actualizado.",
+            icon: "success",
+            confirmButtonText: "continuar",
+          });
+          return dispatch({ type: "SET_USER", payload: data });
         }
       });
   };
