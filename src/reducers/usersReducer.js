@@ -19,6 +19,9 @@ const initialState = {
     gender: "M",
     phone_number: "",
     residence_municipality: "Carolina",
+    password: "",
+    password_confirmation: "",
+    role: "",
   },
 };
 
