@@ -17,5 +17,5 @@ export default function SemestersList(props) {
       );
     });
   };
-  return <ul className="events-list scrollable">{generateSemesters()}</ul>;
+  return <ul className="events-list events-scrollable">{generateSemesters()}</ul>;
 }
