@@ -32,7 +32,7 @@ const CoursesContainer = (props) => {
         >
           <div className="course-card-create">
             <p className="plus-icon">+</p>
-            <h2>Crear nueva UTIS</h2>
+            <h2>Crear nuevo curso</h2>
           </div>
         </div>
         {generateCards()}
