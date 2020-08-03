@@ -120,7 +120,7 @@
 }
 
 .course-card-content {
-  padding: 15px;
+  /* padding: 15px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,7 +133,8 @@
 }
 
 .course-card h2:hover {
- text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .course-card-content p {
@@ -144,4 +145,21 @@
   width: 100%;
   height: 80px;
   border-radius: 6px 6px 0px 0px;
+}
+
+.course-card-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.course-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  border-top: 1px solid black;
+  padding: 10px;
 }
