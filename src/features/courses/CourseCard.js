@@ -30,9 +30,14 @@ const CourseCard = (props) => {
             </p>
             <p className="dark-purple-text">{props.total_products} Productos</p>
             <p className="dark-purple-text">Grado {props.grade}</p>
+            {props.center_name && (
+              <p className="dark-purple-text">Centro: {props.center_name}</p>
+            )}
           </div>
         </div>
-        <div className={`course-card-footer border-${cardColors[props.category]}`}>
+        <div
+          className={`course-card-footer border-${cardColors[props.category]}`}
+        >
           <img
             className="icon pointer"
             src="/assets/duplicate_icon.png"

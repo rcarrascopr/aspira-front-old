@@ -67,9 +67,11 @@ const CoursesParentContainer = (props) => {
         for (let i = 0; i < props.centers.length; i++) {
           centerCourses = [
             ...centerCourses,
-            ...props.centers[i].courses.filter(
-              (course) => buttonStates[course.category.toLowerCase()]
-            ),
+            ...props.centers[i].courses
+              .filter((course) => buttonStates[course.category.toLowerCase()])
+              .map((course) => {
+                return { ...course, center_name: props.centers[i].name };
+              }),
           ];
         }
         setCourses(centerCourses.sort(sort_method));
