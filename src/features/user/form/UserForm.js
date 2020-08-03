@@ -114,7 +114,12 @@ function UserForm(props) {
 
   const onSubmit = (data, event) => {
     console.log(`Submitted data: `, data, `\n Event: `, event);
-    isEdit ? props.userEdit(data, userId) : props.userCreate(data);
+    if (isEdit) {
+      props.userEdit(data, userId);
+    } else {
+      props.userCreate(data);
+      reset(formDefaultValues);
+    }
   };
 
   useEffect(() => {
