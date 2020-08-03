@@ -27,7 +27,7 @@ export const Pagination = (props) => {
 
     return pageNumbers.map((page) => (
       <span
-        className={currentPage === page ? "page active-page" : "page"}
+        className={`dark-purple-text ${currentPage === page ? "page active-page" : "page"}`}
         key={page}
         id={page}
         onClick={handleClick}
@@ -37,5 +37,5 @@ export const Pagination = (props) => {
     ));
   };
 
-  return <p className>Páginas: {generatePages()} </p>;
+  return <p className="dark-purple-text">Páginas: {generatePages()} </p>;
 };

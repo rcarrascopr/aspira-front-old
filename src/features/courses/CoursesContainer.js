@@ -23,11 +23,11 @@ const CoursesContainer = (props) => {
   };
   return (
     <section className="courses-container">
-      <h1>Cursos</h1>
+      <h1 className="dark-purple-text">Cursos</h1>
 
       <div className="card-group">
         <div
-          className="course-card dark-purple white-text"
+          className="course-card dark-purple white-text pointer"
           onClick={handleClick}
         >
           <div className="course-card-create">
