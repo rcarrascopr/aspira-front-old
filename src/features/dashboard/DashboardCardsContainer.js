@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DashboardCard } from "./DashboardCard";
+import DashboardCard from "./DashboardCard";
 import cardData from "../../commons/dashboardCardInformation";
 
 export const DashboardCardsContainer = () => {

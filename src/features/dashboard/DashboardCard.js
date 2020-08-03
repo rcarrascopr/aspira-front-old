@@ -1,19 +1,23 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export const DashboardCard = (props) => {
+const DashboardCard = (props) => {
+  const handleClick = (event) => {
+    event.preventDefault();
+    props.history.push(`/${props.title.toLowerCase()}`);
+  };
   return (
-    <div className="dashboard-card dark-blue">
+    <div className="dashboard-card dark-blue" onClick={handleClick}>
       <img src={props.icon} alt="icon" />
       <div>
         <p className="white-text">Manejar</p>
         <h3>
-          <Link to={`/${props.title.toLowerCase()}`} className="white-text">
-            {props.title}
-          </Link>
+          <a className="white-text">{props.title}</a>
         </h3>
       </div>
     </div>
   );
 };
+
+export default withRouter(DashboardCard);
