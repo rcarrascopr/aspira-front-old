@@ -179,6 +179,6 @@
   border-top: 1px solid var(--cultural);
 }
 
-.course-card-footer.border-comunitario {
-  border-top: 1px solid var(--comunitario);
+.course-card-footer.border-comunitaria {
+  border-top: 1px solid var(--comunitaria);
 }
