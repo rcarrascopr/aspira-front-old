@@ -1,5 +1,7 @@
 import React from "react";
 
+import generateDate from "../../../commons/dateParser"
+
 export default function SemesterShow(props) {
   const handleClick = (e) => {
     e.preventDefault();
@@ -7,9 +9,13 @@ export default function SemesterShow(props) {
   };
   return (
     <section className="events-show">
-      <h2>{props.semester.name}</h2>
-      <p>{props.semester.start_date}</p>
-      <p>{props.semester.end_date}</p>
+      <h2 className="dark-purple-text">{props.semester.name}</h2>
+      <p className="dark-purple-text event-text">
+        Fecha de inicio: {generateDate(props.semester.start_date)}
+      </p>
+      <p className="dark-purple-text event-text">
+        Fecha de cierre: {generateDate(props.semester.end_date)}
+      </p>
       <a className="primary-btn" onClick={handleClick}>
         Editar Semestre
       </a>
