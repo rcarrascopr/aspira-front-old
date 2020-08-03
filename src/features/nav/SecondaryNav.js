@@ -39,9 +39,9 @@ const SecondaryNav = (props) => {
 
       <SelectInput
         name="semester"
-        label="Semestre"
+        label="Año escolar"
         // value={semester}
-        labelWidth={70}
+        labelWidth={100}
         items={props.semesters}
         // handleChange={handleChange}
       />
