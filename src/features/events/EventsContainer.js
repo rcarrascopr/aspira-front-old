@@ -54,14 +54,14 @@ function EventsContainer(props) {
     setCurrentCenter(event.target.value);
   };
 
-
-
   return (
     <section className="events-container">
       <EventsListContainer
-        events={currentCenter === "Todos" ? props.events : props.events.filter(
-          (event) => event.center.id === currentCenter
-        )}
+        events={
+          currentCenter && currentCenter !== "Todos"
+            ? props.events.filter((event) => event.center.id === currentCenter)
+            : props.events
+        }
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentEvent={currentEvent}
