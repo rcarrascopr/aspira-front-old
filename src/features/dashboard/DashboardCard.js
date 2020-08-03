@@ -8,7 +8,7 @@ const DashboardCard = (props) => {
     props.history.push(`/${props.title.toLowerCase()}`);
   };
   return (
-    <div className="dashboard-card dark-blue" onClick={handleClick}>
+    <div className="dashboard-card dark-blue pointer" onClick={handleClick}>
       <img src={props.icon} alt="icon" />
       <div>
         <p className="white-text">Manejar</p>
