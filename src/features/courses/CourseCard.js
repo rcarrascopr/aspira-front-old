@@ -13,17 +13,17 @@ const CourseCard = (props) => {
   };
   return (
     <div className="course-card white">
-      <div className={`course-card-header pointer ${cardColors[props.category]}`}  onClick={() => handleClick(props.id)} />
+      <div
+        className={`course-card-header pointer ${cardColors[props.category]}`}
+        onClick={() => handleClick(props.id)}
+      />
       <div className="course-card-content">
-        <div className="course-card-info pointer"  onClick={() => handleClick(props.id)}>
+        <div
+          className="course-card-info pointer"
+          onClick={() => handleClick(props.id)}
+        >
           {" "}
-          <h2
-            className="dark-purple-text pointer"
-           
-           
-          >
-            {props.name}
-          </h2>
+          <h2 className="dark-purple-text pointer">{props.name}</h2>
           <div>
             <p className="dark-purple-text">
               {props.total_students} Estudiantes
@@ -32,7 +32,7 @@ const CourseCard = (props) => {
             <p className="dark-purple-text">Grado {props.grade}</p>
           </div>
         </div>
-        <div className="course-card-footer">
+        <div className={`course-card-footer border-${cardColors[props.category]}`}>
           <img
             className="icon pointer"
             src="/assets/duplicate_icon.png"

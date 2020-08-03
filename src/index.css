@@ -1,5 +1,8 @@
-html, body, #root, .App {
-  height: 100%
+html,
+body,
+#root,
+.App {
+  height: 100%;
 }
 
 * {
@@ -19,6 +22,11 @@ html, body, #root, .App {
   --text-color-claro: #383784;
   --gph-purple: #5d7fcd;
 
+  --cultural: #9b7ec0;
+  --ocupacional: #5f83b2;
+  --cientifico: #83bc09;
+  --humanistico: #75cf94;
+  --comunitaria: #c5b7da;
   /* buttons */
   --button-green: #c9ffa7;
   --button-red: #f26e6e;
@@ -60,23 +68,23 @@ a {
 }
 
 .humanistico {
-  background-color: #75cf94;
+  background-color: var(--humanistico);
 }
 
 .cientifico {
-  background-color: #83bc09;
+  background-color: var(--cientifico);
 }
 
 .ocupacional {
-  background-color: #5f83b2;
+  background-color: var(--ocupacional);
 }
 
 .cultural {
-  background-color: #9b7ec0;
+  background-color: var(--cultural);
 }
 
 .comunitaria {
-  background-color: #c5b7da;
+  background-color: var(--comunitaria);
 }
 
 .light-purple {

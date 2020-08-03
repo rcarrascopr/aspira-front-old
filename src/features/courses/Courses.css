@@ -160,6 +160,25 @@
   justify-content: flex-end;
   width: 100%;
   align-items: center;
-  border-top: 1px solid black;
   padding: 10px;
+}
+
+.course-card-footer.border-humanistico {
+  border-top: 1px solid var(--humanistico);
+}
+
+.course-card-footer.border-cientifico {
+  border-top: 1px solid var(--cientifico);
+}
+
+.course-card-footer.border-ocupacional {
+  border-top: 1px solid var(--ocupacional);
+}
+
+.course-card-footer.border-cultural {
+  border-top: 1px solid var(--cultural);
+}
+
+.course-card-footer.border-comunitario {
+  border-top: 1px solid var(--comunitario);
 }
