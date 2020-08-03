@@ -13,7 +13,7 @@ const CoursesContainer = (props) => {
   }, [props.courses]);
 
   const handleClick = () => {
-    props.history.push("/utis/create");
+    props.history.push("/cursos/create");
   };
 
   const generateCards = () => {
