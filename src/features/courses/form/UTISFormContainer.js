@@ -58,7 +58,7 @@ const UTISFormContainer = (props) => {
     fetchCenters();
     fetchSemesters();
     fetchTeachers();
-  }, [fetchCenters, fetchSemesters, fetchTeachers]);
+  }, []);
 
   //fetch students belonging to a center if one is selected
   useEffect(() => {
