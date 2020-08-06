@@ -66,7 +66,7 @@ export const Details = (props) => {
         label="Coordinador/GPH"
         invert={true}
         labelWidth={130}
-        items={teachers}
+        items={teachers || []}
         control={control}
         errors={errors["teacher_id"]}
       />
