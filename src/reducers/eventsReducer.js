@@ -23,6 +23,7 @@ export default function eventsReducer(
           ...state.events.filter((event) => event.id !== action.payload.id),
           action.payload,
         ],
+        loading: false,
       };
     default:
       return state;
