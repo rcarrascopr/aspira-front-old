@@ -15,6 +15,7 @@ import {
   setCoursesFormData,
   createCourse,
   fetchOneCourse,
+  editCourse,
 } from "../../../actions/courseActions";
 
 import "./CoursesForm.css";
@@ -57,8 +58,6 @@ const CoursesFormContainer = (props) => {
     setCoursesFormData,
   };
 
-  console.log(contextObjects);
-
   //fetch centers after mounted
   useEffect(() => {
     fetchCenters();
@@ -73,8 +72,13 @@ const CoursesFormContainer = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.match.params.id) {
-      props.setCoursesFormData(props.currentCourse);
+    if (props.match.params.id && props.currentCourse) {
+      props.setCoursesFormData({
+        ...props.currentCourse,
+        center_id: props.currentCourse.center.id,
+        semester_id: props.currentCourse.semester.id,
+        teacher_id: props.currentCourse.teacher.id,
+      });
     }
   }, [props.currentCourse]);
 
@@ -86,24 +90,41 @@ const CoursesFormContainer = (props) => {
   }, [coursesFormData.center_id]);
 
   useEffect(() => {
+
     reset(coursesFormData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
   useEffect(() => {
     reset(props.coursesFormData);
+
+    let students = [...selectedStudents, ...props.coursesFormData.students];
+    students = students.filter(
+      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    );
+
+    setSelectedStudents(students);
   }, [props.coursesFormData]);
 
   const onSubmit = () => {
     const formData = { ...coursesFormData };
     delete formData.students;
-    formData.student_ids = coursesFormData.students.map((s) => s.id);
-    createCourse(formData).then((action) => {
-      const course = action.payload;
-      if (course.id) {
-        props.history.push(`/course/${course.id}`);
-      }
-    });
+    formData.student_ids = selectedStudents.map((s) => s.id);
+    if (props.match.params.id) {
+      props.editCourse(props.match.params.id, formData).then((action) => {
+        const course = action.payload;
+        if (course.id) {
+          props.history.push(`/course/${course.id}`);
+        }
+      });
+    } else {
+      createCourse(formData).then((action) => {
+        const course = action.payload;
+        if (course.id) {
+          props.history.push(`/course/${course.id}`);
+        }
+      });
+    }
   };
 
   const generateForm = () => {
@@ -137,7 +158,7 @@ const CoursesFormContainer = (props) => {
     } else if (name === "next" && currentStep <= 0) {
       setCurrentStep(currentStep + 1);
     }
-    setcoursesFormData({
+    props.setCoursesFormData({
       ...coursesFormData,
       ...getValues({ nest: true }),
     });
@@ -207,6 +228,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCoursesFormData: (formData) => dispatch(setCoursesFormData(formData)),
   fetchCourse: (id) => dispatch(fetchOneCourse(id)),
   createCourse: (formData) => dispatch(createCourse(formData)),
+  editCourse: (courseId, formData) => dispatch(editCourse(courseId, formData)),
 });
 
 export default connect(
