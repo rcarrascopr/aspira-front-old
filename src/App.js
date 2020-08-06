@@ -8,7 +8,7 @@ import Signin from "./features/user/sign in/Signin";
 import CenterContainer from "./features/centers/CenterContainer";
 import { DashboardContainer } from "./features/dashboard/DashboardContainer";
 import CoursesParentContainer from "./features/courses/CoursesParentContainer";
-import UTISFormContainer from "./features/courses/form/UTISFormContainer";
+import CoursesFormContainer from "./features/courses/form/CoursesFormContainer";
 import StudentsContainer from "./features/students/StudentsContainer";
 import FacultyContainer from "./features/faculty/FacultyContainer";
 import UserForm from "./features/user/form/UserForm";
@@ -52,7 +52,7 @@ function App(props) {
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />
           <PrivateRoute path="/centers" component={CenterContainer} />
-          <PrivateRoute path="/cursos/create" component={UTISFormContainer} />
+          <PrivateRoute path="/cursos/create" component={CoursesFormContainer} />
           <PrivateRoute
             path="/cursos/:id/products/create"
             component={ProductFormContainer}
@@ -61,7 +61,7 @@ function App(props) {
             path="/cursos/:id/products/:productid"
             component={Product}
           />
-          <PrivateRoute path="/cursos/:id/edit" component={UTISFormContainer} />
+          <PrivateRoute path="/cursos/:id/edit" component={CoursesFormContainer} />
           <PrivateRoute path="/cursos/:id" component={CoursesShowContainer} />
           <PrivateRoute path="/cursos" component={CoursesParentContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />

@@ -5,11 +5,11 @@ import { withRouter } from "react-router-dom";
 
 const CourseCard = (props) => {
   const handleClick = (id) => {
-    props.history.push(`/utis/${id}`);
+    props.history.push(`/cursos/${id}`);
   };
 
   const handleEditClick = (id) => {
-    props.history.push(`/utis/${id}/edit`);
+    props.history.push(`/cursos/${id}/edit`);
   };
   return (
     <div className="course-card white">

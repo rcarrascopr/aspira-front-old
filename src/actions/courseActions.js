@@ -15,9 +15,9 @@ export function fetchCourses() {
   };
 }
 
-export function setUTISFormData(formData) {
+export function setCoursesFormData(formData) {
   return (dispatch) =>
-    dispatch({ type: "SET_UTIS_FORM_DATA", payload: formData });
+    dispatch({ type: "SET_COURSES_FORM_DATA", payload: formData });
 }
 
 export function createCourse(formData) {
@@ -50,6 +50,8 @@ export function fetchOneCourse(courseId) {
       },
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "SET_CURRENT_COURSE", payload: data }));
+      .then((data) => {
+        dispatch({ type: "SET_CURRENT_COURSE", payload: data });
+      });
   };
 }

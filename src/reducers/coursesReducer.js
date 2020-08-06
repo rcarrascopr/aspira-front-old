@@ -1,8 +1,8 @@
-export default function utisReducer(
+export default function coursesReducer(
   state = {
     loading: false,
     courses: [],
-    utisFormData: {
+    coursesFormData: {
       name: "",
       category: "",
       semester_id: "",
@@ -20,8 +20,8 @@ export default function utisReducer(
       return { ...state, loading: true };
     case "FETCH_COURSES":
       return { ...state, courses: [...action.payload], loading: false };
-    case "SET_UTIS_FORM_DATA":
-      return { ...state, utisFormData: action.payload, loading: false };
+    case "SET_COURSES_FORM_DATA":
+      return { ...state, coursesFormData: action.payload, loading: false };
     case "CREATE_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload };
     case "SET_CURRENT_COURSE":

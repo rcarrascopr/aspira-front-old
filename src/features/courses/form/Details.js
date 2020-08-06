@@ -11,8 +11,8 @@ import categories from "../../../commons/data/categories";
 export const Details = (props) => {
   const { centers, semesters, teachers, control, errors } = useFormContext();
   return (
-    <div className="utis-details-container">
-      <h1 className="dark-purple-text">UTIS: Detalles</h1>
+    <div className="courses-details-container">
+      <h1 className="dark-purple-text">Curso: Detalles</h1>
       <div className="textfield-input">
         <Controller
           as={
