@@ -9,7 +9,7 @@ export default function coursesReducer(
       center_id: "",
       teacher_id: "",
       grade: "",
-      students: [""],
+      students: [],
     },
     currentCourse: "",
   },
@@ -24,6 +24,15 @@ export default function coursesReducer(
       return { ...state, coursesFormData: action.payload, loading: false };
     case "CREATE_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload };
+    case "EDIT_COURSE":
+      return {
+        ...state,
+        courses: [
+          ...state.courses.filter((course) => course.id !== action.payload.id),
+          action.payload,
+        ],
+        loading: false,
+      };
     case "SET_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload };
     default:
