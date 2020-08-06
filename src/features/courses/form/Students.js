@@ -14,8 +14,8 @@ export const Students = (props) => {
     students,
     selectedStudents,
     setSelectedStudents,
-    utisFormData,
-    setUTISFormData,
+    coursesFormData,
+    setCoursesFormData,
   } = useFormContext();
 
   const [open, setOpen] = useState(false);
@@ -41,7 +41,13 @@ export const Students = (props) => {
   };
 
   useEffect(() => {
-    setUTISFormData({ ...utisFormData, students: selectedStudents });
+    if (props.coursesFormData && props.coursesFormData.students) {
+      setSelectedStudents(props.coursesFormData.students);
+    }
+  }, []);
+
+  useEffect(() => {
+    setCoursesFormData({ ...coursesFormData, students: selectedStudents });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStudents]);
 
@@ -70,10 +76,10 @@ export const Students = (props) => {
   };
 
   return (
-    <div className="utis-students-container students">
-      <h1 className="dark-purple-text">UTIS: Estudiantes</h1>
+    <div className="courses-students-container students">
+      <h1 className="dark-purple-text">Curso: Estudiantes</h1>
       {!!centerWithStudents ? (
-        <div className="utis-students-header">
+        <div className="courses-students-header">
           <p className="dark-purple-text">Lista de estudiantes matriculados</p>
           <a onClick={handleClickOpen}>+ Añadir a lista</a>
           <AddStudentModal open={open} handleClose={handleClose} />
