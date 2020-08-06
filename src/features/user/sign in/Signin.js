@@ -15,7 +15,6 @@ const Signin = (props) => {
   });
 
   const onSubmit = (data, event) => {
-    console.log(`Submitted data: `, data, `\n Event: `, event);
     props.login({ user: data }).then(() => {
       if (localStorage.getItem("token")) {
         props.history.push("/");
