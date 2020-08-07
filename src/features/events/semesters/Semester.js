@@ -6,7 +6,12 @@ export default function Semester(props) {
   let semester = props.semester.name ? props.semester.name.split("") : [];
   return (
     <li
-      className="event-item"
+      className={`event-item ${
+        props.currentSemester &&
+        props.currentSemester.id === props.semester.id
+          ? "event-item-selected"
+          : ""
+      }`}
       onClick={() => props.setCurrentSemester(props.semester)}
     >
       <NameCircle

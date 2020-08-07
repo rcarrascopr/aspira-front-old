@@ -77,6 +77,7 @@ function EventsContainer(props) {
         setCardContent={setCardContent}
         currentCenter={currentCenter}
         semesters={props.semesters}
+        currentSemester={currentSemester}
         setCurrentSemester={setCurrentSemester}
       />
       <section className="event-semester-details">

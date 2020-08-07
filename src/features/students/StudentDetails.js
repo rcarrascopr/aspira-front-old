@@ -34,30 +34,30 @@ export default function StudentDetails(props) {
         />
         <ul>
           <p>{`${props.currentStudent.first_name} ${props.currentStudent.paternal_surname} ${props.currentStudent.maternal_surname}`}</p>
-          <li>{props.currentStudent.email}</li>
-          <li>{props.currentStudent.phone_number}</li>
-          <li>{props.currentStudent.badge_id}</li>
+          <li>Email: {props.currentStudent.email}</li>
+          <li>Teléfono: {props.currentStudent.phone_number}</li>
+          <li>Número de estudiante: {props.currentStudent.badge_id}</li>
           <li>Grade: {props.currentStudent.academic_level}</li>
-          <li>{props.currentStudent.center.name}</li>
+          <li>Centro: {props.currentStudent.center.name}</li>
         </ul>
       </div>
       <div className="student-courses-details">
         <h3 className="dark-purple-text student-details-header">
-          UTI que está tomando
+          Cursos que está tomando
         </h3>
         <CoursesListContainer items={props.currentStudent.courses} />
       </div>
       <div className="student-details-buttons dark-purple-text">
-        <a className="lined-button">Generar Reporte</a>
+        {/* <a className="lined-button">Generar Reporte</a> */}
         <Link
           className="lined-button"
           to={`/users/${props.currentStudent.id}/edit`}
         >
           Editar
         </Link>
-        <a className="lined-button">
+        {/* <a className="lined-button">
           <img src="/assets/trash_icon.png" alt="" />
-        </a>
+        </a> */}
       </div>
     </div>
   );

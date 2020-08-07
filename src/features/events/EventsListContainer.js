@@ -32,6 +32,7 @@ export default function EventsListContainer(props) {
       return (
         <SemesterList
           semesters={props.semesters}
+          currentSemester={props.currentSemester}
           setCurrentSemester={props.setCurrentSemester}
         />
       );
@@ -44,6 +45,7 @@ export default function EventsListContainer(props) {
           <EventsList
             events={sortedEvents.filter((event) => on2Weeks(event.date))}
             setCurrentEvent={props.setCurrentEvent}
+            currentEvent={props.currentEvent}
           />
         );
       } else {
@@ -51,6 +53,7 @@ export default function EventsListContainer(props) {
           <EventsList
             events={sortedEvents}
             setCurrentEvent={props.setCurrentEvent}
+            currentEvent={props.currentEvent}
           />
         );
       }

@@ -42,17 +42,17 @@ export default function FacultyDetails(props) {
               ? props.currentFaculty.maternal_surname
               : ""
           }`}</p>
-          <li>{props.currentFaculty.email}</li>
-          <li>{props.currentFaculty.residence_municipality}</li>
-          <li>{props.currentFaculty.role}</li>
-          <li>{props.currentFaculty.center_name}</li>
+          <li>Email: {props.currentFaculty.email}</li>
+          <li>Municipio: {props.currentFaculty.residence_municipality}</li>
+          <li>Título: {props.currentFaculty.role}</li>
+          <li>Centro: {props.currentFaculty.center_name}</li>
         </ul>
       </div>
       <div className="student-courses-details">
         {props.currentFaculty.courses && (
           <>
             <h3 className="dark-purple-text student-details-header">
-              UTI que está ofreciendo
+              Cursos que está ofreciendo
             </h3>
             <CoursesListContainer items={props.currentFaculty.courses} />
           </>
@@ -65,9 +65,9 @@ export default function FacultyDetails(props) {
         >
           Editar
         </Link>
-        <a className="lined-button">
+        {/* <a className="lined-button">
           <img src="/assets/trash_icon.png" alt="" />
-        </a>
+        </a> */}
       </div>
     </div>
   );

@@ -6,7 +6,11 @@ export default function EventsList(props) {
   const generateEvents = () => {
     return props.events.map((event) => {
       return (
-        <Event event={event} setCurrentEvent={props.setCurrentEvent} />
+        <Event
+          event={event}
+          currentEvent={props.currentEvent}
+          setCurrentEvent={props.setCurrentEvent}
+        />
       );
     });
   };

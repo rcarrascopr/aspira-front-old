@@ -12,10 +12,13 @@ export default function SemestersList(props) {
       return (
         <Semester
           semester={semester}
+          currentSemester={props.currentSemester}
           setCurrentSemester={props.setCurrentSemester}
         />
       );
     });
   };
-  return <ul className="events-list events-scrollable">{generateSemesters()}</ul>;
+  return (
+    <ul className="events-list events-scrollable">{generateSemesters()}</ul>
+  );
 }
