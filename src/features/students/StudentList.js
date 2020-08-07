@@ -52,7 +52,7 @@ export const StudentList = (props) => {
       <div className="header">
         <div className="header-with-icon">
           <img src="/assets/user_icon.png" alt="" />
-          <h1>Estudiantes</h1>
+          <h1 className="dark-purple-text">Estudiantes</h1>
         </div>
         <a href="/#/estudiantes/create">
           <img src="/assets/dark_purple_add_icon.png" alt="" /> Crear
