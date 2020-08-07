@@ -21,6 +21,7 @@ body,
   --courses-purple: #dde7ff;
   --text-color-claro: #383784;
   --gph-purple: #5d7fcd;
+  --dark-blue: #2a5894;
 
   --cultural: #9b7ec0;
   --ocupacional: #5f83b2;
@@ -108,7 +109,7 @@ a {
 }
 
 .dark-blue {
-  background-color: #2a5894;
+  background-color: var(--dark-blue);
 }
 
 .name-circle {
