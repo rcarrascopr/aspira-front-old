@@ -80,6 +80,7 @@ const CoursesParentContainer = (props) => {
           (course) => buttonStates[course.category.toLowerCase()]
         );
       }
+  
       if (props.currentUser.role === "Admin") {
         setCourses(centerCourses.sort(sort_method));
       } else if (props.currentUser.role === "Teacher") {
@@ -89,8 +90,6 @@ const CoursesParentContainer = (props) => {
             .sort(sort_method)
         );
       }
-
-      setCourses(centerCourses.sort(sort_method));
     }
   }, [buttonStates, sortBy, currentCenter]);
 
