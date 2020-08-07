@@ -34,6 +34,7 @@ function EventForm(props) {
                   className={"dark-purple-text textfield-outlined"}
                   error={errors[field]}
                   type={formData[field].type}
+                  InputLabelProps={{ shrink: true }}
                 />
               }
               name={field}
@@ -108,7 +109,6 @@ function EventForm(props) {
 
   const onSubmit = (data, e) => {
     let event = { ...data, center_id: props.center_id };
-    console.log(`Submitted data: `, event, `\n Event: `, e);
     props.event && props.event.name
       ? props.editEvent(props.event.id, event)
       : props.createEvent(event);
@@ -117,6 +117,9 @@ function EventForm(props) {
   return (
     <section className="event-form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="dark-purple-text" style={{ textAlign: "center" }}>
+          {props.event && props.event.name ? "Editar" : "Crear"} Evento
+        </h1>
         {generateFields()}
         <div
           style={{

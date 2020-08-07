@@ -37,12 +37,14 @@ function SemesterForm(props) {
                   className={"dark-purple-text textfield-outlined"}
                   error={errors[field]}
                   type={formData[field].type}
+                  InputLabelProps={{ shrink: true }}
                 />
               }
               name={field}
               control={control}
               rules={{ required: formData[field].required }}
             />
+
             <Error errors={errors[field]} />
           </div>
         );
@@ -83,7 +85,6 @@ function SemesterForm(props) {
   };
 
   const onSubmit = (data, e) => {
-    console.log(`Submitted data: `, data, `\n Semester: `, e);
     props.semester && props.semester.name
       ? props.editSemester(props.semester.id, data)
       : props.createSemester(data);
@@ -92,6 +93,10 @@ function SemesterForm(props) {
   return (
     <section className="event-form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="dark-purple-text">
+          {" "}
+          {props.semester && props.semester.name ? "Editar" : "Crear"} Semestre
+        </h1>
         {generateFields()}
         <div
           style={{
