@@ -105,7 +105,7 @@ const CoursesParentContainer = (props) => {
     <section className="utis-container courses-purple">
       <div className="utis-filters">
         {props.currentUser.role ===
-          "Admin" **
+          "Admin" &&
           (
             <SelectInput
               name="center"
