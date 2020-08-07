@@ -19,6 +19,22 @@ const SecondaryNav = (props) => {
     props.fetchSemesters();
   }, []);
 
+  const generateSemesterDropdown = () => {
+    let currentSemester = props.semesters.find(
+      (semester) => semester.name == "2020-21: 1"
+    );
+
+    return (
+      <SelectInput
+        name="semester"
+        label="Año escolar"
+        value={currentSemester ? currentSemester.id : ""}
+        labelWidth={100}
+        items={props.semesters || []}
+        // handleChange={handleChange}
+      />
+    );
+  };
   return (
     <section className="secondary-nav very-light-purple white-text">
       <div className="nav-header">
@@ -31,20 +47,13 @@ const SecondaryNav = (props) => {
 
         <div className="name-header">
           <h2>{props.currentUser.name}</h2>
-          <Link to="/" className="white-text">
+          {/* <Link to="/" className="white-text">
             Ver mi perfil
-          </Link>
+          </Link> */}
         </div>
       </div>
 
-      <SelectInput
-        name="semester"
-        label="Año escolar"
-        // value={semester}
-        labelWidth={100}
-        items={props.semesters}
-        // handleChange={handleChange}
-      />
+      {generateSemesterDropdown()}
     </section>
   );
 };
