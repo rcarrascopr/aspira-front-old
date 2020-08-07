@@ -67,10 +67,7 @@ function EventsContainer(props) {
       <EventsListContainer
         events={
           currentCenter && currentCenter !== "Todos"
-            ? props.events.filter((event) => {
-                console.log(event, currentCenter, props.events);
-                return event.center.id === currentCenter;
-              })
+            ? props.events.filter((event) => event.center.id === currentCenter)
             : props.events
         }
         activeTab={activeTab}
