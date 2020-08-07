@@ -62,8 +62,8 @@ const CoursesParentContainer = (props) => {
     }
     //get courses from selected center
     if (currentCenter) {
+      let centerCourses = [];
       if (currentCenter === "Todos") {
-        let centerCourses = [];
         for (let i = 0; i < props.centers.length; i++) {
           centerCourses = [
             ...centerCourses,
@@ -76,12 +76,11 @@ const CoursesParentContainer = (props) => {
         }
         setCourses(centerCourses.sort(sort_method));
       } else {
-        setCourses(
-          currentCenter.courses
-            .filter((course) => buttonStates[course.category.toLowerCase()])
-            .sort(sort_method)
+        centerCourses = currentCenter.courses.filter(
+          (course) => buttonStates[course.category.toLowerCase()]
         );
       }
+      setCourses(centerCourses.sort(sort_method));
     }
   }, [buttonStates, sortBy, currentCenter]);
 
@@ -105,17 +104,24 @@ const CoursesParentContainer = (props) => {
   return (
     <section className="utis-container courses-purple">
       <div className="utis-filters">
-        <SelectInput
-          name="center"
-          label="Centro"
-          invert={true}
-          labelWidth={50}
-          items={["Todos", ...props.centers]}
-          handleChange={handleChange}
-          value={
-            currentCenter && currentCenter.id ? currentCenter.id : currentCenter
-          }
-        />
+        {props.currentUser.role ===
+          "Admin" **
+          (
+            <SelectInput
+              name="center"
+              label="Centro"
+              invert={true}
+              labelWidth={50}
+              items={["Todos", ...props.centers]}
+              handleChange={handleChange}
+              value={
+                currentCenter && currentCenter.id
+                  ? currentCenter.id
+                  : currentCenter
+              }
+            />
+          )}
+
         <SelectInput
           name="sortBy"
           label="Ordenar por"

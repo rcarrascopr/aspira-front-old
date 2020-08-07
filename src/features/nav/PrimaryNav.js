@@ -17,30 +17,66 @@ export const PrimaryNav = (props) => {
   return (
     <section className="primary-nav">
       <NavLink className="logo" exact to="/">
-        <img src="/assets/logo_aspira.png" alt="Aspira Logo"/>
+        <img src="/assets/logo_aspira.png" alt="Aspira Logo" />
       </NavLink>
 
-      <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/">
+      <NavLink
+        exact
+        className="dark-purple-text"
+        activeClassName="active-link"
+        to="/"
+      >
         Dashboard
       </NavLink>
       {!localStorage.getItem("token") && (
-        <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/login">
+        <NavLink
+          exact
+          className="dark-purple-text"
+          activeClassName="active-link"
+          to="/login"
+        >
           Sign in
         </NavLink>
       )}
 
       {localStorage.getItem("token") && (
         <>
-          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/estudiantes">
-            Estudiantes
-          </NavLink>
-          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/facultad">
-            Facultad
-          </NavLink>
-          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/cursos">
+          {props.currentUser.role === "Admin" && (
+            <>
+              {" "}
+              <NavLink
+                exact
+                className="dark-purple-text"
+                activeClassName="active-link"
+                to="/estudiantes"
+              >
+                Estudiantes
+              </NavLink>
+              <NavLink
+                exact
+                className="dark-purple-text"
+                activeClassName="active-link"
+                to="/facultad"
+              >
+                Facultad
+              </NavLink>{" "}
+            </>
+          )}
+
+          <NavLink
+            exact
+            className="dark-purple-text"
+            activeClassName="active-link"
+            to="/cursos"
+          >
             Cursos
           </NavLink>
-          <NavLink exact className="dark-purple-text" activeClassName="active-link" to="/eventos">
+          <NavLink
+            exact
+            className="dark-purple-text"
+            activeClassName="active-link"
+            to="/eventos"
+          >
             Eventos
           </NavLink>
           <NavLink
@@ -57,10 +93,19 @@ export const PrimaryNav = (props) => {
   );
 };
 
+let mapStateToProps = (state) => {
+  return {
+    currentUser: state.users.currentUser,
+  };
+};
+
 let mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logoutAction()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(PrimaryNav));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(PrimaryNav));

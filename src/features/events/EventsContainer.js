@@ -30,6 +30,14 @@ function EventsContainer(props) {
   }, []);
 
   useEffect(() => {
+    const selectedCenter = centers.find(
+      (c) => c.name === props.currentUser.center_name
+    );
+    // console.log("Center selected: ", selectedCenter);
+    setCurrentCenter(selectedCenter.id);
+  }, []);
+
+  useEffect(() => {
     if (!(cardContent == "show" || cardContent == "edit")) {
       // if (currentEvent.id) {
       setCurrentEvent({});
@@ -59,7 +67,10 @@ function EventsContainer(props) {
       <EventsListContainer
         events={
           currentCenter && currentCenter !== "Todos"
-            ? props.events.filter((event) => event.center.id === currentCenter)
+            ? props.events.filter((event) => {
+                console.log(event, currentCenter, props.events);
+                return event.center.id === currentCenter;
+              })
             : props.events
         }
         activeTab={activeTab}
@@ -72,7 +83,13 @@ function EventsContainer(props) {
         setCurrentSemester={setCurrentSemester}
       />
       <section className="event-semester-details">
-        <div className={activeTab != "Año escolar" ? "" : "hidden"}>
+        <div
+          className={
+            activeTab != "Año escolar" && props.currentUser.role === "Admin"
+              ? ""
+              : "hidden"
+          }
+        >
           <SelectInput
             name="center"
             label="Centro"
@@ -99,7 +116,11 @@ function EventsContainer(props) {
 }
 
 let mapStateToProps = (state) => {
-  return { events: state.events.events, semesters: state.semesters.semesters };
+  return {
+    currentUser: state.users.currentUser,
+    events: state.events.events,
+    semesters: state.semesters.semesters,
+  };
 };
 
 let mapDispatchToProps = (dispatch) => {

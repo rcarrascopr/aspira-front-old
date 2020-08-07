@@ -1,7 +1,7 @@
 import React from "react";
-import { DashboardCardsContainer } from "./DashboardCardsContainer";
+import DashboardCardsContainer from "./DashboardCardsContainer";
 
-import "./dashboard.css"
+import "./dashboard.css";
 
 export const DashboardContainer = () => {
   return (
