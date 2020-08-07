@@ -80,6 +80,16 @@ const CoursesParentContainer = (props) => {
           (course) => buttonStates[course.category.toLowerCase()]
         );
       }
+      if (props.currentUser.role === "Admin") {
+        setCourses(centerCourses.sort(sort_method));
+      } else if (props.currentUser.role === "Teacher") {
+        setCourses(
+          centerCourses
+            .filter((course) => course.teacher.id === props.currentUser.id)
+            .sort(sort_method)
+        );
+      }
+
       setCourses(centerCourses.sort(sort_method));
     }
   }, [buttonStates, sortBy, currentCenter]);
@@ -104,23 +114,21 @@ const CoursesParentContainer = (props) => {
   return (
     <section className="utis-container courses-purple">
       <div className="utis-filters">
-        {props.currentUser.role ===
-          "Admin" &&
-          (
-            <SelectInput
-              name="center"
-              label="Centro"
-              invert={true}
-              labelWidth={50}
-              items={["Todos", ...props.centers]}
-              handleChange={handleChange}
-              value={
-                currentCenter && currentCenter.id
-                  ? currentCenter.id
-                  : currentCenter
-              }
-            />
-          )}
+        {props.currentUser.role === "Admin" && (
+          <SelectInput
+            name="center"
+            label="Centro"
+            invert={true}
+            labelWidth={50}
+            items={["Todos", ...props.centers]}
+            handleChange={handleChange}
+            value={
+              currentCenter && currentCenter.id
+                ? currentCenter.id
+                : currentCenter
+            }
+          />
+        )}
 
         <SelectInput
           name="sortBy"
