@@ -12,7 +12,7 @@ export default function EventsShow(props) {
     return (
       <section className="events-show">
         <div>
-          <h2 className="dark-purple-text">{generateDate()}</h2>
+          <h2 className="dark-purple-text">{generateDate(props.event.date)}</h2>
 
           <p className="dark-purple-text event-name">{props.event.name}</p>
         </div>
