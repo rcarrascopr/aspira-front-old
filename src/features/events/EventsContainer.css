@@ -60,6 +60,10 @@
   width: 100%;
 }
 
+.event-item-selected {
+  background-color: var(--dark-blue);
+}
+
 .event-item:hover {
   background-color: var(--event-list-item-color-hover);
 }
