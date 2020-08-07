@@ -50,6 +50,7 @@
   color: var(--dark-purple);
   display: flex;
   align-items: center;
+  font-weight: bold;
 }
 
 .student-list-container a img {
@@ -110,6 +111,7 @@
 .student-profile-details ul {
   margin: 20px;
   margin-bottom: 30px;
+  list-style: none;
 }
 
 .student-profile-details ul p {
@@ -132,6 +134,8 @@
   margin: 5px;
   display: flex;
   align-items: center;
+  color: var(--dark-purple);
+  font-weight: bold;
 }
 
 .lined-button img {
