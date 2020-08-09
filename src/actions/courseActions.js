@@ -46,6 +46,13 @@ export function createCourse(formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "CREATE_CURRENT_COURSE", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
