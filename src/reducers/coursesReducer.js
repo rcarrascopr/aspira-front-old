@@ -11,7 +11,7 @@ export default function coursesReducer(
       grade: "",
       students: [],
     },
-    currentCourse: "",
+    currentCourse: {},
   },
   action
 ) {
@@ -34,7 +34,11 @@ export default function coursesReducer(
         loading: false,
       };
     case "SET_CURRENT_COURSE":
-      return { ...state, currentCourse: action.payload };
+      return { ...state, currentCourse: action.payload, loading: false };
+    case "ADD_UTIS_TO_COURSE":
+      let course = {...state.currentCourse};
+      course.plans.push(action.payload);
+      return { ...state, currentCourse: course, loading: false };
     default:
       return state;
   }
