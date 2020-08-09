@@ -1,5 +1,6 @@
 .courses-show-container {
   padding: 30px;
+  min-height: 100%;
 }
 
 .utis-list {
@@ -18,14 +19,16 @@
 }
 
 .utis-item h2 {
-    width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
-    margin: 0px;
-    background-color: white;
-    font-size: 3em;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  margin: 0px;
+  background-color: white;
+  font-size: 3em;
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
 }
 
 .utis-item-product {
@@ -35,6 +38,7 @@
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   width: 350px;
+  height: 80px;
 }
 
 .utis-item-product p {
@@ -42,4 +46,7 @@
   padding: 25px;
   font-size: 2.25em;
   margin: 0px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
