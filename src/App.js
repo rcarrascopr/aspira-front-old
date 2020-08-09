@@ -54,6 +54,14 @@ function App(props) {
           <PrivateRoute path="/centers" component={CenterContainer} />
           <PrivateRoute path="/cursos/create" component={CoursesFormContainer} />
           <PrivateRoute
+            path="/cursos/:id/utis/:utis_id"
+            component={ProductFormContainer}
+          />
+          <PrivateRoute
+            path="/cursos/:id/utis/create"
+            component={Product}
+          />
+          <PrivateRoute
             path="/cursos/:id/products/create"
             component={ProductFormContainer}
           />

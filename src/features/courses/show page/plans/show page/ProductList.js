@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import ProductListItem from "./ProductListItem";
 
 import { withRouter } from "react-router-dom";
-import CourseContext from "../../../../contexts/CourseContext";
+import CourseContext from "../../../../../contexts/CourseContext";
 
 function ProductList(props) {
   const course = useContext(CourseContext);
