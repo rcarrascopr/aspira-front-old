@@ -29,3 +29,20 @@ export function AddUTISToCourse(formData) {
       });
   };
 }
+
+export function fetchUTIS(utisId) {
+  const url = `${api_url}plans/${utisId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_UTIS" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return dispatch({ type: "FETCH_UTIS", payload: data });
+      });
+  };
+}
