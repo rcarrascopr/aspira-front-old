@@ -21,7 +21,7 @@ function UTISList(props) {
 
   const generateModal = async () => {
     const { value: formValues } = await MySwal.fire({
-      title: "Nombre de UTIS",
+      title: "Crear UTIS",
       html:
         '<input id="swal2-name" placeholder="Nombre de la UTIS" class="swal2-input" required>',
       focusConfirm: false,
