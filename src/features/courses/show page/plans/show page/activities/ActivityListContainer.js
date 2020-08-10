@@ -1,6 +1,6 @@
 import React from "react";
 
-import ProductList from "./ProductList";
+import ActivityList from "./ActivityList";
 
 // const products = [
 //   {
@@ -25,16 +25,14 @@ import ProductList from "./ProductList";
 //   },
 // ];
 
-export default function ProductListContainer({ products }) {
+export default function ActivityListContainer(props) {
   return (
     <div className="product-list-container">
-      <h1 className="dark-purple-text">
-        Nombre del UTIS va Aqui - Materia o Detalles
-      </h1>
-      <p className="dark-purple-text">Categoria</p>
+      <h1 className="dark-purple-text">{props.currentUTIS.name}</h1>
+
       <hr />
 
-      <ProductList />
+      <ActivityList />
     </div>
   );
 }
