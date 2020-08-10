@@ -14,7 +14,7 @@ import FacultyContainer from "./features/faculty/FacultyContainer";
 import UserForm from "./features/user/form/UserForm";
 import EmailPasswordForm from "./features/user/form/EmailPasswordForm";
 import CoursesShowContainer from "./features/courses/show page/CoursesShowContainer";
-// import UTISShowContainer from "./features/courses/show page/UTISShowContainer";
+import UTISShowContainer from "./features/courses/show page/plans/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
 
@@ -47,19 +47,18 @@ function App(props) {
     <div className="App">
       {props.currentUser && <Navbar />}
 
-      <div style={{ height: "100%", width: "100%"}}>
+      <div style={{ height: "100%", width: "100%" }}>
         <Switch>
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />
           <PrivateRoute path="/centers" component={CenterContainer} />
-          <PrivateRoute path="/cursos/create" component={CoursesFormContainer} />
           <PrivateRoute
-            path="/cursos/:id/utis/:utis_id"
-            component={ProductFormContainer}
+            path="/cursos/create"
+            component={CoursesFormContainer}
           />
           <PrivateRoute
-            path="/cursos/:id/utis/create"
-            component={Product}
+            path="/cursos/:id/utis/:utis_id"
+            component={UTISShowContainer}
           />
           <PrivateRoute
             path="/cursos/:id/products/create"
@@ -69,7 +68,10 @@ function App(props) {
             path="/cursos/:id/products/:productid"
             component={Product}
           />
-          <PrivateRoute path="/cursos/:id/edit" component={CoursesFormContainer} />
+          <PrivateRoute
+            path="/cursos/:id/edit"
+            component={CoursesFormContainer}
+          />
           <PrivateRoute path="/cursos/:id" component={CoursesShowContainer} />
           <PrivateRoute path="/cursos" component={CoursesParentContainer} />
           <PrivateRoute path="/:estudiantes/create" component={UserForm} />
