@@ -19,10 +19,10 @@ export function UTISShowContainer(props) {
   return (
     <section className="utis-show-container">
       <ActivityListContainer currentUTIS={props.currentUTIS} />
-      <div className="course-card-wrapper">
+      {/* <div className="course-card-wrapper">
         <StudentsRegisteredCard />
         <StudentListCard />
-      </div>
+      </div> */}
     </section>
   );
 }
