@@ -3,6 +3,8 @@
   background-color: var(--courses-purple);
   display: flex;
   justify-content: space-between;
+  height: 100vh;
+  min-height: 100%;
 }
 
 .product-list-container {
