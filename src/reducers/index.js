@@ -10,6 +10,7 @@ import facultyReducer from "./facultyReducer";
 import semestersReducer from "./semestersReducer";
 import usersReducer from "./usersReducer";
 import coursesReducer from "./coursesReducer";
+import utisReducer from "./utisReducer";
 
 const rootReducer = combineReducers({
   centers: centersReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   semesters: semestersReducer,
   users: usersReducer,
   courses: coursesReducer,
+  utis: utisReducer,
 });
 
 export default rootReducer;
