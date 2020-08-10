@@ -41,10 +41,9 @@ function ActivityList(props) {
   };
 
   const generateActivityListItems = () => {
-      return props.currentUTIS.activities.map((activity) => {
-        return <ActivityListItem {...activity} />;
-      });
-    
+    return props.currentUTIS.activities.map((activity) => {
+      return <ActivityListItem {...activity} key={activity.id} />;
+    });
   };
 
   const generateContent = () => {
