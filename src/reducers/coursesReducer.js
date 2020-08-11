@@ -36,9 +36,22 @@ export default function coursesReducer(
     case "SET_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload, loading: false };
     case "ADD_UTIS_TO_COURSE":
-      let course = {...state.currentCourse};
+      let course = { ...state.currentCourse };
       course.plans.push(action.payload);
       return { ...state, currentCourse: course, loading: false };
+    case "UPDATE_UTIS":
+      let updatedCourse = { ...state.currentCourse };
+      updatedCourse.plans = updatedCourse.plans.filter(
+        (plan) => plan.id !== action.payload.id
+      );
+      updatedCourse.plans = [...updatedCourse.plans, action.payload];
+      return { ...state, currentCourse: updatedCourse, loading: false };
+    case "DELETE_UTIS":
+      let courseWithoutPlan = { ...state.currentCourse };
+      courseWithoutPlan.plans = courseWithoutPlan.plans.filter(
+        (plan) => plan.id !== action.payload
+      );
+      return { ...state, currentCourse: courseWithoutPlan, loading: false };
     default:
       return state;
   }
