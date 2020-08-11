@@ -114,14 +114,14 @@ const CoursesFormContainer = (props) => {
       props.editCourse(props.match.params.id, formData).then((action) => {
         const course = action.payload;
         if (course.id) {
-          props.history.push(`/course/${course.id}`);
+          props.history.push(`/cursos/${course.id}`);
         }
       });
     } else {
       createCourse(formData).then((action) => {
         const course = action.payload;
         if (course.id) {
-          props.history.push(`/course/${course.id}`);
+          props.history.push(`/cursos/${course.id}`);
         }
       });
     }
