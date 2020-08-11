@@ -8,21 +8,33 @@ import withReactContent from "sweetalert2-react-content";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { AddActivityToUTIS } from "../../../../../../actions/activityActions";
+import {
+  AddActivityToUTIS,
+  updateActivity,
+  deleteActivity,
+} from "../../../../../../actions/activityActions";
 
 const MySwal = withReactContent(Swal);
 
 function ActivityList(props) {
-  const generateModal = async () => {
+  const generateModal = async (id) => {
+    let activity = {};
+    if (id) {
+      activity = props.currentUTIS.activities.find((a) => a.id === id);
+    }
     const { value: formValues } = await MySwal.fire({
-      title: "Crear actividad",
+      title: `${id ? "Editar" : "Crear"} actividad`,
       html:
-        '<input id="swal2-name" placeholder="Nombre de la actividad" class="swal2-input" required>' +
-        '<textarea id="swal2-description" placeholder="Descripción" class="swal2-textarea" required>',
+        `<input id="swal2-name" placeholder="Nombre de la actividad" class="swal2-input" value="${
+          activity.name || ""
+        }" required>` +
+        `<textarea id="swal2-description" placeholder="Descripción" class="swal2-textarea">${
+          activity.description || ""
+        }</textarea>`,
       focusConfirm: false,
       showCancelButton: true,
       cancelButtonText: "cancelar",
-      confirmButtonText: "crear",
+      confirmButtonText: id ? "guardar" : "crear",
       preConfirm: () => {
         return [
           document.getElementById("swal2-name").value,
@@ -32,17 +44,45 @@ function ActivityList(props) {
     });
 
     if (formValues) {
-      props.AddActivityToUTIS({
+      let formData = {
         name: formValues[0],
         description: formValues[1],
         plan_id: props.currentUTIS.id,
-      });
+      };
+      if (id) {
+        props.updateActivity(id, formData);
+      } else {
+        props.AddActivityToUTIS(formData);
+      }
     }
+  };
+
+  const generateDeleteModal = (id) => {
+    Swal.fire({
+      title: "¿Estas seguro que lo quieres eliminar?",
+      text: "¡No hay vuelta atrás!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#282460",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, eliminar!",
+    }).then((result) => {
+      if (result.value) {
+        props.deleteActivity(id);
+      }
+    });
   };
 
   const generateActivityListItems = () => {
     return props.currentUTIS.activities.map((activity) => {
-      return <ActivityListItem {...activity} key={activity.id} />;
+      return (
+        <ActivityListItem
+          {...activity}
+          key={activity.id}
+          generateModal={generateModal}
+          generateDeleteModal={generateDeleteModal}
+        />
+      );
     });
   };
 
@@ -68,7 +108,9 @@ function ActivityList(props) {
   return (
     <div className="product-list">
       <div className="product-list-header">
-        <h2 className="dark-purple-text">Actividades</h2>
+        <h2 className="dark-purple-text" style={{ fontSize: "3em" }}>
+          Actividades
+        </h2>
         <a className="primary-btn" onClick={() => generateModal()}>
           + Añadir
         </a>
@@ -87,6 +129,9 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
   return {
     AddActivityToUTIS: (formData) => dispatch(AddActivityToUTIS(formData)),
+    updateActivity: (activityId, formData) =>
+      dispatch(updateActivity(activityId, formData)),
+    deleteActivity: (activityId) => dispatch(deleteActivity(activityId)),
   };
 };
 
