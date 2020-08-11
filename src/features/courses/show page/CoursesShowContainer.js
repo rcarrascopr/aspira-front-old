@@ -4,6 +4,9 @@ import UTISList from "./plans/UTISList";
 
 import { connect } from "react-redux";
 
+import StudentListCard from "./StudentListCard";
+import StudentsRegisteredCard from "./StudentsRegistedCard";
+
 import { fetchOneCourse } from "../../../actions/courseActions";
 
 import "./coursesShowContainer.css";
@@ -33,7 +36,15 @@ function CoursesShowContainer(props) {
 
       <hr />
 
-      <UTISList />
+      <div className="courses-show-utis-list-container">
+        <div className="utis-list-container">
+          <UTISList />
+          <div className="course-card-wrapper">
+            <StudentsRegisteredCard students={props.currentCourse.students} />
+            <StudentListCard students={props.currentCourse.students} />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
