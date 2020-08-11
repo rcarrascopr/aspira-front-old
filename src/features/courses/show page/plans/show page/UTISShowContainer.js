@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import ActivityListContainer from "./activities/ActivityListContainer";
-import StudentListCard from "./StudentListCard";
-import StudentsRegisteredCard from "./StudentsRegistedCard";
 
 import { fetchUTIS } from "../../../../../actions/UTISActions";
 
@@ -19,10 +17,6 @@ export function UTISShowContainer(props) {
   return (
     <section className="utis-show-container">
       <ActivityListContainer currentUTIS={props.currentUTIS} />
-      {/* <div className="course-card-wrapper">
-        <StudentsRegisteredCard />
-        <StudentListCard />
-      </div> */}
     </section>
   );
 }
