@@ -29,7 +29,12 @@ export default function ActivityListContainer(props) {
   return (
     <div className="product-list-container">
       <h1 className="dark-purple-text">{props.currentUTIS.name}</h1>
-
+      <p
+        className="dark-purple-text"
+        style={{ fontSize: "1.25em", fontWeight: "bold" }}
+      >
+        Curso: {props.currentUTIS.course ? props.currentUTIS.course.name : ""}
+      </p>
       <hr />
 
       <ActivityList />
