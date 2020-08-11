@@ -36,3 +36,76 @@ export function AddActivityToUTIS(formData) {
       });
   };
 }
+
+export function updateActivity(activityId, formData) {
+  const url = `${api_url}activities/${activityId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_UTIS" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "PATCH",
+      body: JSON.stringify({ activity: formData }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        MySwal.fire({
+          title: "La actividad ha sido actualizada.",
+          icon: "success",
+          confirmButtonText: "continuar",
+        });
+        return dispatch({ type: "UPDATE_ACTIVITY", payload: data });
+      })
+      .catch((error) => {
+        console.log(error);
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}
+
+export function deleteActivity(activityId) {
+  const url = `${api_url}activities/${activityId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_UTIS" });
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "DELETE",
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        if (data) {
+          MySwal.fire({
+            title: "Hubo un error.",
+            icon: "error",
+            confirmButtonText: "continuar",
+          });
+        } else {
+          MySwal.fire(
+            "¡Eliminado!",
+            "La actividad ha sido eliminada correctamente.",
+            "success"
+          );
+          return dispatch({
+            type: "DELETE_ACTIVITY",
+            payload: activityId,
+            loading: false,
+          });
+        }
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}

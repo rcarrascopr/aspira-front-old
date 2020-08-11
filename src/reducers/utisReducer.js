@@ -11,7 +11,19 @@ export default function utisReducer(
       let utis = { ...state.currentUTIS };
       utis.activities.push(action.payload);
       return { ...state, currentUTIS: utis, loading: false };
-
+    case "UPDATE_ACTIVITY":
+      let updatedUTIS = { ...state.currentUTIS };
+      updatedUTIS.activities = updatedUTIS.activities.filter(
+        (activity) => activity.id !== action.payload.id
+      );
+      updatedUTIS.activities = [...updatedUTIS.activities, action.payload];
+      return { ...state, currentUTIS: updatedUTIS, loading: false };
+    case "DELETE_ACTIVITY":
+      let UTISWithoutActivity = { ...state.currentUTIS };
+      UTISWithoutActivity.activities = UTISWithoutActivity.activities.filter(
+        (activity) => activity.id !== action.payload
+      );
+      return { ...state, currentUTIS: UTISWithoutActivity, loading: false };
     default:
       return state;
   }
