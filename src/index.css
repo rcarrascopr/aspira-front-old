@@ -406,6 +406,22 @@ ul {
   color: var(--dark-purple);
 }
 
+.tertiary-btn {
+  margin: 0px;
+  width: 160px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 9px;
+  border-width: 0px;
+  background-color: var(--gph-purple);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
 .rounded {
   border-radius: 50% !important;
   width: 50px !important;
@@ -476,4 +492,13 @@ ul {
 
 .swal2-styled.swal2-confirm {
   background-color: var(--dark-purple) !important;
+}
+
+.file-icon img {
+  background-color: var(--gph-purple);
+  padding: 10px;
+  height: 49px;
+  display: flex;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
