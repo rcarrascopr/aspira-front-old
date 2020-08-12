@@ -41,12 +41,12 @@ const CourseCard = (props) => {
         <div
           className={`course-card-footer border-${cardColors[props.category]}`}
         >
-          <img
+          {/* <img
             className="icon pointer"
             src="/assets/duplicate_icon.png"
             alt="duplicar"
             style={{ padding: "0px 10px" }}
-          />
+          /> */}
           <img
             className="icon pointer"
             src="/assets/edit_icon.png"
