@@ -14,6 +14,8 @@ import {
   deleteActivity,
 } from "../../../../../../actions/activityActions";
 
+import { deleteProduct } from "../../../../../../actions/productActions";
+
 const MySwal = withReactContent(Swal);
 
 function ActivityList(props) {
@@ -68,7 +70,11 @@ function ActivityList(props) {
       confirmButtonText: "¡Si, eliminar!",
     }).then((result) => {
       if (result.value) {
-        props.deleteActivity(id);
+        if (id.productId) {
+          props.deleteProduct(id.productId);
+        } else if (id.activityId) {
+          props.deleteActivity(id.activityId);
+        }
       }
     });
   };
@@ -106,8 +112,8 @@ function ActivityList(props) {
   };
 
   return (
-    <div className="product-list">
-      <div className="product-list-header">
+    <div className="activity-list">
+      <div className="activity-list-header">
         <h2 className="dark-purple-text" style={{ fontSize: "3em" }}>
           Actividades
         </h2>
@@ -132,6 +138,7 @@ let mapDispatchToProps = (dispatch) => {
     updateActivity: (activityId, formData) =>
       dispatch(updateActivity(activityId, formData)),
     deleteActivity: (activityId) => dispatch(deleteActivity(activityId)),
+    deleteProduct: (productId) => dispatch(deleteProduct(productId)),
   };
 };
 

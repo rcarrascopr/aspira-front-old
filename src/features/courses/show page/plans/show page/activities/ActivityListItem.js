@@ -1,11 +1,69 @@
 import React from "react";
 
-export default function ActivityListItem(props) {
+import { withRouter } from "react-router-dom";
+
+function ActivityListItem(props) {
+  const handleClick = () => {
+    props.history.push(`/actividades/${props.id}/productos/create`);
+  };
+
+  const generateProductContent = () => {
+    let content;
+    if (props.product && props.product.id) {
+      content = (
+        <div className="activity-list-item-product">
+          <div className="file-icon">
+            <img src="/assets/file_icon_white.png" alt="" />
+          </div>
+          <p
+            className="dark-purple-text"
+            style={{ width: "400px", margin: "0px" }}
+          >
+            {props.product.title}
+          </p>
+          <img
+            className="course-icon"
+            src="/assets/edit_icon.png"
+            alt="Edit Product"
+            onClick={() => {
+              props.history.push(
+                `/actividades/${props.id}/productos/${props.product.id}/edit`
+              );
+            }}
+            style={{ height: "23px" }}
+          />
+          <img
+            className="course-icon"
+            src="/assets/trash_icon.png"
+            alt="Delete Product"
+            onClick={() =>
+              props.generateDeleteModal({ productId: props.product.id })
+            }
+            style={{ height: "23px" }}
+          />
+        </div>
+      );
+    } else {
+      content = (
+        <a className="tertiary-btn" onClick={() => handleClick()}>
+          + Añadir producto
+        </a>
+      );
+    }
+    return (
+      <>
+        <p className="dark-purple-text">Producto: </p>
+        {content}
+      </>
+    );
+  };
+
   return (
     <div className="activity-list-item">
-      <div className="product-card">
-        <h3 className="product-card-header dark-purple-text">{props.name}</h3>
-        <div className="product-card-content">
+      <div className="activity-card">
+        <h3 className="activity-card-header dark-purple-text">{props.name}</h3>
+        <div className="activity-card-content">
+          {generateProductContent()}
           {/* <p className="dark-purple-text">{props.description}</p> */}
           {/* <p>Entregados: {props.students_submitted} </p>
         <p>No Entregados: {props.students_not_submitted}</p> */}
@@ -21,8 +79,10 @@ export default function ActivityListItem(props) {
         className="course-icon"
         src="/assets/trash_icon.png"
         alt="Delete UTIS"
-        onClick={() => props.generateDeleteModal(props.id)}
+        onClick={() => props.generateDeleteModal({ activityId: props.id })}
       />
     </div>
   );
 }
+
+export default withRouter(ActivityListItem);

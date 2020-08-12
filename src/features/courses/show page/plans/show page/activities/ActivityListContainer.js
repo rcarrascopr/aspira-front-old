@@ -27,7 +27,7 @@ import ActivityList from "./ActivityList";
 
 export default function ActivityListContainer(props) {
   return (
-    <div className="product-list-container">
+    <div className="activity-list-container">
       <h1 className="dark-purple-text">{props.currentUTIS.name}</h1>
       <p
         className="dark-purple-text"
