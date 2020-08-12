@@ -61,13 +61,15 @@ function App(props) {
             component={UTISShowContainer}
           />
           <PrivateRoute
-            path="/cursos/:id/products/create"
+            path="/actividades/:id/productos/:product_id/edit"
             component={ProductFormContainer}
           />
           <PrivateRoute
-            path="/cursos/:id/products/:productid"
-            component={Product}
+            path="/actividades/:id/productos/create"
+            component={ProductFormContainer}
           />
+          {/* Change component from product to activity */}
+          <PrivateRoute path="/actividades/:id" component={Product} />
           <PrivateRoute
             path="/cursos/:id/edit"
             component={CoursesFormContainer}
