@@ -31,7 +31,11 @@ export default function InstructionsForm(props) {
             rules={{ required: true }}
           />
           <Error errors={props.errors["steps"]} />
-          <div className="step-trash" onClick={() => handleRemove(index)}>
+          <div
+            style={{ paddingLeft: "20px" }}
+            className="step-trash"
+            onClick={() => handleRemove(index)}
+          >
             <img src="/assets/trash_icon.png" alt="Delete" />
           </div>
         </div>
