@@ -1,14 +1,17 @@
-div.product-container {
+div.activity-container {
   background-color: var(--courses-purple);
-  color: #27265e;
+  color: var(--dark-purple);
   display: flex;
   padding: 0px 60px 0px 60px;
   justify-content: space-between;
+  height: 100%;
+  min-height: 100vh;
+  padding-top: 30px;
 }
 
-.title {
+/* .title {
   margin: 30px 0px;
-}
+} */
 
 div.info-wrapper {
   width: 60%;
@@ -29,17 +32,17 @@ div.info-container {
   flex-direction: row;
   border-radius: 4px 0px 0px 4px;
   background-color: var(--courses-purple);
-  height: 100px;
+  /* height: 100px; */
 }
 
 .step-number {
   background-color: var(--text-color-claro);
   color: white;
-  padding: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  padding: 20px;
 }
 
 .step-instruction {
@@ -51,12 +54,36 @@ div.info-container {
   background-color: white;
 }
 
-div.students-container {
+.large-paragraph {
+  background-color: white;
+  padding: 20px;
+}
+
+div.student-submissions {
+  /* background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  */
+  max-width: 40%;
+  min-width: 30%;
+  /* height: fit-content;
+  padding: 40px;  */
+}
+
+div.student-submissions-content {
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 40%;
+  /* max-width: 40%;
+  min-width: 30%; */
+  height: fit-content;
+  padding: 40px;
+}
+
+.students-list {
+  margin-top: 32px;
 }
 
 .students-list-item {
@@ -66,19 +93,33 @@ div.students-container {
   padding: 0 0;
 }
 
-.button-container {
+.students-list-item .product-circle {
+  margin-right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.product-circle.pending {
+  background-color: #f26e6e;
+}
+
+.students-list-item p {
+  margin: 0px;
+  padding: 10px 0px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
 .button-main {
-  box-shadow: "none";
-  font-size: 16;
-  padding: "6px 12px";
+  box-shadow: none;
+  font-size: 16px;
+  padding: 6px 12px;
   line-height: 1.5;
-}
-
-.large-paragraph {
-  background-color: white;
-  padding: 20px;
 }

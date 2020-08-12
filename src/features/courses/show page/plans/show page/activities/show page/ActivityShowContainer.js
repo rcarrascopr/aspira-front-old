@@ -18,75 +18,124 @@ const ActivityShowContainer = (props) => {
     textTransform: "capitalize",
     borderRadius: "5px",
   };
-  const renderActivity = () => {
-    if (!!props.currentActivity) {
-      // const { title, introduction, description, steps, students } = product;
-      return (
-        <div className="product-container">
-          <div className="info-wrapper">
-            <h2 className="title">{props.currentActivity.name}</h2>
-            <div className="info-container">
-              <p className="dark-purple-text">Description</p>
-              {/* <p className="large-paragraph dark-purple-text">{description}</p> */}
 
-              <p>Steps</p>
-              <div className="steps-container">
-                {/* {steps.map((s, index) => {
-                  return (
-                    <div key={index + 1} className="step-box">
-                      <p className="step-number">{index + 1}</p>
-                      <p className="step-instruction">{s}</p>
-                    </div>
-                  );
-                })} */}
-              </div>
-            </div>
+  const generateSteps = () => {
+    if (props.currentActivity && props.currentActivity.product) {
+      let steps = props.currentActivity.product.steps.map((s, index) => {
+        return (
+          <div key={index + 1} className="step-box">
+            <p className="step-number">{index + 1}</p>
+            <p className="step-instruction">{s}</p>
           </div>
+        );
+      });
+      return (
+        <>
+          <p>Instrucciones</p>
+          <div className="steps-container">{steps}</div>
+        </>
+      );
+    }
+  };
 
-          {/* <div className="students-container">
-            <h5>Productos Entregados</h5>
+  const generateProductInformation = () => {
+    if (props.currentActivity && props.currentActivity.product) {
+      let product = props.currentActivity.product;
+      return (
+        <>
+          <h3 className="dark-purple-text">Producto: {product.title}</h3>
+          <p className="dark-purple-text">Descripción</p>
+          <p className="large-paragraph dark-purple-text">
+            {product.description}
+          </p>
+          {generateSteps()}
+        </>
+      );
+    }
+  };
+
+  const generateSubmittedProductsTable = () => {
+    if (props.currentActivity.product) {
+      let product = props.currentActivity.product;
+      return (
+        <div className="student-submissions">
+          <div className="student-submissions-content">
+            <h3 className="dark-purple-text" style={{ textAlign: "center" }}>
+              Productos Entregados
+            </h3>
             <ul className="students-list">
-              {students.map((student) => {
-                const fullName = `${student.first_name} ${student.paternal_surname}`;
+              {product.students.map((student) => {
+                const fullName = `${student.first_name} ${student.paternal_surname} ${student.maternal_surname}`;
                 return (
                   <li className="students-list-item">
-                    <p>{fullName}</p>
-                    <a href={`/students/${student.id}`}>Detalles</a>
+                    <p>
+                      <div className="product-circle pending" />
+                      {fullName}
+                    </p>
+                    {/* <a href={`/students/${student.id}`}>Detalles</a> */}
                   </li>
                 );
               })}
             </ul>
-            <div className="buttons-container">
-              <Button
-                variant="contained"
-                color="primary"
-                className="button-main"
-                disableElevation={true}
-                href="#"
-                style={{
-                  ...buttonStyles,
-                  background: "#c9ffa7",
-                }}
+          </div>
+          <div className="buttons-container">
+            <Button
+              variant="contained"
+              color="primary"
+              className="button-main"
+              disableElevation={true}
+              href="#"
+              style={{
+                ...buttonStyles,
+                background: "#c9ffa7",
+                width: "180px",
+              }}
+            >
+              <strong
+                style={{ fontSize: "40px", marginRight: "10px", width: 24 }}
               >
-                <strong>5</strong>
-                <p className="button-text">Entregados</p>
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className="button-main"
-                disableElevation={true}
-                href="#"
-                style={{
-                  ...buttonStyles,
-                  background: "#f26e6e",
-                }}
-              >
-                <strong>4</strong>
-                <p className="button-text">No Entregados</p>
-              </Button>
+                0
+              </strong>
+              <p className="button-text">Entregados</p>
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className="button-main"
+              disableElevation={true}
+              href="#"
+              style={{
+                ...buttonStyles,
+                background: "#f26e6e",
+                width: "180px",
+              }}
+            >
+              <strong style={{ fontSize: "40px", marginRight: "10px" }}>
+                {product.students.length}
+              </strong>
+              <p className="button-text"> No Entregados</p>
+            </Button>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const renderActivity = () => {
+    if (!!props.currentActivity) {
+      return (
+        <div className="activity-container">
+          <div className="info-wrapper">
+            <h2 className="title">{props.currentActivity.name}</h2>
+            <div className="info-container">
+              <p className="dark-purple-text">Descripción</p>
+              <p className="large-paragraph dark-purple-text">
+                {props.currentActivity.description}
+              </p>
             </div>
-          </div> */}
+            {generateProductInformation()}
+          </div>
+          {generateSubmittedProductsTable()}
         </div>
       );
     }
