@@ -11,7 +11,12 @@ import InstructionsForm from "./InstructionsForm";
 
 import { getSkills } from "../../../actions/SkillsActions";
 import { setProductFormAction } from "../../../actions/productFormAction";
-import { createProduct } from "../../../actions/productActions";
+import {
+  createProduct,
+  fetchProduct,
+  updateProduct,
+} from "../../../actions/productActions";
+import { fetchActivity } from "../../../actions/activityActions";
 
 import "./ProductFormContainer.css";
 
@@ -36,41 +41,76 @@ function ProductFormContainer(props) {
     defaultValues: props.productFormData,
   });
 
+  function handlePromise(product) {
+    if (product && product.payload && product.payload.id) {
+      props.history.push(`/actividades/${props.match.params.id}`);
+    }
+  }
+
   const onSubmit = (data, e) => {
     let level_ids = props.productFormData.levels.map((level) => level.level.id);
 
-    console.log(
-      JSON.stringify({
-        ...props.productFormData,
-        level_ids,
-        course_id: props.match.params.id,
-      })
-    );
+    // console.log(
+    //   JSON.stringify({
+    //     ...props.productFormData,
+    //     level_ids,
+    //     activity_id: props.match.params.id,
+    //   })
+    // );
 
-    props
-      .createProduct({
-        ...props.productFormData,
-        level_ids,
-        course_id: props.match.params.id,
-      })
-      .then((product) => {
-        if (product.id) {
-          props.history.push(
-            `/courses/${props.match.params.id}/products/${product.id}`
-          );
-        }
-      });
+    let formData = {
+      ...props.productFormData,
+      level_ids,
+      activity_id: props.match.params.id,
+    };
+
+    let productId = props.match.params.product_id;
+
+    if (productId) {
+      props.updateProduct(productId, formData).then(handlePromise);
+    } else {
+      props.createProduct(formData).then(handlePromise);
+    }
 
     // props.setProductFormData({ ...props.productFormData, ...data });
   };
 
   useEffect(() => {
     props.getSkills();
+    let activityId = props.match.params.id;
+    if (activityId) {
+      props.fetchActivity(activityId);
+    }
+    let productId = props.match.params.product_id;
+    if (productId) {
+      props.fetchProduct(productId);
+    }
   }, []);
 
   useEffect(() => {
     reset(props.productFormData);
   }, [currentStep]);
+
+  useEffect(() => {
+    if (props.currentProduct.id && props.skills.length > 0) {
+      let levels = props.currentProduct.levels.map((level) => {
+        return {
+          level: level,
+          dimension: level.dimension,
+          skill: props.skills.find(
+            (skill) => skill.id === level.dimension.skill_id
+          ),
+        };
+      });
+
+      let currentProduct = { ...props.currentProduct };
+      currentProduct.levels = levels;
+
+      props.setProductFormData(currentProduct);
+
+      reset(currentProduct);
+    }
+  }, [props.currentProduct, props.skills]);
 
   useEffect(() => {
     let isEmpty = true;
@@ -158,23 +198,25 @@ function ProductFormContainer(props) {
   /* End of button navigation */
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="utis-form-container courses-purple"
+        className="courses-form-container courses-purple"
       >
         <Prompt
           when={shouldBlockNavigation}
           message="Tienes cambios sin guardar, ¿Estás seguro que quieres salir?"
         />
         <div>
-          <h1>Nombre del UTIS va Aquí - Materia o Detalles</h1>
-          <p>Categoria </p>
+          <h1 className="dark-purple-text">
+            {props.currentActivity.name ? props.currentActivity.name : ""}
+          </h1>
+          {/* <p className="dark-purple-text">Categoria </p> */}
           <Paper className="form-container" elevation={3}>
-            <div className="utis-details">{generateForm()}</div>
-            <div className="utis-details-options">
+            <div className="courses-details">{generateForm()}</div>
+            <div className="courses-details-options">
               <div className="side-tabs">{generateTabs()}</div>
-              <div className="utis-details-button-group">
+              <div className="courses-details-button-group">
                 {generateButtons()}
               </div>
             </div>
@@ -188,6 +230,9 @@ function ProductFormContainer(props) {
 let mapStateToProps = (state) => {
   return {
     productFormData: state.productForm.productFormData,
+    currentActivity: state.activities.currentActivity,
+    currentProduct: state.products.currentProduct,
+    skills: state.skills.skills,
   };
 };
 
@@ -196,6 +241,10 @@ let mapDispatchToProps = (dispatch) => {
     getSkills: () => dispatch(getSkills()),
     setProductFormData: (formData) => dispatch(setProductFormAction(formData)),
     createProduct: (formData) => dispatch(createProduct(formData)),
+    fetchActivity: (activityId) => dispatch(fetchActivity(activityId)),
+    fetchProduct: (productId) => dispatch(fetchProduct(productId)),
+    updateProduct: (productId, formData) =>
+      dispatch(updateProduct(productId, formData)),
   };
 };
 
