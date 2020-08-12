@@ -18,7 +18,7 @@ import UTISShowContainer from "./features/courses/show page/plans/show page/UTIS
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
 
-import Product from "./features/products/Product";
+import ActivityShowContainer from "./features/courses/show page/plans/show page/activities/show page/ActivityShowContainer";
 import AdminContainer from "./features/admin/AdminContainer";
 
 function App(props) {
@@ -69,7 +69,10 @@ function App(props) {
             component={ProductFormContainer}
           />
           {/* Change component from product to activity */}
-          <PrivateRoute path="/actividades/:id" component={Product} />
+          <PrivateRoute
+            path="/actividades/:id"
+            component={ActivityShowContainer}
+          />
           <PrivateRoute
             path="/cursos/:id/edit"
             component={CoursesFormContainer}

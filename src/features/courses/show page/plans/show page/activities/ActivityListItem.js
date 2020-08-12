@@ -58,10 +58,21 @@ function ActivityListItem(props) {
     );
   };
 
+  const handleLinkClick = () => {
+    props.history.push(`/actividades/${props.match.params.utis_id}`);
+  };
+
   return (
     <div className="activity-list-item">
       <div className="activity-card">
-        <h3 className="activity-card-header dark-purple-text">{props.name}</h3>
+        <h3
+          className="activity-card-header dark-purple-text pointer"
+          onClick={() => {
+            handleLinkClick();
+          }}
+        >
+          {props.name}
+        </h3>
         <div className="activity-card-content">
           {generateProductContent()}
           {/* <p className="dark-purple-text">{props.description}</p> */}
