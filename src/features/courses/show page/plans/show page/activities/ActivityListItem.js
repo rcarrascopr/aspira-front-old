@@ -59,7 +59,7 @@ function ActivityListItem(props) {
   };
 
   const handleLinkClick = () => {
-    props.history.push(`/actividades/${props.match.params.utis_id}`);
+    props.history.push(`/actividades/${props.id}`);
   };
 
   return (
