@@ -27,7 +27,7 @@ export default function InformationForm(props) {
         />
         <Error errors={props.errors["title"]} />
       </div>
-      <div className="textfield-input" style={{ width: "400px" }}>
+      {/* <div className="textfield-input" style={{ width: "400px" }}>
         <Controller
           as={
             <TextField
@@ -46,7 +46,7 @@ export default function InformationForm(props) {
           rules={{ required: true }}
         />
         <Error errors={props.errors["introduction"]} />
-      </div>
+      </div> */}
       <div className="textfield-input" style={{ width: "400px" }}>
         <Controller
           as={
