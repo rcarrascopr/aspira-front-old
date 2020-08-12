@@ -6,7 +6,10 @@ import EventsList from "./EventsList";
 import SemesterList from "./semesters/SemestersList";
 
 export default function EventsListContainer(props) {
-  const tabs = ["Eventos próximos", "Eventos", "Año escolar"];
+  const tabs =
+    props.currentUser && props.currentUser.role === "Admin"
+      ? ["Eventos próximos", "Eventos", "Año escolar"]
+      : ["Eventos próximos", "Eventos"];
 
   const generateTabs = () => {
     return tabs.map((tab) => (
@@ -71,9 +74,11 @@ export default function EventsListContainer(props) {
     <div className="events-list-container">
       <ul className="events-tabs-container">{generateTabs()}</ul>
       {generateItems()}
-      <a className="secondary-btn-outline" onClick={handleClick}>
-        Crear {props.activeTab === "Año escolar" ? "Semestre" : "evento"}
-      </a>
+      {props.currentUser && props.currentUser.role === "Admin" && (
+        <a className="secondary-btn-outline" onClick={handleClick}>
+          Crear {props.activeTab === "Año escolar" ? "Semestre" : "evento"}
+        </a>
+      )}
     </div>
   );
 }

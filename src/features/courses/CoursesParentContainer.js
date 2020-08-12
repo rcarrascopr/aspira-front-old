@@ -80,7 +80,7 @@ const CoursesParentContainer = (props) => {
           (course) => buttonStates[course.category.toLowerCase()]
         );
       }
-  
+
       if (props.currentUser.role === "Admin") {
         setCourses(centerCourses.sort(sort_method));
       } else if (props.currentUser.role === "Teacher") {
@@ -102,7 +102,13 @@ const CoursesParentContainer = (props) => {
 
   const renderCourses = () => {
     if (currentCenter) {
-      return <CoursesContainer courses={courses} setCourses={setCourses} />;
+      return (
+        <CoursesContainer
+          courses={courses}
+          setCourses={setCourses}
+          currentUser={props.currentUser}
+        />
+      );
     } else {
       return (
         <h2 className="dark-purple-text">Por favor seleccione un centro.</h2>
@@ -139,8 +145,9 @@ const CoursesParentContainer = (props) => {
           handleChange={handleSortChange}
         />
       </div>
-
-      <ButtonGroup buttonStates={buttonStates} handleClick={handleClick} />
+      {props.currentUser.role === "Admin" && (
+        <ButtonGroup buttonStates={buttonStates} handleClick={handleClick} />
+      )}
       <hr />
 
       {renderCourses()}

@@ -79,6 +79,7 @@ function EventsContainer(props) {
         semesters={props.semesters}
         currentSemester={currentSemester}
         setCurrentSemester={setCurrentSemester}
+        currentUser={props.currentUser}
       />
       <section className="event-semester-details">
         <div

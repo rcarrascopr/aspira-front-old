@@ -26,15 +26,17 @@ const CoursesContainer = (props) => {
       <h1 className="dark-purple-text">Cursos</h1>
 
       <div className="card-group">
-        <div
-          className="course-card dark-purple white-text pointer"
-          onClick={handleClick}
-        >
-          <div className="course-card-create">
-            <p className="plus-icon">+</p>
-            <h2>Crear nuevo curso</h2>
+        {props.currentUser.role === "Admin" && (
+          <div
+            className="course-card dark-purple white-text pointer"
+            onClick={handleClick}
+          >
+            <div className="course-card-create">
+              <p className="plus-icon">+</p>
+              <h2>Crear nuevo curso</h2>
+            </div>
           </div>
-        </div>
+        )}
         {generateCards()}
       </div>
 
