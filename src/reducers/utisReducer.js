@@ -24,6 +24,17 @@ export default function utisReducer(
         (activity) => activity.id !== action.payload
       );
       return { ...state, currentUTIS: UTISWithoutActivity, loading: false };
+    case "DELETE_PRODUCT":
+      let UTISWithoutProduct = { ...state.currentUTIS };
+      UTISWithoutProduct.activities = UTISWithoutProduct.activities.map(
+        (activity) => {
+          if (activity.product && activity.product.id === action.payload) {
+            return { ...activity, product: null };
+          }
+          return activity;
+        }
+      );
+      return { ...state, currentUTIS: UTISWithoutProduct, loading: false };
     default:
       return state;
   }

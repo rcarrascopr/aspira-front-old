@@ -6,6 +6,23 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
+export function fetchActivity(activityId) {
+  const url = `${api_url}activities/${activityId}`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_ACTIVITIES" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: "FETCH_ACTIVITY", payload: data });
+      });
+  };
+}
+
 export function AddActivityToUTIS(formData) {
   const url = `${api_url}activities`;
   return (dispatch) => {
@@ -95,7 +112,6 @@ export function deleteActivity(activityId) {
           );
           return dispatch({
             type: "DELETE_ACTIVITY",
-            payload: activityId,
             loading: false,
           });
         }
