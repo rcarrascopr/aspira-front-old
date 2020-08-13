@@ -1,0 +1,119 @@
+import React from "react";
+
+import Link from "./Link";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+import { connect } from "react-redux";
+
+import {
+  addLinkToAssignment,
+  updateLink,
+  deleteLink,
+} from "../../../actions/linkActions";
+
+const MySwal = withReactContent(Swal);
+
+function LinkList(props) {
+  const generateLinks = () => {
+    if (props.assignment.links) {
+      return props.assignment.links.map((link) => {
+        return (
+          <Link
+            link={link}
+            key={link.id}
+            generateModal={generateModal}
+            generateDeleteModal={generateDeleteModal}
+          />
+        );
+      });
+    }
+  };
+
+  const generateModal = async (id) => {
+    let link = {};
+    if (id) {
+      link = props.assignment.links.find((link) => link.id === id);
+    }
+
+    const { value: formValues } = await MySwal.fire({
+      title: `${id ? "Editar" : "Añadir"} Enlace`,
+      html:
+        `<input id="swal2-text" placeholder="Google" class="swal2-input" value="${
+          link.text || ""
+        }" required>` +
+        `<input id="swal2-url" placeholder="https://google.com" class="swal2-input" value="${
+          link.url || ""
+        }" required>`,
+      focusConfirm: false,
+      showCancelButton: true,
+      cancelButtonText: "cancelar",
+      confirmButtonText: id ? "guardar" : "crear",
+      preConfirm: () => {
+        return [
+          document.getElementById("swal2-text").value,
+          document.getElementById("swal2-url").value,
+        ];
+      },
+    });
+
+    if (formValues) {
+      // MySwal.fire(JSON.stringify(formValues));
+
+      let formData = {
+        text: formValues[0],
+        url: formValues[1],
+        assignment_id: props.assignment.id,
+        assignment_type: props.assignmentType,
+      };
+      console.log(formData);
+      if (id) {
+        props.updateLink(id, formData);
+      } else {
+        props.createLink(formData);
+      }
+    }
+  };
+
+  const generateDeleteModal = (id) => {
+    Swal.fire({
+      title: "¿Estas seguro que lo quieres eliminar?",
+      text: "¡No hay vuelta atrás!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#282460",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, eliminar!",
+    }).then((result) => {
+      if (result.value) {
+        props.deleteLink(id);
+      }
+    });
+  };
+  return (
+    <div>
+      <p className="dark-purple-text">Enlaces</p>
+      {generateLinks()}
+      <a className="tertiary-btn" onClick={() => generateModal()}>
+        + Añadir enlace
+      </a>
+    </div>
+  );
+}
+
+let mapStateToProps = (state) => {
+  return {
+    currentActivity: state.activities.currentActivity,
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    createLink: (formData) => dispatch(addLinkToAssignment(formData)),
+    updateLink: (linkId, formData) => dispatch(updateLink(linkId, formData)),
+    deleteLink: (linkId) => dispatch(deleteLink(linkId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LinkList);

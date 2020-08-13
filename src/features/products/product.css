@@ -1,0 +1,34 @@
+.product-card {
+  padding: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 50px;
+}
+
+.step-box {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px 0px 0px 4px;
+  /* background-color: var(--courses-purple); */
+  /* height: 100px; */
+}
+
+.step-number {
+  background-color: var(--text-color-claro);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 20px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.step-instruction {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  width: 100%;
+  border-radius: 0 4px 4px 0;
+  background-color: white;
+}

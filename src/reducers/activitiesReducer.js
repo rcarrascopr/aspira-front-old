@@ -15,6 +15,68 @@ export default function activitiesReducer(
       let updatedActivity = { ...state.currentActivity };
       updatedActivity.product = action.payload;
       return { ...state, currentActivity: updatedActivity, loading: false };
+
+    case "CREATE_LINK":
+      if (action.payload) {
+        let activityWithLinks = { ...state.currentActivity };
+        if (action.payload.assignment_type === "Activity") {
+          activityWithLinks.links.push(action.payload);
+        } else if (action.payload.assignment_type === "Product") {
+          activityWithLinks.product.links.push(action.payload);
+        }
+        return { ...state, currentActivity: activityWithLinks, loading: false };
+      }
+
+    case "UPDATE_LINK":
+      if (action.payload) {
+        let updatedActivityWithLink = { ...state.currentActivity };
+        if (action.payload.assignment_type === "Activity") {
+          updatedActivityWithLink.links = updatedActivityWithLink.links.filter(
+            (link) => link.id !== action.payload.id
+          );
+          updatedActivityWithLink.links.push(action.payload);
+        } else if (action.payload.assignment_type === "Product") {
+          updatedActivityWithLink.product.links = updatedActivityWithLink.product.links.filter(
+            (link) => link.id !== action.payload.id
+          );
+          updatedActivityWithLink.product.links.push(action.payload);
+        }
+        return {
+          ...state,
+          currentActivity: updatedActivityWithLink,
+          loading: false,
+        };
+      }
+
+    case "DELETE_LINK":
+      if (action.payload) {
+        let activityWithoutLink = { ...state.currentActivity };
+
+        let link = activityWithoutLink.links.find(
+          (link) => link.id === action.payload
+        );
+
+        if (link) {
+          activityWithoutLink.links = activityWithoutLink.links.filter(
+            (link) => link.id !== action.payload
+          );
+        } else {
+          link = activityWithoutLink.product.links.find(
+            (link) => link.id === action.payload
+          );
+          if (link) {
+            activityWithoutLink.product.links = activityWithoutLink.product.links.filter(
+              (link) => link.id !== action.payload
+            );
+          }
+        }
+        return {
+          ...state,
+          currentActivity: activityWithoutLink,
+          loading: false,
+        };
+      }
+
     //   case "ADD_ACTIVITY_TO_UTIS":
     //     let utis = { ...state.currentUTIS };
     //     utis.activities.push(action.payload);

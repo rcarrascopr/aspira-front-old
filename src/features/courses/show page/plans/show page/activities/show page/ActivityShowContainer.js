@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { fetchActivity } from "../../../../../../../actions/activityActions";
 import { Button } from "@material-ui/core";
 
+import Product from "../../../../../../products/Product";
+
+import FileAndLinkContainer from "../../../../../../files and links/FileAndLinkContainer";
+
 import "./activityShowContainer.css";
 
 const ActivityShowContainer = (props) => {
@@ -19,38 +23,10 @@ const ActivityShowContainer = (props) => {
     borderRadius: "5px",
   };
 
-  const generateSteps = () => {
-    if (props.currentActivity && props.currentActivity.product) {
-      let steps = props.currentActivity.product.steps.map((s, index) => {
-        return (
-          <div key={index + 1} className="step-box">
-            <p className="step-number">{index + 1}</p>
-            <p className="step-instruction">{s}</p>
-          </div>
-        );
-      });
-      return (
-        <>
-          <p>Instrucciones</p>
-          <div className="steps-container">{steps}</div>
-        </>
-      );
-    }
-  };
-
   const generateProductInformation = () => {
     if (props.currentActivity && props.currentActivity.product) {
       let product = props.currentActivity.product;
-      return (
-        <>
-          <h3 className="dark-purple-text">Producto: {product.title}</h3>
-          <p className="dark-purple-text">Descripción</p>
-          <p className="large-paragraph dark-purple-text">
-            {product.description}
-          </p>
-          {generateSteps()}
-        </>
-      );
+      return <Product product={product} />;
     }
   };
 
@@ -129,9 +105,15 @@ const ActivityShowContainer = (props) => {
             <h2 className="title">{props.currentActivity.name}</h2>
             <div className="info-container">
               <p className="dark-purple-text">Descripción</p>
-              <p className="large-paragraph dark-purple-text">
+              <p className="dark-purple-text">
                 {props.currentActivity.description}
               </p>
+              {props.currentActivity.id && (
+                <FileAndLinkContainer
+                  assignment={props.currentActivity}
+                  assignmentType={"Activity"}
+                />
+              )}
             </div>
             {generateProductInformation()}
           </div>
