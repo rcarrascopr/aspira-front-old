@@ -113,6 +113,7 @@ export function deleteActivity(activityId) {
           return dispatch({
             type: "DELETE_ACTIVITY",
             loading: false,
+            payload: activityId,
           });
         }
       })
