@@ -20,7 +20,7 @@ import { fetchActivity } from "../../../actions/activityActions";
 
 import "./ProductFormContainer.css";
 
-const tabs = ["information", "instructions", "skills"];
+const tabs = ["información", "instrucciones", "habilidades"];
 
 // const fake_products = [
 //   {
@@ -209,8 +209,17 @@ function ProductFormContainer(props) {
         />
         <div>
           <h1 className="dark-purple-text">
-            {props.currentActivity.name ? props.currentActivity.name : ""}
+            {props.match.params.product_id
+              ? "Editar producto"
+              : "Crear producto"}
           </h1>
+          <p
+            className="dark-purple-text"
+            style={{ fontSize: "1.25em", fontWeight: "bold" }}
+          >
+            Actividad:{" "}
+            {props.currentActivity.name ? props.currentActivity.name : ""}
+          </p>
           {/* <p className="dark-purple-text">Categoria </p> */}
           <Paper className="form-container" elevation={3}>
             <div className="courses-details">{generateForm()}</div>
