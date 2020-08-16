@@ -502,3 +502,8 @@ ul {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
+.sub-header-text {
+  font-size: 1.25em;
+  font-weight: bold;
+}

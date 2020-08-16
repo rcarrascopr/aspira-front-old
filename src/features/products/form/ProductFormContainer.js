@@ -213,10 +213,7 @@ function ProductFormContainer(props) {
               ? "Editar producto"
               : "Crear producto"}
           </h1>
-          <p
-            className="dark-purple-text"
-            style={{ fontSize: "1.25em", fontWeight: "bold" }}
-          >
+          <p className="dark-purple-text sub-header-text">
             Actividad:{" "}
             {props.currentActivity.name ? props.currentActivity.name : ""}
           </p>
