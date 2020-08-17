@@ -6,7 +6,7 @@ export default function CoursesListItem(props) {
   return (
     <li key={props.item.id} className="list-item">
       <div className="list-item-content">
-        <Link className="dark-purple-text" to={`/courses/${props.item.id}`} >
+        <Link className="dark-purple-text" to={`/cursos/${props.item.id}`} >
           {props.item.name} - {props.item.category}
         </Link>
       </div>
