@@ -10,9 +10,6 @@
 }
 
 .utis-list {
-  /* margin: auto; */
-  /* width: 1150px; */
-  /* height: 87px; */
   display: flex;
   flex-direction: column;
 }
@@ -22,7 +19,6 @@
 }
 
 .utis-item {
-  margin: 10px;
   display: flex;
   align-items: center;
 }
