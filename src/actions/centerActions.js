@@ -1,5 +1,10 @@
 import { api_url } from "../commons/api_url";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 export function fetchCenters() {
   return (dispatch) => {
     dispatch({ type: "LOADING_CENTERS" });
@@ -11,7 +16,11 @@ export function fetchCenters() {
         dispatch({ type: "FETCH_CENTERS", payload: data });
       })
       .catch((error) => {
-        console.log("Error from centersAction: ", error);
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -30,6 +39,12 @@ export function fetchStudentsFromCenter(centerId) {
       .then((data) => {
         dispatch({ type: "FETCH_CENTER_STUDENTS", payload: data });
       })
-      .catch((error) => console.log("Error from centersAction: ", error));
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
   };
 }

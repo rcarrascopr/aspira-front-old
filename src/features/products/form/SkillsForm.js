@@ -64,7 +64,7 @@ function SkillsForm(props) {
   return (
     <div className="product-details-container">
       <h2 className="dark-purple-text product-details-header">
-        Destrezas a desarrollar
+        Habilidades a desarrollar
       </h2>
       <div className="product-scrollable-container scrollable">
         {generateLevels()}

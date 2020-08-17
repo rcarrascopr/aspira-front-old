@@ -20,14 +20,18 @@ function UTISItem(props) {
         }}
       >
         <div
-          style={{ display: "flex" }}
+          className="utis-item-card"
           onClick={() => {
             handleClick();
           }}
         >
-          <h2 className="dark-purple-text" style={{ height: "80px" }}>
-            {props.utis.name}
-          </h2>
+          <div className="utis-item-header">
+            <p className="utis-item-index dark-purple-text">
+              {props.index + 1}.
+            </p>
+            <h2 className="dark-purple-text">{props.utis.name}</h2>
+          </div>
+
           <div className="utis-item-product">
             <p>{props.utis.total_activities} Actividades</p>
           </div>

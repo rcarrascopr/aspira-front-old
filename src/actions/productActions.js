@@ -18,7 +18,14 @@ export function fetchProduct(productId) {
       },
     })
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "SET_PRODUCT", payload: data }));
+      .then((data) => dispatch({ type: "SET_PRODUCT", payload: data }))
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
   };
 }
 
@@ -42,6 +49,13 @@ export function createProduct(formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "CREATE_PRODUCT", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

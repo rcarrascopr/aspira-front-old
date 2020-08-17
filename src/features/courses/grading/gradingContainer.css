@@ -1,0 +1,53 @@
+.grading-container {
+  padding: 30px;
+  min-height: 100%;
+  background-color: var(--courses-purple);
+}
+
+.grading-container-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grades-table-card {
+  background-color: white;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.cell-border-left {
+  border-left: 1px solid var(--gph-purple);
+}
+
+.MuiTableCell-head {
+  color: var(--dark-purple) !important;
+}
+
+.MuiTableCell-head.skill {
+  color: white !important;
+}
+
+.MuiTableCell-body {
+  color: var(--dark-purple) !important;
+}
+
+.table-header-activity {
+  font-weight: 700 !important;
+  font-size: 1.25em !important;
+}
+
+.MuiTableContainer-root {
+  padding: 30px;
+}

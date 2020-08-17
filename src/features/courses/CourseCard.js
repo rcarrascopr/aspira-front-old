@@ -3,6 +3,8 @@ import React from "react";
 import { cardColors } from "../../commons/courseCategoryColors";
 import { withRouter } from "react-router-dom";
 
+import { connect } from "react-redux";
+
 const CourseCard = (props) => {
   const handleClick = (id) => {
     props.history.push(`/cursos/${id}`);
@@ -38,25 +40,35 @@ const CourseCard = (props) => {
             )}
           </div>
         </div>
-        <div
-          className={`course-card-footer border-${cardColors[props.category]}`}
-        >
-          {/* <img
+        {props.currentUser.role === "Admin" && (
+          <div
+            className={`course-card-footer border-${
+              cardColors[props.category]
+            }`}
+          >
+            {/* <img
             className="icon pointer"
             src="/assets/duplicate_icon.png"
             alt="duplicar"
             style={{ padding: "0px 10px" }}
           /> */}
-          <img
-            className="icon pointer"
-            src="/assets/edit_icon.png"
-            alt="editar"
-            onClick={() => handleEditClick(props.id)}
-          />
-        </div>
+            <img
+              className="icon pointer"
+              src="/assets/edit_icon.png"
+              alt="editar"
+              onClick={() => handleEditClick(props.id)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default withRouter(CourseCard);
+let mapStateToProps = (state) => {
+  return {
+    currentUser: state.users.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(CourseCard));

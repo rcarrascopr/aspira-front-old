@@ -19,6 +19,13 @@ export function fetchUTIS(utisId) {
       .then((response) => response.json())
       .then((data) => {
         return dispatch({ type: "FETCH_UTIS", payload: data, loading: false });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -47,6 +54,13 @@ export function AddUTISToCourse(formData) {
           payload: data,
           loading: false,
         });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -71,6 +85,13 @@ export function updateUTIS(utisId, formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "UPDATE_UTIS", payload: data, loading: false });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

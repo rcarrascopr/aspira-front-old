@@ -29,7 +29,11 @@ export function loginAction(formData) {
         dispatch({ type: "LOGIN", payload: responseJSON });
       })
       .catch((error) => {
-        alert(`${error}. Correo electrónico o contraseña no válidos.`);
+        MySwal.fire({
+          title: `${error}. Correo electrónico o contraseña no fueron válidos.`,
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -80,7 +84,11 @@ export function userCreate(data) {
         }
       })
       .catch((error) => {
-        console.log(error);
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -111,6 +119,13 @@ export function userEdit(data, userId) {
           });
           return dispatch({ type: "SET_USER", payload: data });
         }
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -136,6 +151,13 @@ export function accountUpdate(data) {
         } else {
           dispatch({ type: "SET_USER_ERRORS", payload: data.errors });
         }
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -182,6 +204,12 @@ export function fetchTeachers() {
       .then((responseJSON) => {
         dispatch({ type: "FETCH_TEACHERS", payload: responseJSON });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
   };
 }
