@@ -18,13 +18,14 @@ const MySwal = withReactContent(Swal);
 
 function UTISList(props) {
   const generateUTISItems = () => {
-    return props.currentCourse.plans.map((utis) => {
+    return props.currentCourse.plans.map((utis, index) => {
       return (
         <UTISItem
           utis={utis}
           key={utis.id}
           generateModal={generateModal}
           generateDeleteModal={generateDeleteModal}
+          index={index}
         />
       );
     });
