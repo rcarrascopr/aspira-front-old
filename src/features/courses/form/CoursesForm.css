@@ -120,6 +120,7 @@
   font-weight: 700;
   /* cursor: pointer; */
   border-left: 10px solid rgba(0, 0, 0, 0);
+  text-transform: uppercase;
 }
 
 .side-tabs p.active-tab {
