@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Paper } from '@material-ui/core';
 import "./product.css";
 
 import FileAndLinkContainer from "../files and links/FileAndLinkContainer";
@@ -25,7 +26,7 @@ export default function Product(props) {
   };
 
   return (
-    <div className="product-card">
+    <Paper className="product-card">
       <h3 className="dark-purple-text">Producto: {props.product.title}</h3>
       <p className="dark-purple-text">Descripción</p>
       <p className="dark-purple-text">{props.product.description}</p>
@@ -34,6 +35,6 @@ export default function Product(props) {
         assignmentType={"Product"}
       />
       {generateSteps()}
-    </div>
+      </Paper>
   );
 }
