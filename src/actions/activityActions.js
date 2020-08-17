@@ -19,6 +19,13 @@ export function fetchActivity(activityId) {
       .then((response) => response.json())
       .then((data) => {
         dispatch({ type: "FETCH_ACTIVITY", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

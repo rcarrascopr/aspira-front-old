@@ -17,6 +17,13 @@ export function fetchEvents() {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_EVENTS", payload: responseJSON });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -42,6 +49,13 @@ export function createEvent(formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "CREATE_EVENT", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -66,6 +80,13 @@ export function editEvent(eventId, formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "EDIT_EVENT", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

@@ -1,5 +1,10 @@
 import { api_url } from "../commons/api_url";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 export function fetchFacultyUsers() {
   return (dispatch) => {
     dispatch({ type: "LOADING_FACULTY" });
@@ -11,6 +16,13 @@ export function fetchFacultyUsers() {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_FACULTY_USERS", payload: responseJSON });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -27,6 +39,13 @@ export function fetchFacultyUser(role, id) {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_FACULTY_USER", payload: responseJSON });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

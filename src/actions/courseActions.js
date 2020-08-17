@@ -17,6 +17,13 @@ export function fetchCourses() {
       })
       .then((responseJSON) => {
         dispatch({ type: "FETCH_COURSES", payload: responseJSON });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -79,6 +86,13 @@ export function editCourse(courseId, formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "EDIT_COURSE", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -96,6 +110,13 @@ export function fetchOneCourse(courseId) {
       .then((response) => response.json())
       .then((data) => {
         dispatch({ type: "SET_CURRENT_COURSE", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }

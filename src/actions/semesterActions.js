@@ -59,6 +59,13 @@ export function createSemester(formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "CREATE_SEMESTER", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
@@ -83,6 +90,13 @@ export function editSemester(semesterId, formData) {
           confirmButtonText: "continuar",
         });
         return dispatch({ type: "EDIT_SEMESTER", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
       });
   };
 }
