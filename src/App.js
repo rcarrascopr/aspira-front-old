@@ -17,6 +17,7 @@ import CoursesShowContainer from "./features/courses/show page/CoursesShowContai
 import UTISShowContainer from "./features/courses/show page/plans/show page/UTISShowContainer";
 import EventsContainer from "./features/events/EventsContainer";
 import ProductFormContainer from "./features/products/form/ProductFormContainer";
+import GradingContainer from "./features/courses/grading/GradingContainer";
 
 import ActivityShowContainer from "./features/courses/show page/plans/show page/activities/show page/ActivityShowContainer";
 import AdminContainer from "./features/admin/AdminContainer";
@@ -55,6 +56,10 @@ function App(props) {
           <PrivateRoute
             path="/cursos/create"
             component={CoursesFormContainer}
+          />
+          <PrivateRoute
+            path="/cursos/:id/calificaciones"
+            component={GradingContainer}
           />
           <PrivateRoute
             path="/cursos/:id/utis/:utis_id"

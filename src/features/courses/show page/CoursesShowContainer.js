@@ -40,7 +40,10 @@ function CoursesShowContainer(props) {
         <div className="utis-list-container">
           <UTISList />
           <div className="course-card-wrapper">
-            <StudentsRegisteredCard students={props.currentCourse.students} />
+            <StudentsRegisteredCard
+              students={props.currentCourse.students}
+              courseId={props.currentCourse.id}
+            />
             <StudentListCard students={props.currentCourse.students} />
           </div>
         </div>
