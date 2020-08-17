@@ -48,7 +48,7 @@ export default function SkillsFormModal(props) {
       <DialogContent className="modal">
         <SelectInput
           name="skill"
-          label="Destreza"
+          label="Habilidad"
           invert={true}
           labelWidth={70}
           items={props.skills}

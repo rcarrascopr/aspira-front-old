@@ -8,7 +8,7 @@ export default function Level(props) {
         {props.level.description}
       </p>
       <p className="dark-purple-text">
-        <strong>Destreza: </strong>
+        <strong>Habilidad: </strong>
         {props.skill.name}
       </p>
       <p className="dark-purple-text">
