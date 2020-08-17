@@ -32,6 +32,11 @@ body,
   /* buttons */
   --button-green: #c9ffa7;
   --button-red: #f26e6e;
+
+  --ser: #4ad23b;
+  --conocer:#FFD966;
+  --hacer: #dc66a1;
+  --convivir: #bf2bc9;
 }
 
 body {
@@ -501,4 +506,24 @@ ul {
   display: flex;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+}
+
+.header-ser {
+  background-color: var(--ser);
+  color: white !important;
+}
+
+.header-conocer {
+  background-color: var(--conocer);
+  color: white !important;
+}
+
+.header-hacer {
+  background-color: var(--hacer);
+  color: white !important;
+}
+
+.header-convivir {
+  background-color: var(--convivir);
+  color: white !important;
 }

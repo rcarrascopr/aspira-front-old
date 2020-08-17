@@ -21,7 +21,8 @@
   justify-content: center;
   font-weight: 700;
   padding: 20px;
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 4px 0px 0px 4px;
+  margin: 0px;
 }
 
 .step-instruction {
@@ -29,6 +30,30 @@
   align-items: center;
   padding: 0 10px;
   width: 100%;
-  border-radius: 0 4px 4px 0;
-  background-color: white;
+  margin: 0px;
+}
+
+.product-skill {
+  padding: 10px 15px;
+  margin: 10px 0px;
+}
+
+.product-skill p {
+  margin: 5px 0px;
+}
+
+.product-skill-ser {
+  border-left: 15px solid var(--ser);
+}
+
+.product-skill-conocer {
+  border-left: 15px solid var(--conocer);
+}
+
+.product-skill-hacer {
+  border-left: 15px solid var(--hacer);
+}
+
+.product-skill-convivir {
+  border-left: 15px solid var(--convivir);
 }
