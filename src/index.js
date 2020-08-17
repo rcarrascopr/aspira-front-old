@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "./normalize.css"
+import "./normalize.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { HashRouter } from "react-router-dom";
@@ -10,6 +10,8 @@ import thunk from "redux-thunk";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
+
+import ScrollToTop from "./commons/ScrollToTop";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
@@ -23,7 +25,9 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
-      <App />
+      <ScrollToTop>
+        <App />
+      </ScrollToTop>
     </HashRouter>
   </Provider>,
   document.getElementById("root")
