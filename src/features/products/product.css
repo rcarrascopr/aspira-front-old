@@ -16,7 +16,7 @@
 }
 
 .step-number {
-  background-color: var(--text-color-claro);
+  background-color: var(--gph-purple);
   color: white;
   display: flex;
   align-items: center;
