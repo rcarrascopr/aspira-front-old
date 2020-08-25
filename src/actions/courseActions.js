@@ -120,3 +120,9 @@ export function fetchOneCourse(courseId) {
       });
   };
 }
+
+export function resetCoursesFormData() {
+  return (dispatch) => {
+    dispatch({ type: "RESET_COURSES_FORM_DATA" });
+  };
+}

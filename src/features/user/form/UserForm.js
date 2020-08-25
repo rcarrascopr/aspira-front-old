@@ -13,6 +13,7 @@ import {
   userEdit,
   fetchUser,
   userNotFoundError,
+  resetUserForm,
 } from "../../../actions/userActions";
 import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
@@ -44,6 +45,7 @@ function UserForm(props) {
                     variant="outlined"
                     className={"dark-purple-text textfield-outlined"}
                     error={errors[field]}
+                    InputLabelProps={{ shrink: true }}
                   />
                 }
                 name={field}
@@ -83,6 +85,7 @@ function UserForm(props) {
                   className={"dark-purple-text textfield-outlined"}
                   error={errors[field]}
                   type={formData[field].type}
+                  InputLabelProps={{ shrink: true }}
                 />
               }
               name={field}
@@ -129,6 +132,8 @@ function UserForm(props) {
       delete formData.email;
       delete formData.password;
       delete formData.password_confirmation;
+    } else {
+      props.resetUserForm();
     }
 
     if (props.error) {
@@ -187,6 +192,7 @@ let mapDispatchToProps = (dispatch) => {
     fetchUser: (userId) => dispatch(fetchUser(userId)),
     fetchCenters: () => dispatch(fetchCenters()),
     userNotFoundError: (props) => dispatch(userNotFoundError(props)),
+    resetUserForm: () => dispatch(resetUserForm()),
   };
 };
 

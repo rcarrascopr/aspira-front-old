@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { withRouter } from "react-router-dom";
@@ -18,6 +18,12 @@ function EventForm(props) {
   const { control, errors, handleSubmit, watch, reset } = useForm(
     props.event && props.event.name ? { defaultValues: props.event } : {}
   );
+
+  useEffect(() => {
+    if (!props.event.name){
+      reset({name: "", description: "", date: "", category: ""})
+    } 
+  }, [props.event])
 
   const fieldNames = Object.keys(formData);
 

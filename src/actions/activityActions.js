@@ -133,3 +133,9 @@ export function deleteActivity(activityId) {
       });
   };
 }
+
+export function resetCurrentActivity() {
+  return (dispatch) => {
+    dispatch({ type: "RESET_CURRENT_ACTIVITY" });
+  };
+}

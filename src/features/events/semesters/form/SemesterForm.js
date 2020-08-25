@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { withRouter } from "react-router-dom";
@@ -21,6 +21,12 @@ function SemesterForm(props) {
       ? { defaultValues: props.semester }
       : {}
   );
+
+  useEffect(() => {
+    if (!props.semester.name) {
+      reset({ name: "", start_date: "", end_date: "" });
+    }
+  }, [props.semester]);
 
   const fieldNames = Object.keys(formData);
 

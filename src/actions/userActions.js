@@ -72,7 +72,7 @@ export function userCreate(data) {
       })
       .then((responseJSON) => {
         if (responseJSON.error) {
-          console.log(responseJSON.error);
+          // console.log(responseJSON.error);
         } else {
           MySwal.fire({
             title: "El usuario se ha creado.",
@@ -211,5 +211,11 @@ export function fetchTeachers() {
           confirmButtonText: "continuar",
         });
       });
+  };
+}
+
+export function resetUserForm() {
+  return (dispatch) => {
+    dispatch({ type: "RESET_USER_FORM" });
   };
 }

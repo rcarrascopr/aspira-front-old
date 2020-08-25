@@ -16,6 +16,7 @@ import {
   createCourse,
   fetchOneCourse,
   editCourse,
+  resetCoursesFormData,
 } from "../../../actions/courseActions";
 
 import "./CoursesForm.css";
@@ -68,11 +69,13 @@ const CoursesFormContainer = (props) => {
   useEffect(() => {
     if (props.match.params.id) {
       props.fetchCourse(props.match.params.id);
+    } else {
+      props.resetCoursesFormData();
     }
   }, []);
 
   useEffect(() => {
-    if (props.match.params.id && props.currentCourse) {
+    if (props.match.params.id && props.currentCourse.id) {
       props.setCoursesFormData({
         ...props.currentCourse,
         center_id: props.currentCourse.center.id,
@@ -90,7 +93,6 @@ const CoursesFormContainer = (props) => {
   }, [coursesFormData.center_id]);
 
   useEffect(() => {
-
     reset(coursesFormData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
@@ -229,6 +231,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCourse: (id) => dispatch(fetchOneCourse(id)),
   createCourse: (formData) => dispatch(createCourse(formData)),
   editCourse: (courseId, formData) => dispatch(editCourse(courseId, formData)),
+  resetCoursesFormData: () => dispatch(resetCoursesFormData()),
 });
 
 export default connect(

@@ -1,16 +1,18 @@
+let coursesFormData = {
+  name: "",
+  category: "",
+  semester_id: "",
+  center_id: "",
+  teacher_id: "",
+  grade: "",
+  students: [],
+};
+
 export default function coursesReducer(
   state = {
     loading: false,
     courses: [],
-    coursesFormData: {
-      name: "",
-      category: "",
-      semester_id: "",
-      center_id: "",
-      teacher_id: "",
-      grade: "",
-      students: [],
-    },
+    coursesFormData,
     currentCourse: {},
   },
   action
@@ -22,6 +24,8 @@ export default function coursesReducer(
       return { ...state, courses: [...action.payload], loading: false };
     case "SET_COURSES_FORM_DATA":
       return { ...state, coursesFormData: action.payload, loading: false };
+    case "RESET_COURSES_FORM_DATA":
+      return { ...state, coursesFormData, loading: false };
     case "CREATE_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload };
     case "EDIT_COURSE":

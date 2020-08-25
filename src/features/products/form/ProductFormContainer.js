@@ -10,7 +10,10 @@ import SkillsForm from "./SkillsForm";
 import InstructionsForm from "./InstructionsForm";
 
 import { getSkills } from "../../../actions/SkillsActions";
-import { setProductFormAction } from "../../../actions/productFormAction";
+import {
+  setProductFormAction,
+  resetProductFormAction,
+} from "../../../actions/productFormAction";
 import {
   createProduct,
   fetchProduct,
@@ -84,15 +87,21 @@ function ProductFormContainer(props) {
     let productId = props.match.params.product_id;
     if (productId) {
       props.fetchProduct(productId);
+    } else {
+      props.resetProductFormAction();
     }
   }, []);
 
   useEffect(() => {
     reset(props.productFormData);
-  }, [currentStep]);
+  }, [currentStep, props.productFormData]);
 
   useEffect(() => {
-    if (props.currentProduct.id && props.skills.length > 0) {
+    if (
+      props.currentProduct.id &&
+      props.skills.length > 0 &&
+      props.match.params.product_id
+    ) {
       let levels = props.currentProduct.levels.map((level) => {
         return {
           level: level,
@@ -251,6 +260,7 @@ let mapDispatchToProps = (dispatch) => {
     fetchProduct: (productId) => dispatch(fetchProduct(productId)),
     updateProduct: (productId, formData) =>
       dispatch(updateProduct(productId, formData)),
+    resetProductFormAction: () => dispatch(resetProductFormAction()),
   };
 };
 

@@ -15,6 +15,8 @@ export default function activitiesReducer(
       let updatedActivity = { ...state.currentActivity };
       updatedActivity.product = action.payload;
       return { ...state, currentActivity: updatedActivity, loading: false };
+    case "RESET_CURRENT_ACTIVITY":
+      return { ...state, currentActivity: {}, loading: false };
 
     case "CREATE_LINK":
       if (action.payload) {

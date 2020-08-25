@@ -52,6 +52,13 @@ export default function usersReducer(state = initialState, action) {
         defaultValues: newDefaultValues,
         error: "",
       };
+    case "RESET_USER_FORM":
+      return {
+        ...state,
+        loading: false,
+        defaultValues: initialState.defaultValues,
+        error: "",
+      };
     case "FETCH_TEACHERS":
       return {
         ...state,

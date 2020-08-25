@@ -2,6 +2,8 @@ import React from "react";
 
 import generateDate from "../../commons/dateParser";
 
+import { categories } from "../../commons/data/eventCategories";
+
 export default function EventsShow(props) {
   const handleClick = (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function EventsShow(props) {
           }}
         >
           <p className="dark-purple-text event-text">
-            Categoría: <strong>{props.event.category}</strong>
+            Categoría: <strong>{categories[props.event.category]}</strong>
           </p>
           <p className="dark-purple-text event-text">
             Centro: {props.event.center.name}
