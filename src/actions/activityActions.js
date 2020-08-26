@@ -83,7 +83,6 @@ export function updateActivity(activityId, formData) {
         return dispatch({ type: "UPDATE_ACTIVITY", payload: data });
       })
       .catch((error) => {
-        console.log(error);
         MySwal.fire({
           title: "Hubo un error.",
           icon: "error",

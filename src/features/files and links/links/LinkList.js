@@ -67,7 +67,6 @@ function LinkList(props) {
         assignment_id: props.assignment.id,
         assignment_type: props.assignmentType,
       };
-      console.log(formData);
       if (id) {
         props.updateLink(id, formData);
       } else {

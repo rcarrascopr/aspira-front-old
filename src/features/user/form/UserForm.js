@@ -120,7 +120,6 @@ function UserForm(props) {
   };
 
   const onSubmit = (data, event) => {
-    console.log(`Submitted data: `, data, `\n Event: `, event);
     if (isEdit) {
       props.userEdit(data, userId);
     } else {
@@ -132,7 +131,6 @@ function UserForm(props) {
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
-      console.log(props.currentUser, userId);
       if (props.formDefaultValues.id != userId) {
         props.fetchUser(userId);
       }

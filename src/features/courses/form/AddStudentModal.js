@@ -90,8 +90,6 @@ export const AddStudentModal = (props) => {
         );
       };
 
-      console.log(sorted_students);
-
       return sorted_students.map((student) => (
         <li key={student.id} className="student-list-item">
           {" "}

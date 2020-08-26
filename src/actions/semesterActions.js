@@ -18,7 +18,7 @@ export function fetchSemesters() {
       .then((responseJSON) => {
         dispatch({ type: "FETCH_SEMESTERS", payload: responseJSON });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   };
 }
 
@@ -34,12 +34,11 @@ export function fetchSemester(id) {
       .then((responseJSON) => {
         dispatch({ type: "FETCH_SEMESTER", payload: responseJSON });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   };
 }
 
 export function createSemester(formData) {
-  console.log("CREATE ACTION", JSON.stringify({ semester: formData }));
   const url = `${api_url}semesters`;
   return (dispatch) => {
     dispatch({ type: "LOADING_SEMESTERS" });

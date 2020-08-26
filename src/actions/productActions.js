@@ -82,7 +82,6 @@ export function updateProduct(productId, formData) {
         return dispatch({ type: "UPDATE_PRODUCT", payload: data });
       })
       .catch((error) => {
-        console.log(error);
         MySwal.fire({
           title: "Hubo un error.",
           icon: "error",

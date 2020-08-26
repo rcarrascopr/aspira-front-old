@@ -66,7 +66,6 @@ export function createCourse(formData) {
 
 export function editCourse(courseId, formData) {
   const url = `${api_url}courses/${courseId}`;
-  console.log(formData);
   return (dispatch) => {
     dispatch({ type: "LOADING_COURSES" });
     return fetch(url, {
@@ -79,7 +78,6 @@ export function editCourse(courseId, formData) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         MySwal.fire({
           title: "El curso ha sido actualizado.",
           icon: "success",
