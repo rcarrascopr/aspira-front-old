@@ -4,7 +4,7 @@ let coursesFormData = {
   semester_id: "",
   center_id: "",
   teacher_id: "",
-  grade: "",
+  academic_level: "",
   students: [],
 };
 
