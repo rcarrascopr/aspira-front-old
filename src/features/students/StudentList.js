@@ -85,7 +85,7 @@ export const StudentList = (props) => {
           invert={true}
           value={props.formData.grade}
           labelWidth={50}
-          items={["Todos", ...grades]}
+          items={[...grades]}
           handleChange={props.handleChange}
         />
         <div className="search-form">

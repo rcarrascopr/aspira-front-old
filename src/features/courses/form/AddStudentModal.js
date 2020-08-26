@@ -38,8 +38,8 @@ export const AddStudentModal = (props) => {
 
   const generateStudents = () => {
     if (students) {
-      console.log(students);
       let sorted_students;
+
       if (formData.filter !== "") {
         sorted_students = students.filter((s) =>
           `${s.first_name} ${s.paternal_surname} ${s.maternal_surname}`
@@ -50,9 +50,9 @@ export const AddStudentModal = (props) => {
         sorted_students = students;
       }
 
-      if (formData.academic_level !== "Todos") {
+      if (formData.grade !== "Todos") {
         sorted_students = sorted_students.filter(
-          (s) => formData.academic_level === s.academic_level
+          (s) => formData.grade === s.academic_level
         );
       }
 
@@ -80,6 +80,8 @@ export const AddStudentModal = (props) => {
           </p>
         );
       };
+
+      console.log(sorted_students);
 
       return sorted_students.map((student) => (
         <li key={student.id} className="student-list-item">
@@ -128,7 +130,7 @@ export const AddStudentModal = (props) => {
           invert={true}
           value={formData.grade}
           labelWidth={70}
-          items={["Todos", ...grades]}
+          items={[...grades]}
           handleChange={handleChange}
         />
 
