@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import { FacultyList } from "./FacultyList";
 import FacultyDetails from "./FacultyDetails";
-import { LoadingScreen } from "../../commons/LoadingScreen";
+import { LoadingScreen } from "../../commons/loading/LoadingScreen";
 
-import { fetchFacultyUsers, fetchFacultyUser } from "../../actions/facultyActions";
+import {
+  fetchFacultyUsers,
+  fetchFacultyUser,
+} from "../../actions/facultyActions";
 
 import { connect } from "react-redux";
 
@@ -21,7 +24,9 @@ const FacultyContainer = (props) => {
   const [currentFaculty, setCurrentFaculty] = useState();
 
   useEffect(() => {
-    props.fetchFacultyUsers();
+    if (props.faculty.length === 0) {
+      props.fetchFacultyUsers();
+    }
   }, []);
 
   useEffect(() => {

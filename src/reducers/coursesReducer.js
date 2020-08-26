@@ -27,7 +27,7 @@ export default function coursesReducer(
     case "RESET_COURSES_FORM_DATA":
       return { ...state, coursesFormData, loading: false };
     case "CREATE_CURRENT_COURSE":
-      return { ...state, currentCourse: action.payload };
+      return { ...state, currentCourse: action.payload, loading: false };
     case "EDIT_COURSE":
       return {
         ...state,

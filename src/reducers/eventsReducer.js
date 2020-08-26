@@ -28,7 +28,7 @@ export default function eventsReducer(
     //   case "SET_UTIS_FORM_DATA":
     //     return { ...state, utisFormData: action.payload, loading: false };
     case "CREATE_EVENT":
-      return { ...state, events: [...state.events, action.payload] };
+      return { ...state, events: [...state.events, action.payload], loading: false };
     case "EDIT_EVENT":
       return {
         ...state,

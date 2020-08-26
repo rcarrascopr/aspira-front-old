@@ -16,7 +16,9 @@ const SecondaryNav = (props) => {
   // };
 
   useEffect(() => {
-    props.fetchSemesters();
+    if (props.semesters.length == 0) {
+      props.fetchSemesters();
+    }
   }, []);
 
   const generateSemesterDropdown = () => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Courses.css";
 import { connect } from "react-redux";
 
-import { LoadingScreen } from "../../commons/LoadingScreen";
 import { SelectInput } from "../../commons/inputs/SelectInput";
 import { ButtonGroup } from "./ButtonGroup";
 import CoursesContainer from "./CoursesContainer";
@@ -41,7 +40,9 @@ const CoursesParentContainer = (props) => {
   };
 
   useEffect(() => {
-    fetchCenters();
+    if (props.centers.length === 0) {
+      props.fetchCenters();
+    }
   }, []);
 
   useEffect(() => {
@@ -163,7 +164,7 @@ let mapStateToProps = (state) => {
 };
 
 let mapDispatchToProps = (dispatch) => ({
-  fetchCenters: dispatch(fetchCenters()),
+  fetchCenters: () => dispatch(fetchCenters()),
 });
 
 export default connect(

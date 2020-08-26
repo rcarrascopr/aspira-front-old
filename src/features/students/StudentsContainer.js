@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { StudentList } from "./StudentList";
 import StudentDetails from "./StudentDetails";
-import { LoadingScreen } from "../../commons/LoadingScreen";
+import { LoadingScreen } from "../../commons/loading/LoadingScreen";
 
 import { fetchStudents, fetchStudent } from "../../actions/studentActions";
 
@@ -21,7 +21,9 @@ const StudentsContainer = (props) => {
   const [currentStudent, setCurrentStudent] = useState();
 
   useEffect(() => {
-    props.fetchStudents();
+    if (props.students.length === 0) {
+      props.fetchStudents();
+    }
   }, []);
 
   useEffect(() => {

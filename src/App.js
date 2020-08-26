@@ -5,7 +5,7 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { PrivateRoute } from "./commons/PrivateRoute";
 import Navbar from "./features/nav/Navbar.js";
 import Signin from "./features/user/sign in/Signin";
-import CenterContainer from "./features/centers/CenterContainer";
+// import CenterContainer from "./features/centers/CenterContainer";
 import { DashboardContainer } from "./features/dashboard/DashboardContainer";
 import CoursesParentContainer from "./features/courses/CoursesParentContainer";
 import CoursesFormContainer from "./features/courses/form/CoursesFormContainer";
@@ -21,6 +21,7 @@ import GradingContainer from "./features/courses/grading/GradingContainer";
 
 import ActivityShowContainer from "./features/courses/show page/plans/show page/activities/show page/ActivityShowContainer";
 import AdminContainer from "./features/admin/AdminContainer";
+import { LoadingScreen } from "./commons/loading/LoadingScreen";
 
 function App(props) {
   // useEffect(() => {
@@ -47,12 +48,12 @@ function App(props) {
   return (
     <div className="App">
       {props.currentUser && <Navbar />}
-
+      <LoadingScreen open={props.loading} />
       <div style={{ height: "100%", width: "100%" }}>
         <Switch>
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />
-          <PrivateRoute path="/centers" component={CenterContainer} />
+          {/* <PrivateRoute path="/centers" component={CenterContainer} /> */}
           <PrivateRoute
             path="/cursos/create"
             component={CoursesFormContainer}
@@ -105,9 +106,9 @@ function App(props) {
           <PrivateRoute path="/users/create" component={UserForm} />
 
           {/* <Route path="/:estudiantes/create" component={UserForm} />
-          <Route path="/estudiantes" component={StudentsContainer} />
-          <Route path="/eventos" component={EventsContainer} />
- */}
+        <Route path="/estudiantes" component={StudentsContainer} />
+        <Route path="/eventos" component={EventsContainer} />
+*/}
         </Switch>
       </div>
     </div>
@@ -115,8 +116,18 @@ function App(props) {
 }
 
 let mapStateToProps = (state) => {
+  let loading = false;
+
+  for (let key in state) {
+    if (state[key].loading) {
+      loading = true;
+      break;
+    }
+  }
+
   return {
     currentUser: state.users.currentUser,
+    loading: loading,
   };
 };
 

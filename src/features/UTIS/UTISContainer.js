@@ -37,7 +37,9 @@ const UTISContainer = (props) => {
   };
 
   useEffect(() => {
-    fetchCenters();
+    if (props.centers.length === 0) {
+      fetchCenters();
+    }
   }, []);
 
   useEffect(() => {

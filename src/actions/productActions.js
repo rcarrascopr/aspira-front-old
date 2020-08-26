@@ -32,7 +32,7 @@ export function fetchProduct(productId) {
 export function createProduct(formData) {
   const url = `${api_url}products`;
   return (dispatch) => {
-    dispatch({ type: "LOADING_PRODUCTS" });
+    dispatch({ type: "LOADING_ACTIVITIES" });
     return fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export function updateProduct(productId, formData) {
 export function deleteProduct(productId) {
   const url = `${api_url}products/${productId}`;
   return (dispatch) => {
-    dispatch({ type: "LOADING_ACTIVITIES" });
+    dispatch({ type: "LOADING_UTIS" });
     return fetch(url, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

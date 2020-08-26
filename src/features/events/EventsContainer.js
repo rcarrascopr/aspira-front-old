@@ -23,7 +23,10 @@ function EventsContainer(props) {
   const [cardContent, setCardContent] = useState("");
 
   useEffect(() => {
-    props.fetchEvents();
+    if (props.events.length === 0) {
+      props.fetchEvents();
+    }
+
     if (props.semesters.length === 0) {
       props.fetchSemesters();
     }

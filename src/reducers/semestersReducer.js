@@ -10,7 +10,11 @@ export default function semestersReducer(
     case "FETCH_SEMESTER":
       return { ...state, currentSemester: action.payload, loading: false };
     case "CREATE_SEMESTER":
-      return { ...state, semesters: [...state.semesters, action.payload] };
+      return {
+        ...state,
+        semesters: [...state.semesters, action.payload],
+        loading: false,
+      };
     case "EDIT_SEMESTER":
       return {
         ...state,
@@ -20,6 +24,7 @@ export default function semestersReducer(
           ),
           action.payload,
         ],
+        loading: false,
       };
     default:
       return state;
