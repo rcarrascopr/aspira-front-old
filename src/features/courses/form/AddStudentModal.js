@@ -50,9 +50,9 @@ export const AddStudentModal = (props) => {
         sorted_students = students;
       }
 
-      if (formData.grade !== "Todos") {
+      if (formData.academic_level !== "Todos") {
         sorted_students = sorted_students.filter(
-          (s) => formData.grade === s.academic_level
+          (s) => formData.academic_level === s.academic_level
         );
       }
 

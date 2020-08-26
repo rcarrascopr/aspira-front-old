@@ -72,13 +72,13 @@ export const Details = (props) => {
       />
 
       <SelectInput
-        name="grade"
+        name="academic_level"
         label="Grado"
         invert={true}
         labelWidth={50}
         items={grades}
         control={control}
-        errors={errors["grade"]}
+        errors={errors["academic_level"]}
       />
     </div>
   );
