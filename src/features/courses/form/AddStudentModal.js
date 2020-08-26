@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import {
   Button,
@@ -20,7 +20,16 @@ export const AddStudentModal = (props) => {
     sortBy: "Nombre",
     filter: "",
   });
-  const { students, selectedStudents, setSelectedStudents } = useFormContext();
+  const {
+    students,
+    selectedStudents,
+    setSelectedStudents,
+    coursesFormData,
+  } = useFormContext();
+
+  useEffect(() => {
+    setFormData({ ...formData, grade: coursesFormData.academic_level });
+  }, [coursesFormData.academic_level]);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
