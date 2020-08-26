@@ -6,7 +6,7 @@ import { TextField } from "@material-ui/core";
 import { SelectInput } from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 import grades from "../../../commons/data/grades";
-import { userFormData as formData } from "../../../commons/form-data/userFormData";
+import { userFormData } from "../../../commons/form-data/userFormData";
 
 import {
   userCreate,
@@ -18,11 +18,15 @@ import {
 import { fetchCenters } from "../../../actions/centerActions";
 import "./userForm.css";
 
+let formData = { ...userFormData };
+
 function UserForm(props) {
   const { isEdit, formDefaultValues } = props;
   const { control, errors, handleSubmit, watch, reset } = useForm({
     defaultValues: formDefaultValues,
   });
+
+  
 
   const userId = parseInt(props.match.params.id, 10);
   const accountType = watch("role");
@@ -128,12 +132,17 @@ function UserForm(props) {
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
-      props.fetchUser(userId);
+      console.log(props.currentUser, userId);
+      if (props.formDefaultValues.id != userId) {
+        props.fetchUser(userId);
+      }
+
       delete formData.email;
       delete formData.password;
       delete formData.password_confirmation;
     } else {
       props.resetUserForm();
+      formData = { ...userFormData };
     }
 
     if (props.error) {
