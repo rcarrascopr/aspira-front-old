@@ -39,13 +39,16 @@ function CoursesShowContainer(props) {
       <div className="courses-show-utis-list-container">
         <div className="utis-list-container">
           <UTISList />
-          <div className="course-card-wrapper">
-            <StudentsRegisteredCard
-              students={props.currentCourse.students}
-              courseId={props.currentCourse.id}
-            />
-            <StudentListCard students={props.currentCourse.students} />
-          </div>
+          {(props.currentUser.role === "Admin" ||
+            props.currentUser.role === "Teacher") && (
+            <div className="course-card-wrapper">
+              <StudentsRegisteredCard
+                students={props.currentCourse.students}
+                courseId={props.currentCourse.id}
+              />
+              <StudentListCard students={props.currentCourse.students} />
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -53,7 +56,10 @@ function CoursesShowContainer(props) {
 }
 
 let mapStateToProps = (state) => {
-  return { currentCourse: state.courses.currentCourse };
+  return {
+    currentCourse: state.courses.currentCourse,
+    currentUser: state.users.currentUser,
+  };
 };
 
 let mapDispatchToProps = (dispatch) => {
