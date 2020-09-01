@@ -30,4 +30,10 @@ const rootReducer = combineReducers({
   activities: activitiesReducer,
 });
 
-export default rootReducer;
+export default (state, action) => {
+  // if (action.type === "LOGOUT_USER") {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("currentUser");
+  // }
+  return rootReducer(action.type === "LOGOUT_USER" ? undefined : state, action);
+};
