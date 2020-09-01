@@ -9,6 +9,7 @@ import CoursesContainer from "./CoursesContainer";
 import { grade_ascending, grade_descending } from "../../commons/sort_methods";
 
 import { fetchCenters } from "../../actions/centerActions";
+import { fetchCourses } from "../../actions/courseActions";
 
 const CoursesParentContainer = (props) => {
   const [buttonStates, setButtonStates] = useState({
@@ -40,8 +41,10 @@ const CoursesParentContainer = (props) => {
   };
 
   useEffect(() => {
-    if (props.centers.length === 0) {
+    if (props.currentUser.role === "Admin" && props.centers.length === 0) {
       props.fetchCenters();
+    } else if (props.courses.length === 0) {
+      props.fetchCourses();
     }
   }, []);
 
@@ -102,54 +105,63 @@ const CoursesParentContainer = (props) => {
   };
 
   const renderCourses = () => {
-    if (currentCenter) {
+    if (currentCenter || props.courses.length > 0) {
       return (
         <CoursesContainer
-          courses={courses}
+          courses={props.currentUser.role === "Admin" ? courses : props.courses}
           setCourses={setCourses}
           currentUser={props.currentUser}
         />
       );
+    } else if (props.currentUser.role === "Admin") {
+      return (
+        <h2 className="dark-purple-text courses-header">
+          Por favor seleccione un centro.
+        </h2>
+      );
     } else {
       return (
-        <h2 className="dark-purple-text">Por favor seleccione un centro.</h2>
+        <h2 className="dark-purple-text courses-header">
+          No tienes cursos asignados.
+        </h2>
       );
     }
   };
 
   return (
     <section className="utis-container courses-purple">
-      <div className="utis-filters">
-        {props.currentUser.role === "Admin" && (
-          <SelectInput
-            name="center"
-            label="Centro"
-            invert={true}
-            labelWidth={50}
-            items={["Todos", ...props.centers]}
-            handleChange={handleChange}
-            value={
-              currentCenter && currentCenter.id
-                ? currentCenter.id
-                : currentCenter
-            }
-          />
-        )}
-
-        <SelectInput
-          name="sortBy"
-          label="Ordenar por"
-          invert={true}
-          value={sortBy}
-          labelWidth={90}
-          items={["Grado - (ascendiente ↑)", "Grado - (descendiente ↓)"]}
-          handleChange={handleSortChange}
-        />
-      </div>
       {props.currentUser.role === "Admin" && (
-        <ButtonGroup buttonStates={buttonStates} handleClick={handleClick} />
+        <>
+          <div className="utis-filters">
+            <SelectInput
+              name="center"
+              label="Centro"
+              invert={true}
+              labelWidth={50}
+              items={["Todos", ...props.centers]}
+              handleChange={handleChange}
+              value={
+                currentCenter && currentCenter.id
+                  ? currentCenter.id
+                  : currentCenter
+              }
+            />
+            <SelectInput
+              name="sortBy"
+              label="Ordenar por"
+              invert={true}
+              value={sortBy}
+              labelWidth={90}
+              items={["Grado - (ascendiente ↑)", "Grado - (descendiente ↓)"]}
+              handleChange={handleSortChange}
+            />
+          </div>
+
+          <ButtonGroup buttonStates={buttonStates} handleClick={handleClick} />
+
+          <hr />
+        </>
       )}
-      <hr />
 
       {renderCourses()}
     </section>
@@ -160,11 +172,13 @@ let mapStateToProps = (state) => {
   return {
     centers: state.centers.centers,
     currentUser: state.users.currentUser,
+    courses: state.courses.courses,
   };
 };
 
 let mapDispatchToProps = (dispatch) => ({
   fetchCenters: () => dispatch(fetchCenters()),
+  fetchCourses: () => dispatch(fetchCourses()),
 });
 
 export default connect(

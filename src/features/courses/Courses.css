@@ -89,6 +89,10 @@
   margin: 50px 0px;
 }
 
+.courses-header {
+  text-align: center;
+}
+
 .card-group {
   display: flex;
   flex-wrap: wrap;
