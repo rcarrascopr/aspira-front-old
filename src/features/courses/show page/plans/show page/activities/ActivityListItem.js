@@ -11,51 +11,62 @@ function ActivityListItem(props) {
     let content;
     if (props.product && props.product.id) {
       content = (
-        <div className="activity-list-item-product">
-          <div className="file-icon">
-            <img src="/assets/file_icon_white.png" alt="" />
+        <>
+          <p className="dark-purple-text">Producto: </p>
+          <div className="activity-list-item-product">
+            <div className="file-icon">
+              <img src="/assets/file_icon_white.png" alt="" />
+            </div>
+            <p
+              className="dark-purple-text"
+              style={{ width: "400px", margin: "0px" }}
+            >
+              {props.product.title}
+            </p>
+            {(props.currentUser.role === "Admin" ||
+              props.currentUser.role === "Teacher") && (
+              <>
+                <img
+                  className="course-icon"
+                  src="/assets/edit_icon.png"
+                  alt="Edit Product"
+                  onClick={() => {
+                    props.history.push(
+                      `/actividades/${props.id}/productos/${props.product.id}/edit`
+                    );
+                  }}
+                  style={{ height: "23px" }}
+                />
+                <img
+                  className="course-icon"
+                  src="/assets/trash_icon.png"
+                  alt="Delete Product"
+                  onClick={() =>
+                    props.generateDeleteModal({ productId: props.product.id })
+                  }
+                  style={{ height: "23px" }}
+                />
+              </>
+            )}
           </div>
-          <p
-            className="dark-purple-text"
-            style={{ width: "400px", margin: "0px" }}
-          >
-            {props.product.title}
-          </p>
-          <img
-            className="course-icon"
-            src="/assets/edit_icon.png"
-            alt="Edit Product"
-            onClick={() => {
-              props.history.push(
-                `/actividades/${props.id}/productos/${props.product.id}/edit`
-              );
-            }}
-            style={{ height: "23px" }}
-          />
-          <img
-            className="course-icon"
-            src="/assets/trash_icon.png"
-            alt="Delete Product"
-            onClick={() =>
-              props.generateDeleteModal({ productId: props.product.id })
-            }
-            style={{ height: "23px" }}
-          />
-        </div>
+        </>
       );
     } else {
-      content = (
-        <a className="tertiary-btn" onClick={() => handleClick()}>
-          + Añadir producto
-        </a>
-      );
+      if (
+        props.currentUser.role === "Admin" ||
+        props.currentUser.role === "Teacher"
+      ) {
+        content = (
+          <>
+            <p className="dark-purple-text">Producto: </p>
+            <a className="tertiary-btn" onClick={() => handleClick()}>
+              + Añadir producto
+            </a>
+          </>
+        );
+      }
     }
-    return (
-      <>
-        <p className="dark-purple-text">Producto: </p>
-        {content}
-      </>
-    );
+    return <>{content}</>;
   };
 
   const handleLinkClick = () => {
@@ -80,18 +91,23 @@ function ActivityListItem(props) {
         <p>No Entregados: {props.students_not_submitted}</p> */}
         </div>
       </div>
-      <img
-        className="course-icon"
-        src="/assets/edit_icon.png"
-        alt="Edit UTIS"
-        onClick={() => props.generateModal(props.id)}
-      />
-      <img
-        className="course-icon"
-        src="/assets/trash_icon.png"
-        alt="Delete UTIS"
-        onClick={() => props.generateDeleteModal({ activityId: props.id })}
-      />
+      {(props.currentUser.role === "Admin" ||
+        props.currentUser.role === "Teacher") && (
+        <>
+          <img
+            className="course-icon"
+            src="/assets/edit_icon.png"
+            alt="Edit UTIS"
+            onClick={() => props.generateModal(props.id)}
+          />
+          <img
+            className="course-icon"
+            src="/assets/trash_icon.png"
+            alt="Delete UTIS"
+            onClick={() => props.generateDeleteModal({ activityId: props.id })}
+          />
+        </>
+      )}
     </div>
   );
 }

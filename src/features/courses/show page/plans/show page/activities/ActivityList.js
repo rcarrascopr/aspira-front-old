@@ -87,6 +87,7 @@ function ActivityList(props) {
           key={activity.id}
           generateModal={generateModal}
           generateDeleteModal={generateDeleteModal}
+          currentUser={props.currentUser}
         />
       );
     });
@@ -117,9 +118,12 @@ function ActivityList(props) {
         <h2 className="dark-purple-text" style={{ fontSize: "3em" }}>
           Actividades
         </h2>
-        <a className="primary-btn" onClick={() => generateModal()}>
-          + Añadir
-        </a>
+        {(props.currentUser.role === "Admin" ||
+          props.currentUser.role === "Teacher") && (
+          <a className="primary-btn" onClick={() => generateModal()}>
+            + Añadir
+          </a>
+        )}
       </div>
       <div>{generateContent()}</div>
     </div>
@@ -129,6 +133,7 @@ function ActivityList(props) {
 let mapStateToProps = (state) => {
   return {
     currentUTIS: state.utis.currentUTIS,
+    currentUser: state.users.currentUser,
   };
 };
 

@@ -26,6 +26,7 @@ function UTISList(props) {
           generateModal={generateModal}
           generateDeleteModal={generateDeleteModal}
           index={index}
+          currentUser={props.currentUser}
         />
       );
     });
@@ -98,9 +99,12 @@ function UTISList(props) {
 
   return (
     <div className="utis-list">
-      <a className="primary-btn" onClick={() => generateModal()}>
-        + Añadir UTIS
-      </a>
+      {(props.currentUser.role === "Admin" ||
+        props.currentUser.role === "Teacher") && (
+        <a className="primary-btn" onClick={() => generateModal()}>
+          + Añadir UTIS
+        </a>
+      )}
       <div className="utis-list-content">{generateContent()}</div>
     </div>
   );
@@ -109,6 +113,7 @@ function UTISList(props) {
 let mapStateToProps = (state) => {
   return {
     currentCourse: state.courses.currentCourse,
+    currentUser: state.users.currentUser,
   };
 };
 

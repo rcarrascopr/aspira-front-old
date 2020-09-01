@@ -15,7 +15,8 @@ function UTISItem(props) {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent:
+            props.currentUser.role === "Student" ? "center" : "space-between",
           width: "850px",
         }}
       >
@@ -26,9 +27,7 @@ function UTISItem(props) {
           }}
         >
           <div className="utis-item-header">
-            <p className="utis-item-index dark-purple-text">
-              {props.index + 1}.
-            </p>
+            <p className="utis-item-index dark-purple-text"></p>
             <h2 className="dark-purple-text">{props.utis.name}</h2>
           </div>
 
@@ -36,18 +35,23 @@ function UTISItem(props) {
             <p>{props.utis.total_activities} Actividades</p>
           </div>
         </div>
-        <img
-          className="course-icon"
-          src="/assets/edit_icon.png"
-          alt="Edit UTIS"
-          onClick={() => props.generateModal(props.utis.id)}
-        />
-        <img
-          className="course-icon"
-          src="/assets/trash_icon.png"
-          alt="Delete UTIS"
-          onClick={() => props.generateDeleteModal(props.utis.id)}
-        />
+        {(props.currentUser.role === "Admin" ||
+          props.currentUser.role === "Teacher") && (
+          <>
+            <img
+              className="course-icon"
+              src="/assets/edit_icon.png"
+              alt="Edit UTIS"
+              onClick={() => props.generateModal(props.utis.id)}
+            />
+            <img
+              className="course-icon"
+              src="/assets/trash_icon.png"
+              alt="Delete UTIS"
+              onClick={() => props.generateDeleteModal(props.utis.id)}
+            />
+          </>
+        )}
       </div>
     </div>
   );
