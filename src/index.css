@@ -162,6 +162,10 @@ label {
   font-weight: 700 !important;
 }
 
+.MuiFormControlLabel-root {
+  color: var(--dark-purple);
+}
+
 hr {
   border-color: #2a5894;
 }
@@ -531,4 +535,17 @@ ul {
 .header-convivir {
   background-color: var(--convivir);
   color: white !important;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.breadcrumb-link {
+  text-decoration: underline;
+}
+
+.breadcrumb-current {
+  text-decoration: none;
+  font-weight: bold;
 }
