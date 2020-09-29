@@ -39,7 +39,7 @@ export default function SubmittedProductsTable(props) {
               color="primary"
               className="button-main"
               disableElevation={true}
-              href="/#/actividades/4/productos/evaluar"
+              href={`/#/actividades/${props.currentActivity.id}/productos/evaluar`}
               style={{
                 ...buttonStyles,
                 background: "#c9ffa7",
@@ -58,7 +58,7 @@ export default function SubmittedProductsTable(props) {
               color="primary"
               className="button-main"
               disableElevation={true}
-              href="#/actividades/4/productos/evaluar"
+              href={`/#/actividades/${props.currentActivity.id}/productos/evaluar`}
               style={{
                 ...buttonStyles,
                 background: "#f26e6e",
