@@ -1,0 +1,10 @@
+.submission-form-container {
+  padding: 30px;
+  min-height: 100%;
+}
+
+.submission-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
