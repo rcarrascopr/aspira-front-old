@@ -90,20 +90,42 @@ function LinkList(props) {
       }
     });
   };
-  return (
-    <div>
-      <p className="dark-purple-text">Enlaces</p>
-      {generateLinks()}
-      <a className="tertiary-btn" onClick={() => generateModal()}>
-        + Añadir enlace
-      </a>
-    </div>
-  );
+
+  const generateContent = () => {
+    let header;
+    let links;
+    let addButton;
+    if (props.currentActivity.links && props.currentActivity.links.length > 0) {
+      links = generateLinks();
+    }
+
+    if (
+      props.currentUser.role === "Admin" ||
+      props.currentUser.role === "Teacher"
+    ) {
+      header = <p className="dark-purple-text">Enlaces</p>;
+      addButton = (
+        <a className="tertiary-btn" onClick={() => generateModal()}>
+          + Añadir enlace
+        </a>
+      );
+    }
+
+    return (
+      <>
+        {header}
+        {links}
+        {addButton}
+      </>
+    );
+  };
+  return <div>{generateContent()}</div>;
 }
 
 let mapStateToProps = (state) => {
   return {
     currentActivity: state.activities.currentActivity,
+    currentUser: state.users.currentUser,
   };
 };
 
