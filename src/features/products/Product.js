@@ -23,7 +23,7 @@ export default function Product(props) {
   };
 
   const generateSkillSection = () => {
-    if (props.product.levels) {
+    if (props.product.levels && props.currentUser.role !== "Student") {
       return (
         <>
           <p className="dark-purple-text">Habilidades</p>
