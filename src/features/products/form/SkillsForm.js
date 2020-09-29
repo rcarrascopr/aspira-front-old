@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { TextField } from "@material-ui/core";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import SelectInput from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
@@ -16,13 +19,16 @@ import { connect } from "react-redux";
 function SkillsForm(props) {
   const [open, setOpen] = useState(false);
   const [levels, setLevels] = useState([]);
+  const [hasSkills, setHasSkills] = useState(true);
 
   const addLevel = (data) => {
     setLevels([...levels, data]);
   };
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (hasSkills) {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
@@ -30,9 +36,15 @@ function SkillsForm(props) {
   };
 
   const removeLevel = (index) => {
-    let levelsCopy = [...levels];
-    levelsCopy.splice(index, 1);
-    setLevels(levelsCopy);
+    if (hasSkills) {
+      let levelsCopy = [...levels];
+      levelsCopy.splice(index, 1);
+      setLevels(levelsCopy);
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    setHasSkills(!hasSkills);
   };
 
   const generateLevels = () => {
@@ -55,22 +67,49 @@ function SkillsForm(props) {
 
   useEffect(() => {
     setLevels(props.productFormData.levels || []);
+    setHasSkills(props.productFormData.has_skills);
   }, []);
 
   useEffect(() => {
     props.setProductFormData({ ...props.productFormData, levels });
   }, [levels]);
 
+  useEffect(() => {
+    props.setProductFormData({
+      ...props.productFormData,
+      has_skills: hasSkills,
+    });
+  }, [hasSkills]);
+
   return (
     <div className="product-details-container">
       <h2 className="dark-purple-text product-details-header">
         Habilidades a desarrollar
       </h2>
-      <div className="product-scrollable-container scrollable">
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={hasSkills}
+            onChange={handleCheckboxChange}
+            name="hasSkills"
+            color="primary"
+          />
+        }
+        label="En esta actividad se evaluarán habilidades"
+      />
+
+      <div
+        className={`product-scrollable-container scrollable ${
+          hasSkills ? "" : "disabled"
+        }`}
+      >
         {generateLevels()}
       </div>
       <div className="instructions-steps-btn-group">
-        <a className="primary-btn rounded" onClick={handleClickOpen}>
+        <a
+          className={`primary-btn rounded ${hasSkills ? "" : "disabled"}`}
+          onClick={handleClickOpen}
+        >
           +
         </a>
         {/* <a className="primary-btn rounded" onClick={handleRemove}>

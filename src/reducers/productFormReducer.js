@@ -3,6 +3,7 @@ let productFormData = {
   introduction: "",
   description: "",
   steps: [""],
+  has_skills: true,
 };
 
 export default function productFormReducer(
