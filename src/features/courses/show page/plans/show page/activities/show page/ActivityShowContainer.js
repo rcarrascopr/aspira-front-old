@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchActivity } from "../../../../../../../actions/activityActions";
-import { Button } from "@material-ui/core";
 
 import Product from "../../../../../../products/Product";
 
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { Link } from "react-router-dom";
+
 import FileAndLinkContainer from "../../../../../../files and links/FileAndLinkContainer";
+import SubmittedProductsTable from "./SubmittedProductsTable";
+import StudentSideBarContainer from "./student side cards/StudentSideBarContainer";
 
 import "./activityShowContainer.css";
 
@@ -17,82 +21,71 @@ const ActivityShowContainer = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const buttonStyles = {
-    color: "#383784",
-    textTransform: "capitalize",
-    borderRadius: "5px",
-  };
-
   const generateProductInformation = () => {
     if (props.currentActivity && props.currentActivity.product) {
       let product = props.currentActivity.product;
-      return <Product product={product} />;
+      return <Product product={product} currentUser={props.currentUser} />;
     }
   };
 
-  const generateSubmittedProductsTable = () => {
-    if (props.currentActivity.product) {
+  const generateSideCards = () => {
+    let role = props.currentUser.role;
+    if (role === "Admin" || role === "Teacher") {
+      return <SubmittedProductsTable currentActivity={props.currentActivity} />;
+    } else {
       let product = props.currentActivity.product;
+      if (product && product.has_skills && product.levels.length > 0) {
+        return (
+          <StudentSideBarContainer
+            currentActivity={props.currentActivity}
+            currentUser={props.currentUser}
+          />
+        );
+      }
+    }
+  };
+
+  const generateActivityHeader = () => {
+    if (props.currentActivity.id) {
+      let activity = props.currentActivity;
+      let course = activity.course;
+      let plan = activity.plan;
+      let teacher = course.teacher;
       return (
-        <div className="student-submissions">
-          <div className="student-submissions-content">
-            <h3 className="dark-purple-text" style={{ textAlign: "center" }}>
-              Productos Entregados
-            </h3>
-            <ul className="students-list">
-              {product.students.map((student) => {
-                const fullName = `${student.first_name} ${student.paternal_surname} ${student.maternal_surname}`;
-                return (
-                  <li className="students-list-item">
-                    <p>
-                      <div className="product-circle pending" />
-                      {fullName}
-                    </p>
-                    {/* <a href={`/students/${student.id}`}>Detalles</a> */}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="buttons-container">
-            <Button
-              variant="contained"
-              color="primary"
-              className="button-main"
-              disableElevation={true}
-              href="#"
-              style={{
-                ...buttonStyles,
-                background: "#c9ffa7",
-                width: "180px",
-              }}
-            >
-              <strong
-                style={{ fontSize: "40px", marginRight: "10px", width: 24 }}
-              >
-                0
-              </strong>
-              <p className="button-text">Entregados</p>
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className="button-main"
-              disableElevation={true}
-              href="#"
-              style={{
-                ...buttonStyles,
-                background: "#f26e6e",
-                width: "180px",
-              }}
-            >
-              <strong style={{ fontSize: "40px", marginRight: "10px" }}>
-                {product.students.length}
-              </strong>
-              <p className="button-text"> No Entregados</p>
-            </Button>
-          </div>
+        <div className="activity-header dark-purple white-text">
+          <p>
+            Curso: <strong>{course.name}</strong>
+          </p>
+          <p>
+            UTIS: <strong>{plan.name}</strong>
+          </p>
+          <p>
+            GPH:{" "}
+            <strong>{`${teacher.first_name} ${teacher.paternal_surname}`}</strong>
+          </p>
         </div>
+      );
+    }
+  };
+
+  const generateBreadcrumbs = () => {
+    if (props.currentActivity.id) {
+      let activity = props.currentActivity;
+      let course = activity.course;
+      let plan = activity.plan;
+      return (
+        <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to={`/cursos/${course.id}`} className="breadcrumb-link">
+            {course.name}
+          </Link>
+          <Link
+            to={`/cursos/${course.id}/utis/${plan.id}`}
+            className="breadcrumb-link"
+          >
+            {plan.name}
+          </Link>
+          <Link className="breadcrumb-current">{activity.name}</Link>
+        </Breadcrumbs>
       );
     }
   };
@@ -102,6 +95,8 @@ const ActivityShowContainer = (props) => {
       return (
         <div className="activity-container">
           <div className="info-wrapper">
+            {generateBreadcrumbs()}
+            {generateActivityHeader()}
             <h2 className="title">{props.currentActivity.name}</h2>
             <div className="info-container">
               <p className="dark-purple-text">Descripción</p>
@@ -117,7 +112,7 @@ const ActivityShowContainer = (props) => {
             </div>
             {generateProductInformation()}
           </div>
-          {generateSubmittedProductsTable()}
+          {generateSideCards()}
         </div>
       );
     }
@@ -129,6 +124,7 @@ const ActivityShowContainer = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentActivity: state.activities.currentActivity,
+    currentUser: state.users.currentUser,
   };
 };
 
