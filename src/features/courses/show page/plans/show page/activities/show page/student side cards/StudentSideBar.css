@@ -1,0 +1,18 @@
+.student-side-bar-container {
+  max-width: 40%;
+}
+
+.student-side-card {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.skill-evaluation-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
