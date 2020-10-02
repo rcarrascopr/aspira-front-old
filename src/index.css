@@ -300,6 +300,10 @@ ul {
   align-items: center;
 }
 
+.MuiOutlinedInput-multiline {
+  width: 100%;
+}
+
 .MuiOutlinedInput-input {
   color: var(--dark-purple) !important;
 }
@@ -429,6 +433,39 @@ ul {
   cursor: pointer;
   font-weight: 700;
   font-size: 0.9em;
+}
+
+.tertiary-btn-outline {
+  font-size: 1em;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid var(--gph-purple);
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--gph-purple);
+  display: flex;
+  justify-content: center;
+}
+
+.tertiary-btn-outline:hover {
+  background-color: var(--gph-purple);
+  color: white;
+}
+
+.tertiary-btn-outline.disabled {
+  border: 2px solid var(--dark-purple);
+  color: var(--dark-purple);
+}
+
+.tertiary-btn-outline.disabled:hover {
+  cursor: not-allowed;
+  color: var(--dark-purple);
+  border: 2px solid var(--dark-purple);
+  background-color: white;
 }
 
 .rounded {
