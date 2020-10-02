@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Accordion,
@@ -7,16 +7,100 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import TextField from "@material-ui/core/TextField";
 
-export default function Accordions(props) {
-  const [expanded, setExpanded] = React.useState(false);
+import FileAndLinkContainer from "../../files and links/FileAndLinkContainer";
+import Skill from "../Skill";
+import SelectInput from "../../../commons/inputs/SelectInput";
+
+import { submitEvaluation } from "../../../actions/productActions";
+
+import { connect } from "react-redux";
+
+function Accordions(props) {
+  const [expanded, setExpanded] = useState(false);
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    setFormData(
+      props.product.students.map((student) => {
+        let evaluations = student.levels.map((level) => {
+          return {
+            level_id: level.level.id,
+            evaluation: level.evaluation,
+          };
+        });
+        return {
+          feedback: student.student_product.feedback,
+          evaluations,
+        };
+      })
+    );
+  }, []);
+
+  const handleFeedbackChange = (event, index) => {
+    let data = formData;
+    data[index].feedback = event.target.value;
+    setFormData([...data]);
+  };
+
+  const handleEvaluationChange = (event, index, level_index) => {
+    console.log(event);
+    let data = formData;
+    data[index]["evaluations"][level_index].evaluation = event.target.value;
+    setFormData([...data]);
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const handleSubmit = (student, index) => {
+    // console.log()
+    props.submitEvaluation(
+      student.student_product.id,
+      student.id,
+      formData[index]
+    );
+  };
+
+  const generateSkills = (student, index) => {
+    return props.product.levels.map((level, level_index) => {
+      return (
+        <div style={{ display: "flex" }}>
+          <Skill {...level} />
+          <SelectInput
+            name="skill_evaluation"
+            label="Evaluación"
+            invert={true}
+            labelWidth={80}
+            items={[
+              "Aprobado",
+              "No aprobado",
+              "No ha sido evaluado",
+              "No aplica",
+            ]}
+            value={
+              formData[index] && formData[index]["evaluations"][level_index]
+                ? formData[index]["evaluations"][level_index].evaluation
+                : ""
+            }
+            handleChange={(event) => {
+              handleEvaluationChange(event, index, level_index);
+            }}
+            // value={
+            //   currentCenter && currentCenter.id
+            //     ? currentCenter.id
+            //     : currentCenter
+            // }
+          />
+        </div>
+      );
+    });
+  };
+
   const generateAccordions = () => {
-    return props.students.map((student, index) => {
+    return props.product.students.map((student, index) => {
       return (
         <Accordion
           expanded={expanded === `panel${index + 1}`}
@@ -28,18 +112,63 @@ export default function Accordions(props) {
             id={`panel${index + 1}bh-header`}
           >
             <Typography className="dark-purple-text">
-              <strong>{student.name}</strong>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  className={`product-circle ${
+                    student.student_product.submitted ? "submitted" : "pending"
+                  }`}
+                ></div>
+                <strong>{student.name}</strong>
+              </div>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <p className="dark-purple-text">Detalles de la entrega</p>
+            <div style={{ width: "100%" }}>
+              <p className="dark-purple-text submission-title">
+                Detalles de la entrega
+              </p>
               <hr />
-              <p className="dark-purple-text">Documentos subidos:</p>
+              <div className="submission-content-wrapper">
+                <FileAndLinkContainer
+                  assignment={student.student_product}
+                  assignmentType="StudentProduct"
+                />
+              </div>
 
-              <p className="dark-purple-text">Retroalimentación</p>
-              <p className="dark-purple-text">Habilidades</p>
+              <p className="dark-purple-text submission-title">
+                Retroalimentación
+              </p>
               <hr />
+              <div className="submission-content-wrapper">
+                <p className="dark-purple-text">Habilidades</p>
+                {generateSkills(student, index)}
+                <TextField
+                  id="feedback"
+                  label="Comentarios"
+                  variant="outlined"
+                  rows={4}
+                  multiline
+                  className={
+                    "dark-purple-text textfield-outlined textfield-input"
+                  }
+                  onChange={(event) => {
+                    handleFeedbackChange(event, index);
+                  }}
+                  value={
+                    formData[index] && formData[index].feedback
+                      ? formData[index].feedback
+                      : ""
+                  }
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <a
+                  className="tertiary-btn"
+                  onClick={(event) => handleSubmit(student, index)}
+                >
+                  <strong>Guardar cambios</strong>
+                </a>
+              </div>
             </div>
           </AccordionDetails>
         </Accordion>
@@ -47,5 +176,18 @@ export default function Accordions(props) {
     });
   };
 
-  return <div>{generateAccordions()}</div>;
+  return <div style={{ width: "100%" }}>{generateAccordions()}</div>;
 }
+
+let mapStateToProps = (state) => {
+  return {};
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    submitEvaluation: (studentProductId, studentId, formData) =>
+      dispatch(submitEvaluation(studentProductId, studentId, formData)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Accordions);
