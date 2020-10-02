@@ -12,7 +12,10 @@ export default function StudentSideBarContainer(props) {
     <div className="student-side-bar-container">
       {/* <StatusCard /> */}
       {/* <ActivityCompletedCard /> */}
-      <SubmitProductCard />
+      <SubmitProductCard
+        product={props.currentActivity.product}
+        currentUser={props.currentUser}
+      />
       <EvaluationCard
         product={props.currentActivity.product}
         currentUser={props.currentUser}
