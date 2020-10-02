@@ -78,6 +78,20 @@ export default function activitiesReducer(
           loading: false,
         };
       }
+    case "SUBMIT_PRODUCT":
+      let submittedActivity = { ...state.currentActivity };
+      let student = submittedActivity.product.students.find(
+        (student) => student.id === action.payload.studentId
+      );
+      student.student_product.submitted = true;
+
+      submittedActivity.product.students = submittedActivity.product.students.filter(
+        (student) => student.id !== action.payload.studentId
+      );
+
+      submittedActivity.product.students.push(student);
+
+      return { ...state, currentActivity: submittedActivity, loading: false };
 
     //   case "ADD_ACTIVITY_TO_UTIS":
     //     let utis = { ...state.currentUTIS };

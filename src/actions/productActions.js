@@ -131,3 +131,91 @@ export function deleteProduct(productId) {
       });
   };
 }
+
+export function submitProduct(studentProductId, studentId) {
+  const url = `${api_url}student_products/${studentProductId}/submit_product`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_ACTIVITY" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+
+      body: JSON.stringify({}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.message) {
+          MySwal.fire(
+            "¡Entregado!",
+            "El producto ha sido entregado correctamente.",
+            "success"
+          );
+          return dispatch({
+            type: "SUBMIT_PRODUCT",
+            payload: {studentProductId, studentId},
+            loading: false,
+          });
+        } else {
+          MySwal.fire({
+            title: "Hubo un error.",
+            icon: "error",
+            confirmButtonText: "continuar",
+          });
+        }
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}
+
+export function submitEvaluation(studentProductId, studentId, formData) {
+  const url = `${api_url}student_products/${studentProductId}/submit_evaluation`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_ACTIVITY" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+
+      body: JSON.stringify({student_product: formData}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.message) {
+          MySwal.fire(
+            "¡Guardado!",
+            "La evaluación ha sido guardada exitosamente.",
+            "success"
+          );
+          return dispatch({
+            type: "SUBMIT_EVALUATION",
+            payload: {studentProductId, studentId},
+            loading: false,
+          });
+        } else {
+          MySwal.fire({
+            title: "Hubo un error.",
+            icon: "error",
+            confirmButtonText: "continuar",
+          });
+        }
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}
