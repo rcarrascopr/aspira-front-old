@@ -27,7 +27,12 @@ export default function EvaluationCard(props) {
             return (
               <div className="skill-evaluation-container">
                 <Skill {...level} />
-                <p className="skill-evaluation-text">{grade.grade ? "Aprobado" : "No Aprobado"}</p>
+                <p
+                  className="dark-purple-text skill-evaluation-text"
+                  style={{ padding: "0px 10px" }}
+                >
+                  {grade.evaluation}
+                </p>
               </div>
             );
           }
@@ -36,6 +41,18 @@ export default function EvaluationCard(props) {
     }
   };
 
+  const generateFeedback = () => {
+    if (props.product) {
+      let student = props.product.students.find(
+        (s) => s.id === props.currentUser.id
+      );
+      if (student) {
+        return (
+          <p className="dark-purple-text">{student.student_product.feedback}</p>
+        );
+      }
+    }
+  };
   return (
     <Paper elevation={1} className="student-side-card">
       <p className="dark-purple-text">
@@ -46,7 +63,7 @@ export default function EvaluationCard(props) {
       <p className="dark-purple-text">
         <strong>Retroalimentación</strong>
       </p>
-      <p>Lorem ipsum dorot mono et sae.</p>
+      {generateFeedback()}
     </Paper>
   );
 }
