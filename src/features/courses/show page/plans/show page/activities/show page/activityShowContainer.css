@@ -39,8 +39,6 @@ div.info-container {
   padding: 5px 0px;
 } */
 
-
-
 .large-paragraph {
   background-color: white;
   padding: 20px;
@@ -80,7 +78,7 @@ div.student-submissions-content {
   padding: 0 0;
 }
 
-.students-list-item .product-circle {
+.product-circle {
   margin-right: 10px;
   width: 10px;
   height: 10px;
@@ -89,6 +87,10 @@ div.student-submissions-content {
 
 .product-circle.pending {
   background-color: #f26e6e;
+}
+
+.product-circle.submitted {
+  background-color: rgb(201, 255, 167);
 }
 
 .students-list-item p {
