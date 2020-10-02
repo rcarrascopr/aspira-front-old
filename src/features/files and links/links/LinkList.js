@@ -25,6 +25,14 @@ function LinkList(props) {
             key={link.id}
             generateModal={generateModal}
             generateDeleteModal={generateDeleteModal}
+            canModify={
+              (props.assignmentType === "StudentProduct" &&
+                props.currentUser.role === "Student") ||
+              ((props.assignmentType === "Product" ||
+                props.assignmentType === "Activity") &&
+                (props.currentUser.role === "Admin" ||
+                  props.currentUser.role === "Teacher"))
+            }
           />
         );
       });
@@ -95,20 +103,28 @@ function LinkList(props) {
     let header;
     let links;
     let addButton;
-    if (props.currentActivity.links && props.currentActivity.links.length > 0) {
+
+    if (props.assignment && props.assignment.links.length > 0) {
       links = generateLinks();
     }
 
     if (
-      props.currentUser.role === "Admin" ||
-      props.currentUser.role === "Teacher"
+      (props.assignmentType === "StudentProduct" &&
+        props.currentUser.role === "Student") ||
+      ((props.assignmentType === "Product" ||
+        props.assignmentType === "Activity") &&
+        (props.currentUser.role === "Admin" ||
+          props.currentUser.role === "Teacher"))
     ) {
-      header = <p className="dark-purple-text">Enlaces</p>;
       addButton = (
         <a className="tertiary-btn" onClick={() => generateModal()}>
           + Añadir enlace
         </a>
       );
+    }
+
+    if (links || addButton) {
+      header = <p className="dark-purple-text">Enlaces</p>;
     }
 
     return (

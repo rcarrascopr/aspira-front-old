@@ -12,22 +12,24 @@ export default function Link(props) {
             {props.link.text}
           </a>
         </p>
-        <div>
-          <img
-            className="course-icon"
-            src="/assets/edit_icon.png"
-            alt="Edit Product"
-            onClick={() => props.generateModal(props.link.id)}
-            style={{ height: "23px", padding: "0px 10px" }}
-          />
-          <img
-            className="course-icon"
-            src="/assets/trash_icon.png"
-            alt="Delete Product"
-            onClick={() => props.generateDeleteModal(props.link.id)}
-            style={{ height: "23px", padding: "0px 10px" }}
-          />
-        </div>
+        {props.canModify && (
+          <div style={{ display: "flex" }}>
+            <img
+              className="course-icon"
+              src="/assets/edit_icon.png"
+              alt="Edit Product"
+              onClick={() => props.generateModal(props.link.id)}
+              style={{ height: "23px", padding: "0px 10px" }}
+            />
+            <img
+              className="course-icon"
+              src="/assets/trash_icon.png"
+              alt="Delete Product"
+              onClick={() => props.generateDeleteModal(props.link.id)}
+              style={{ height: "23px", padding: "0px 10px" }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
