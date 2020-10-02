@@ -1,5 +1,6 @@
 .file-link-container {
     margin-bottom: 40px;
+    width: 100%;
 }
 
 .link-item {
@@ -21,7 +22,7 @@
 }
 
 .link-text {
-  width: 400px;
+  /* width: 400px; */
   margin: 0px;
   display: flex;
   align-items: center;
