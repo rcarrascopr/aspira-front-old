@@ -24,7 +24,13 @@ export default function SubmittedProductsTable(props) {
                 return (
                   <li className="students-list-item">
                     <p>
-                      <div className="product-circle pending" />
+                      <div
+                        className={`product-circle ${
+                          student.student_product.submitted
+                            ? "submitted"
+                            : "pending"
+                        }`}
+                      />
                       {fullName}
                     </p>
                     {/* <a href={`/students/${student.id}`}>Detalles</a> */}
@@ -49,7 +55,13 @@ export default function SubmittedProductsTable(props) {
               <strong
                 style={{ fontSize: "40px", marginRight: "10px", width: 24 }}
               >
-                0
+                {product.students.reduce((total, student) => {
+                  if (student.student_product.submitted) {
+                    return total + 1;
+                  } else {
+                    return total;
+                  }
+                }, 0)}
               </strong>
               <p className="button-text">Entregados</p>
             </Button>
@@ -66,7 +78,13 @@ export default function SubmittedProductsTable(props) {
               }}
             >
               <strong style={{ fontSize: "40px", marginRight: "10px" }}>
-                {product.students.length}
+                {product.students.reduce((total, student) => {
+                  if (!student.student_product.submitted) {
+                    return total + 1;
+                  } else {
+                    return total;
+                  }
+                }, 0)}
               </strong>
               <p className="button-text"> No Entregados</p>
             </Button>
