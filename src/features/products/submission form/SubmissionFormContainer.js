@@ -27,7 +27,7 @@ const SubmissionFormContainer = (props) => {
             <h1 className="dark-purple-text">
               Detalles de entrega de producto
             </h1>
-            <Accordions students={props.currentActivity.product.students} />
+            <Accordions product={props.currentActivity.product} />
           </div>
         </div>
       );
