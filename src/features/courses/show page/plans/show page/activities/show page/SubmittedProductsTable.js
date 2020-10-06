@@ -26,6 +26,7 @@ export default function SubmittedProductsTable(props) {
                     <p>
                       <div
                         className={`product-circle ${
+                          student.student_product &&
                           student.student_product.submitted
                             ? "submitted"
                             : "pending"
@@ -56,7 +57,10 @@ export default function SubmittedProductsTable(props) {
                 style={{ fontSize: "40px", marginRight: "10px", width: 24 }}
               >
                 {product.students.reduce((total, student) => {
-                  if (student.student_product.submitted) {
+                  if (
+                    student.student_product &&
+                    student.student_product.submitted
+                  ) {
                     return total + 1;
                   } else {
                     return total;
@@ -79,7 +83,10 @@ export default function SubmittedProductsTable(props) {
             >
               <strong style={{ fontSize: "40px", marginRight: "10px" }}>
                 {product.students.reduce((total, student) => {
-                  if (!student.student_product.submitted) {
+                  if (
+                    student.student_product &&
+                    !student.student_product.submitted
+                  ) {
                     return total + 1;
                   } else {
                     return total;

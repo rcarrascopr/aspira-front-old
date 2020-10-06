@@ -104,7 +104,7 @@ function LinkList(props) {
     let links;
     let addButton;
 
-    if (props.assignment && props.assignment.links.length > 0) {
+    if (props.assignment && props.assignment.links && props.assignment.links.length > 0) {
       links = generateLinks();
     }
 
