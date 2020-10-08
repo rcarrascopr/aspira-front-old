@@ -80,7 +80,9 @@ const CoursesFormContainer = (props) => {
         ...props.currentCourse,
         center_id: props.currentCourse.center.id,
         semester_id: props.currentCourse.semester.id,
-        teacher_id: props.currentCourse.teacher.id,
+        teacher_id: props.currentCourse.teacher
+          ? props.currentCourse.teacher.id
+          : "",
       });
     }
   }, [props.currentCourse]);
