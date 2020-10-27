@@ -25,5 +25,5 @@ export const calculatePercentage = (products_passed, amount_of_products) => {
 };
 
 export const round2 = (num) => {
-  return Math.round((num + Number.EPSILON) * 100);
+  return Math.round((num + Number.EPSILON) * 100) / 100;
 };
