@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import StudentListCard from "./StudentListCard";
 import StudentsRegisteredCard from "./StudentsRegistedCard";
 
+import StudentCourseGradeCard from "./StudentCourseGradeCard";
+
 import { fetchOneCourse } from "../../../actions/courseActions";
 
 import "./coursesShowContainer.css";
@@ -47,6 +49,15 @@ function CoursesShowContainer(props) {
                 courseId={props.currentCourse.id}
               />
               <StudentListCard students={props.currentCourse.students} />
+            </div>
+          )}
+          {props.currentUser.role === "Student" && (
+            <div className="course-card-wrapper" style={{ marginTop: "40px" }}>
+              <StudentCourseGradeCard
+                amount_of_products={props.currentCourse.amount_of_products}
+                products_passed={props.currentCourse.products_passed}
+                status={props.currentCourse.status}
+              />
             </div>
           )}
         </div>

@@ -75,3 +75,18 @@
 .course-icon {
   height: 25px;
 }
+
+.student-course-grade-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.course-grade-percentage {
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
