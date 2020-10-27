@@ -62,6 +62,14 @@ a {
   text-decoration: none;
 }
 
+.green {
+  background-color: var(--button-green);
+}
+
+.red {
+  background-color: var(--button-red);
+}
+
 .dark-purple {
   background-color: var(--dark-purple);
 }
@@ -349,6 +357,40 @@ ul {
   position: absolute;
   top: 50%;
   right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--dark-purple) transparent transparent;
+}
+
+/* tooltip left */
+
+.tooltip .tooltiptext-left {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--dark-purple);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  padding-bottom: 10px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -15px;
+  right: 130%;
+}
+
+.tooltip:hover .tooltiptext-left{
+  visibility: visible;
+}
+
+.tooltip .tooltiptext-left::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the left of the tooltip */
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
