@@ -26,8 +26,6 @@ function UserForm(props) {
     defaultValues: formDefaultValues,
   });
 
-  
-
   const userId = parseInt(props.match.params.id, 10);
   const accountType = watch("role");
   const nameFields = Object.keys(formData).slice(0, 4);
@@ -119,6 +117,31 @@ function UserForm(props) {
     }
   };
 
+  const generateStudentBadge = () => {
+    if (accountType === "Student") {
+      return (
+        <div className="textfield-input">
+          <Controller
+            as={
+              <TextField
+                label={"Número de estudiante"}
+                variant="outlined"
+                className={"dark-purple-text textfield-outlined"}
+                error={errors["badge_id"]}
+                type={"text"}
+                InputLabelProps={{ shrink: true }}
+              />
+            }
+            name={"badge_id"}
+            control={control}
+            rules={{ required: true }}
+          />
+          <Error errors={errors["badge_id"]} />
+        </div>
+      );
+    }
+  };
+
   const onSubmit = (data, event) => {
     if (isEdit) {
       props.userEdit(data, userId);
@@ -131,7 +154,7 @@ function UserForm(props) {
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
-      if (props.formDefaultValues.id != userId) {
+      if (props.formDefaultValues && props.formDefaultValues.id != userId) {
         props.fetchUser(userId);
       }
 
@@ -172,6 +195,7 @@ function UserForm(props) {
         <div className="details-inputs">
           {generateOtherFields()}
           {generateAcademicLevels()}
+          {generateStudentBadge()}
         </div>
 
         <div className="flex-end">
