@@ -98,7 +98,7 @@ export default function CoursesReport(props) {
               {calculatePercentage(
                 props.course.products_passed,
                 props.course.amount_of_products
-              )}
+              ) || 0}
               %
             </Text>
           </View>
