@@ -9,7 +9,7 @@
 .activity-list-container {
   /* width: 700px;
    */
-   width: 100%;
+  width: 100%;
 }
 
 .activity-list-container-content {
@@ -24,6 +24,10 @@
   align-items: center;
   margin-top: 50px;
   margin-bottom: 30px;
+}
+
+.activity-list {
+  width: 680px;
 }
 
 .activity-list-item {
