@@ -28,15 +28,15 @@ export default function coursesReducer(
       return { ...state, coursesFormData, loading: false };
     case "CREATE_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload, loading: false };
-    case "EDIT_COURSE":
-      return {
-        ...state,
-        courses: [
-          ...state.courses.filter((course) => course.id !== action.payload.id),
-          action.payload,
-        ],
-        loading: false,
-      };
+    // case "EDIT_COURSE":
+    //   return {
+    //     ...state,
+    //     courses: [
+    //       ...state.courses.filter((course) => course.id !== action.payload.id),
+    //       action.payload,
+    //     ],
+    //     loading: false,
+    //   };
     case "SET_CURRENT_COURSE":
       return { ...state, currentCourse: action.payload, loading: false };
     case "ADD_UTIS_TO_COURSE":
