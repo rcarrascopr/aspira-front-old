@@ -6,7 +6,7 @@ export default function StudentCourseGradeCard(props) {
   return (
     <div className="card">
       <h3 className="dark-purple-text" style={{ marginBottom: "0px" }}>
-        Evaluación del curso
+        Evaluación del {props.evaluationType}
       </h3>
       <div className="student-course-grade-content">
         <h1 className="dark-purple-text" style={{ fontSize: "2.5em" }}>

@@ -57,6 +57,7 @@ function CoursesShowContainer(props) {
                 amount_of_products={props.currentCourse.amount_of_products}
                 products_passed={props.currentCourse.products_passed}
                 status={props.currentCourse.status}
+                evaluationType="curso"
               />
             </div>
           )}

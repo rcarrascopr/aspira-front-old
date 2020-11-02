@@ -1,5 +1,5 @@
 .utis-show-container {
-  padding: 90px;
+  padding: 30px;
   background-color: var(--courses-purple);
   display: flex;
   justify-content: center;
@@ -7,7 +7,15 @@
 }
 
 .activity-list-container {
-  width: 700px;
+  /* width: 700px;
+   */
+   width: 100%;
+}
+
+.activity-list-container-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .activity-list-header {
