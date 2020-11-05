@@ -10,7 +10,7 @@ export default function StudentCourseGradeCard(props) {
       </h3>
       <div className="student-course-grade-content">
         <h1 className="dark-purple-text" style={{ fontSize: "2.5em" }}>
-          {props.products_passed}/{props.amount_of_products}
+          {props.products_passed || 0}/{props.amount_of_products || 0}
         </h1>
 
         <div>
@@ -32,7 +32,7 @@ export default function StudentCourseGradeCard(props) {
           className="white-text"
           style={{ margin: "10px 0px", fontSize: "3em" }}
         >
-          {calculatePercentage(props.products_passed, props.amount_of_products)}
+          {calculatePercentage(props.products_passed, props.amount_of_products) || 0}
           %
         </h1>
       </div>
