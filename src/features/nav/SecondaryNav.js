@@ -21,6 +21,17 @@ const SecondaryNav = (props) => {
     }
   }, []);
 
+  const generateNameCircle = () => {
+    console.log(props.currentUser.name.split(" "));
+    return (
+      <NameCircle
+        initials={`${props.currentUser.name[0]}${
+          props.currentUser.name.split(/[ ,]+/)[1][0]
+        }`}
+      />
+    );
+  };
+
   const generateSemesterDropdown = () => {
     let currentSemester = props.semesters.find(
       (semester) => semester.name == "2020-21: 1"
@@ -37,15 +48,13 @@ const SecondaryNav = (props) => {
       />
     );
   };
+
   return (
     <section className="secondary-nav very-light-purple white-text">
       <div className="nav-header">
         {/* <img src="" alt="Profile image" /> */}
-        <NameCircle
-          initials={`${props.currentUser.name[0]}${
-            props.currentUser.name.split(" ")[1][0]
-          }`}
-        />
+
+        {generateNameCircle()}
 
         <div className="name-header">
           <h2>{props.currentUser.name}</h2>
