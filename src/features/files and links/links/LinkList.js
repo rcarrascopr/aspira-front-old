@@ -29,7 +29,8 @@ function LinkList(props) {
               (props.assignmentType === "StudentProduct" &&
                 props.currentUser.role === "Student") ||
               ((props.assignmentType === "Product" ||
-                props.assignmentType === "Activity") &&
+                props.assignmentType === "Activity" ||
+                props.assignmentType === "StudentProduct") &&
                 (props.currentUser.role === "Admin" ||
                   props.currentUser.role === "Teacher"))
             }
@@ -104,7 +105,11 @@ function LinkList(props) {
     let links;
     let addButton;
 
-    if (props.assignment && props.assignment.links && props.assignment.links.length > 0) {
+    if (
+      props.assignment &&
+      props.assignment.links &&
+      props.assignment.links.length > 0
+    ) {
       links = generateLinks();
     }
 
@@ -112,7 +117,8 @@ function LinkList(props) {
       (props.assignmentType === "StudentProduct" &&
         props.currentUser.role === "Student") ||
       ((props.assignmentType === "Product" ||
-        props.assignmentType === "Activity") &&
+        props.assignmentType === "Activity" ||
+        props.assignmentType === "StudentProduct") &&
         (props.currentUser.role === "Admin" ||
           props.currentUser.role === "Teacher"))
     ) {
