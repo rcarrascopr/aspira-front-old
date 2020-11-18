@@ -9,7 +9,7 @@ export default function GradesTableHead(props) {
     return props.activities.map((activity) => (
       <TableCell
         align="center"
-        colspan={activity.product.levels.length + 1}
+        colSpan={activity.product.levels.length + 1}
         className="cell-border-left table-header-activity"
       >
         {activity.name}
@@ -21,7 +21,7 @@ export default function GradesTableHead(props) {
     return props.activities.map((activity) => (
       <TableCell
         align="center"
-        colspan={activity.product.levels.length + 1}
+        colSpan={activity.product.levels.length + 1}
         className="cell-border-left"
       >
         {activity.product.title}
@@ -103,7 +103,7 @@ export default function GradesTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center" rowspan="6">
+        <TableCell align="center" rowSpan="6">
           {" "}
           Nombre de Estudiantes
         </TableCell>

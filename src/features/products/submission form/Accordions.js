@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import FileAndLinkContainer from "../../files and links/FileAndLinkContainer";
 import Skill from "../Skill";
@@ -33,6 +35,7 @@ function Accordions(props) {
         return {
           feedback: student.student_product.feedback,
           evaluations,
+          submitted: student.student_product.submitted ? true : false,
         };
       })
     );
@@ -45,12 +48,16 @@ function Accordions(props) {
   };
 
   const handleEvaluationChange = (event, index, level_index) => {
-    console.log(event);
     let data = formData;
     data[index]["evaluations"][level_index].evaluation = event.target.value;
     setFormData([...data]);
   };
 
+  const handleCheckboxChange = (index) => {
+    let data = formData;
+    data[index].submitted = !data[index].submitted;
+    setFormData([...data]);
+  };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -124,6 +131,31 @@ function Accordions(props) {
           </AccordionSummary>
           <AccordionDetails>
             <div style={{ width: "100%" }}>
+              <p className="dark-purple-text submission-title">Estatus</p>
+              <hr />
+              <div
+                className="submission-content-wrapper"
+                style={{ paddingBottom: "20px" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={
+                        formData[index] && formData[index].submitted
+                          ? formData[index].submitted
+                          : false
+                      }
+                      onChange={(event) => {
+                        handleCheckboxChange(index);
+                      }}
+                      name="submitted"
+                      color="primary"
+                    />
+                  }
+                  label="Producto entregado"
+                />
+              </div>
+
               <p className="dark-purple-text submission-title">
                 Detalles de la entrega
               </p>

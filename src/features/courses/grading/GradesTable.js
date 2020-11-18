@@ -29,19 +29,19 @@ export default function GradesTable(props) {
       (activity) => activity.product && activity.product.id
     );
 
-    for (let i = 0; i < activities[0].product.students.length; i++) {
+    for (let i = 0; activities.length > 0 && i < activities[0].product.students.length; i++) {
       let student = activities[0].product.students[i];
       let studentName = `${student.first_name} ${student.second_name} ${student.paternal_surname} ${student.maternal_surname}`;
-      student = { studentName, productGrades: [], id: student.id };
+      let simpleStudent = { studentName, productGrades: [], id: student.id };
       for (let j = 0; j < activities.length; j++) {
         let levels = activities[j].product.students.find(
-          (student) => student.id === student.id
+          (s) => s.id === simpleStudent.id
         ).levels;
-        student.productGrades.push({ levels: levels, submitted: false });
+        simpleStudent.productGrades.push({ levels: levels, submitted: student.student_product.submitted });
       }
-      students = [...students, student];
+      students = [...students, simpleStudent];
     }
-    console.log(students);
+
   }
 
   const generateTable = () => {
