@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import UTISItem from "./UTISItem";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import {
   AddUTISToCourse,
   updateUTIS,
   deleteUTIS,
+  sortUTIS,
 } from "../../../../actions/UTISActions";
 
 import Swal from "sweetalert2";
@@ -16,20 +19,135 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const getItemStyle = (isDragging, draggableStyle, snapshot) => {
+  let dropping = snapshot.dropAnimation;
+  if (!dropping) {
+    return {
+      // some basic styles to make the items look a bit nicer
+      userSelect: "none",
+
+      // styles we need to apply on draggables
+      ...draggableStyle,
+    };
+  }
+
+  const { moveTo, curve, duration } = dropping;
+
+  const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
+  const rotate = "rotate(1turn)";
+
+  return {
+    ...draggableStyle,
+    transform: `${translate} scale(0.9)`,
+    // slowing down the drop
+    transition: `all ${curve} ${duration}s`,
+  };
+};
+
+const getListStyle = (isDraggingOver) => ({
+  // background: isDraggingOver ? "lightblue" : "grey",
+  border: isDraggingOver
+    ? "5px dashed rgba(91, 65, 162, 0.3)"
+    : "5px dashed rgba(91, 65, 162, 0)",
+  // width: 250,
+});
+
 function UTISList(props) {
+  const [utisList, setUtisList] = useState([]);
+
+  useEffect(() => {
+    setUtisList(props.currentCourse.plans);
+  }, [props.currentCourse.plans]);
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = reorder(
+      utisList,
+      result.source.index,
+      result.destination.index
+    );
+
+    setUtisList(items);
+    props.sortUTIS(items.map((item) => item.id));
+  };
+
   const generateUTISItems = () => {
-    return props.currentCourse.plans.map((utis, index) => {
-      return (
-        <UTISItem
-          utis={utis}
-          key={utis.id}
-          generateModal={generateModal}
-          generateDeleteModal={generateDeleteModal}
-          index={index}
-          currentUser={props.currentUser}
-        />
-      );
-    });
+    return (
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(droppableProvided, droppableSnapshot) => {
+            return (
+              <div
+                ref={droppableProvided.innerRef}
+                style={getListStyle(droppableSnapshot.isDraggingOver)}
+              >
+                {utisList &&
+                  utisList.map((utis, index) => {
+                    if (
+                      props.currentUser.role === "Admin" ||
+                      props.currentUser.role === "Teacher"
+                    ) {
+                      return (
+                        <Draggable
+                          key={utis.id}
+                          draggableId={utis.id.toString(10)}
+                          index={index}
+                        >
+                          {(draggableProvided, draggableSnapshot) => (
+                            <div
+                              ref={draggableProvided.innerRef}
+                              {...draggableProvided.draggableProps}
+                              {...draggableProvided.dragHandleProps}
+                              style={getItemStyle(
+                                draggableSnapshot.isDragging,
+                                draggableProvided.draggableProps.style,
+                                draggableSnapshot
+                              )}
+                            >
+                              <UTISItem
+                                utis={utis}
+                                key={utis.id}
+                                generateModal={generateModal}
+                                generateDeleteModal={generateDeleteModal}
+                                index={index}
+                                currentUser={props.currentUser}
+                                isDragging={draggableSnapshot.isDragging}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    } else {
+                      return (
+                        <UTISItem
+                          utis={utis}
+                          key={utis.id}
+                          generateModal={generateModal}
+                          generateDeleteModal={generateDeleteModal}
+                          index={index}
+                          currentUser={props.currentUser}
+                        />
+                      );
+                    }
+                  })}
+                {droppableProvided.placeholder}
+              </div>
+            );
+          }}
+        </Droppable>
+      </DragDropContext>
+    );
   };
 
   const generateModal = async (id) => {
@@ -122,6 +240,7 @@ let mapDispatchToProps = (dispatch) => {
     AddUTISToCourse: (formData) => dispatch(AddUTISToCourse(formData)),
     updateUTIS: (utisId, formData) => dispatch(updateUTIS(utisId, formData)),
     deleteUTIS: (utisId) => dispatch(deleteUTIS(utisId)),
+    sortUTIS: (utisIds) => dispatch(sortUTIS(utisIds)),
   };
 };
 

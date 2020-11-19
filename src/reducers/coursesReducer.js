@@ -56,6 +56,8 @@ export default function coursesReducer(
         (plan) => plan.id !== action.payload
       );
       return { ...state, currentCourse: courseWithoutPlan, loading: false };
+    case "SORT_UTIS":
+      return {...state, loading: false}
     default:
       return state;
   }

@@ -9,6 +9,8 @@ function UTISItem(props) {
     );
   };
 
+  let dragged = props.isDragging ? " dragged" : "";
+
   return (
     <div className="utis-item" key={props.utis.id}>
       <div
@@ -21,17 +23,17 @@ function UTISItem(props) {
         }}
       >
         <div
-          className="utis-item-card"
+          className={`utis-item-card${dragged}`}
           onClick={() => {
             handleClick();
           }}
         >
-          <div className="utis-item-header">
+          <div className={`utis-item-header${dragged}`}>
             <p className="utis-item-index dark-purple-text"></p>
             <h2 className="dark-purple-text">{props.utis.name}</h2>
           </div>
 
-          <div className="utis-item-product">
+          <div className={`utis-item-product${dragged}`}>
             <p>{props.utis.total_activities} Actividades</p>
           </div>
         </div>
@@ -39,13 +41,15 @@ function UTISItem(props) {
           props.currentUser.role === "Teacher") && (
           <>
             <img
-              className="course-icon"
+              className={`course-icon${dragged}`}
+              style={{cursor: "pointer"}}
               src="/assets/edit_icon.png"
               alt="Edit UTIS"
               onClick={() => props.generateModal(props.utis.id)}
             />
             <img
-              className="course-icon"
+              className={`course-icon${dragged}`}
+              style={{cursor: "pointer"}}
               src="/assets/trash_icon.png"
               alt="Delete UTIS"
               onClick={() => props.generateDeleteModal(props.utis.id)}

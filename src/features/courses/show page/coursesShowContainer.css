@@ -30,6 +30,11 @@
   margin: 10px 0px;
 }
 
+.utis-item-card.dragged {
+  width: 120%;
+  filter: drop-shadow(-10px 10px 10px rgba(57, 52, 135, 0.25));
+}
+
 .utis-item-header {
   display: flex;
   justify-content: flex-start;
@@ -39,6 +44,11 @@
   background-color: white;
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
+}
+
+.utis-item-header.dragged {
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .utis-item-index {
@@ -61,6 +71,10 @@
   border-bottom-right-radius: 12px;
 }
 
+.utis-item-product.dragged {
+  visibility: hidden;
+}
+
 .utis-item-product p {
   color: white;
   padding: 15px;
@@ -74,6 +88,10 @@
 
 .course-icon {
   height: 25px;
+}
+
+.course-icon.dragged {
+  visibility: hidden;
 }
 
 .student-course-grade-content {
