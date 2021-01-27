@@ -34,7 +34,7 @@ const SecondaryNav = (props) => {
 
   const generateSemesterDropdown = () => {
     let currentSemester = props.semesters.find(
-      (semester) => semester.name == "2020-21: 1"
+      (semester) => semester.name == "2020-21: 2"
     );
 
     return (
