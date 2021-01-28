@@ -33,7 +33,16 @@ export default function StudentDetails(props) {
           }
         />
         <ul>
-          <p>{`${props.currentStudent.first_name} ${props.currentStudent.paternal_surname} ${props.currentStudent.maternal_surname}`}</p>
+          <p>{`${props.currentStudent.first_name} ${
+            props.currentStudent.paternal_surname
+              ? props.currentStudent.paternal_surname
+              : ""
+          }
+           ${
+             props.currentStudent.maternal_surname
+               ? props.currentStudent.maternal_surname
+               : ""
+           }`}</p>
           <li>Email: {props.currentStudent.email}</li>
           <li>Teléfono: {props.currentStudent.phone_number}</li>
           <li>Número de estudiante: {props.currentStudent.badge_id}</li>
