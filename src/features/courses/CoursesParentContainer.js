@@ -52,7 +52,8 @@ const CoursesParentContainer = (props) => {
     const selectedCenter = props.centers.find(
       (c) => c.name === props.currentUser.center_name
     );
-    // console.log("Center selected: ", selectedCenter);
+    console.log(props.currentUser.center_name);
+    console.log("Center selected: ", selectedCenter);
     setCurrentCenter(selectedCenter);
   }, [props.centers]);
 
@@ -72,7 +73,12 @@ const CoursesParentContainer = (props) => {
           centerCourses = [
             ...centerCourses,
             ...props.centers[i].courses
-              .filter((course) => buttonStates[course.category.toLowerCase()])
+              .filter(
+                (course) =>
+                  buttonStates[course.category.toLowerCase()] &&
+                  props.currentSelectedSemester &&
+                  props.currentSelectedSemester.id === course.semester_id
+              )
               .map((course) => {
                 return { ...course, center_name: props.centers[i].name };
               }),
@@ -81,21 +87,39 @@ const CoursesParentContainer = (props) => {
         setCourses(centerCourses.sort(sort_method));
       } else {
         centerCourses = currentCenter.courses.filter(
-          (course) => buttonStates[course.category.toLowerCase()]
+          (course) =>
+            buttonStates[course.category.toLowerCase()] &&
+            props.currentSelectedSemester &&
+            props.currentSelectedSemester.id === course.semester_id
         );
       }
 
       if (props.currentUser.role === "Admin") {
-        setCourses(centerCourses.sort(sort_method));
-      } else if (props.currentUser.role === "Teacher") {
         setCourses(
           centerCourses
-            .filter((course) => course.teacher.id === props.currentUser.id)
+            .filter(
+              (course) =>
+                props.currentSelectedSemester &&
+                props.currentSelectedSemester.id === course.semester_id
+            )
+            .sort(sort_method)
+        );
+      } else if (props.currentUser.role === "Teacher") {
+        // I think by this point, centerCourses is always empty array
+        setCourses(
+          centerCourses
+            .filter((course) => {
+              return (
+                course.teacher.id === props.currentUser.id &&
+                props.currentSelectedSemester &&
+                props.currentSelectedSemester.id === course.semester_id
+              );
+            })
             .sort(sort_method)
         );
       }
     }
-  }, [buttonStates, sortBy, currentCenter]);
+  }, [buttonStates, sortBy, currentCenter, props.currentSelectedSemester]);
 
   const handleClick = (event) => {
     setButtonStates({
@@ -108,7 +132,15 @@ const CoursesParentContainer = (props) => {
     if (currentCenter || props.courses.length > 0) {
       return (
         <CoursesContainer
-          courses={props.currentUser.role === "Admin" ? courses : props.courses}
+          courses={
+            props.currentUser.role === "Admin"
+              ? courses
+              : props.courses.filter(
+                  (course) =>
+                    props.currentSelectedSemester &&
+                    props.currentSelectedSemester.id === course.semester_id
+                )
+          }
           setCourses={setCourses}
           currentUser={props.currentUser}
         />
@@ -173,6 +205,7 @@ let mapStateToProps = (state) => {
     centers: state.centers.centers,
     currentUser: state.users.currentUser,
     courses: state.courses.courses,
+    currentSelectedSemester: state.semesters.currentSelectedSemester,
   };
 };
 
