@@ -3,17 +3,25 @@ import React, { useState, useEffect } from "react";
 import { NameCircle } from "../../commons/NameCircle";
 import SelectInput from "../../commons/inputs/SelectInput";
 
-import { fetchSemesters } from "../../actions/semesterActions";
+import {
+  fetchSemesters,
+  updateCurrentSelectedSemester,
+} from "../../actions/semesterActions";
 
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SecondaryNav = (props) => {
-  // const [semester, setSemester] = useState("2015-16 01");
+  // const [semester, setSemester] = useState(props.currentSelectedSemester);
 
-  // const handleChange = (event) => {
-  //   setSemester(event.target.value);
-  // };
+  const handleChange = (event) => {
+    let semester_id = event.target.value;
+    let currentSemester = props.semesters.find((s) => {
+      return s.id === semester_id;
+    });
+    props.updateCurrentSelectedSemester(currentSemester);
+    // setSemester(event.target.value);
+  };
 
   useEffect(() => {
     if (props.semesters.length == 0) {
@@ -21,8 +29,19 @@ const SecondaryNav = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (
+      props.currentSelectedSemester === "" ||
+      !props.currentSelectedSemester
+    ) {
+      let currentSemester = props.semesters.find((s) => {
+        return s.name === "2020-21: 2";
+      });
+      props.updateCurrentSelectedSemester(currentSemester);
+    }
+  }, [props.semesters]);
+
   const generateNameCircle = () => {
-    console.log(props.currentUser.name.split(" "));
     return (
       <NameCircle
         initials={`${props.currentUser.name[0]}${
@@ -33,18 +52,22 @@ const SecondaryNav = (props) => {
   };
 
   const generateSemesterDropdown = () => {
-    let currentSemester = props.semesters.find(
-      (semester) => semester.name == "2020-21: 2"
-    );
+    // let currentSemester = props.semesters.find((s) => {
+    //   return typeof semester === "string"
+    //     ? s.name == semester
+    //     : s.id === semester;
+    // });
 
     return (
       <SelectInput
         name="semester"
         label="Año escolar"
-        value={currentSemester ? currentSemester.id : ""}
+        value={
+          props.currentSelectedSemester ? props.currentSelectedSemester.id : ""
+        }
         labelWidth={100}
         items={props.semesters || []}
-        // handleChange={handleChange}
+        handleChange={handleChange}
       />
     );
   };
@@ -73,12 +96,15 @@ let mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
     semesters: state.semesters.semesters,
+    currentSelectedSemester: state.semesters.currentSelectedSemester,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
     fetchSemesters: () => dispatch(fetchSemesters()),
+    updateCurrentSelectedSemester: (semester) =>
+      dispatch(updateCurrentSelectedSemester(semester)),
   };
 };
 

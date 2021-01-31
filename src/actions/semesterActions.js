@@ -99,3 +99,10 @@ export function editSemester(semesterId, formData) {
       });
   };
 }
+
+
+export function updateCurrentSelectedSemester(semester) {
+  return (dispatch) => {
+    dispatch({type: "UPDATE_CURRENT_SELECTED_SEMESTER", payload: semester})
+  };
+}

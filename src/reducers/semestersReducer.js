@@ -1,5 +1,5 @@
 export default function semestersReducer(
-  state = { loading: false, semesters: [], currentSemester: {} },
+  state = { loading: false, semesters: [], currentSemester: {}, currentSelectedSemester: "" },
   action
 ) {
   switch (action.type) {
@@ -26,6 +26,11 @@ export default function semestersReducer(
         ],
         loading: false,
       };
+    case "UPDATE_CURRENT_SELECTED_SEMESTER":
+      return {
+        ...state, 
+        currentSelectedSemester: action.payload
+      }
     default:
       return state;
   }
