@@ -85,8 +85,7 @@ export default function CourseReportTable(props) {
         <View style={styles.tableRow}>
           <Text style={styles.cell}>{dimension_name}</Text>
           <Text style={styles.smallCell}>
-            {dimension.level_count === 0 ||
-            round2(dimension.level_sum / dimension.level_count) == 0
+            {dimension.level_count === 0 || dimension.level_sum == 0
               ? "NT"
               : round2(dimension.level_sum / dimension.level_count)}
           </Text>
