@@ -85,8 +85,9 @@ export default function CourseReportTable(props) {
         <View style={styles.tableRow}>
           <Text style={styles.cell}>{dimension_name}</Text>
           <Text style={styles.smallCell}>
-            {dimension.level_count === 0
-              ? "ND"
+            {dimension.level_count === 0 ||
+            round2(dimension.level_sum / dimension.level_count) == 0
+              ? "NT"
               : round2(dimension.level_sum / dimension.level_count)}
           </Text>
         </View>
@@ -97,7 +98,13 @@ export default function CourseReportTable(props) {
   const generateTable = () => {
     return (
       <View style={styles.table}>
-        <View style={[styles.tableHeader, styles.bold, styles[props.skill_name.toLowerCase()]]}>
+        <View
+          style={[
+            styles.tableHeader,
+            styles.bold,
+            styles[props.skill_name.toLowerCase()],
+          ]}
+        >
           <Text>{props.skill_name}</Text>
           <View style={styles.tableRow}>
             <Text
