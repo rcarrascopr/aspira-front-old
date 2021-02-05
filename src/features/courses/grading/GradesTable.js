@@ -26,7 +26,7 @@ export default function GradesTable(props) {
 
   if (props.utis.activities) {
     activities = props.utis.activities.filter(
-      (activity) => activity.product && activity.product.id
+      (activity) => activity.product && activity.product.id && activity.product.levels.length > 0
     );
 
     for (let i = 0; activities.length > 0 && i < activities[0].product.students.length; i++) {
