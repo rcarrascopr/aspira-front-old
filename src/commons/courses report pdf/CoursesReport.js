@@ -15,7 +15,7 @@ import { fullName, calculatePercentage } from "../common_methods";
 const styles = StyleSheet.create({
   page: {
     // flexDirection: "row",
-    backgroundColor: "#E4E4E4",
+    backgroundColor: "#FFF",
     padding: "20 40",
     boxSizing: "border-box",
     fontSize: 10,
