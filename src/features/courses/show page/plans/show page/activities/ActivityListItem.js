@@ -25,7 +25,6 @@ function ActivityListItem(props) {
             </p>
             {(props.currentUser.role === "Admin" ||
               props.currentUser.role === "Teacher") && (
-              <>
                 <img
                   className="course-icon"
                   src="/assets/edit_icon.png"
@@ -37,6 +36,9 @@ function ActivityListItem(props) {
                   }}
                   style={{ height: "23px" }}
                 />
+            )}
+                
+            {(props.currentUser.role === "Admin" && (
                 <img
                   className="course-icon"
                   src="/assets/trash_icon.png"
@@ -45,8 +47,8 @@ function ActivityListItem(props) {
                     props.generateDeleteModal({ productId: props.product.id })
                   }
                   style={{ height: "23px" }}
-                />
-              </>
+                
+                />)
             )}
           </div>
         </>

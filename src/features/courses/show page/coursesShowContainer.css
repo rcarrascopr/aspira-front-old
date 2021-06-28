@@ -88,6 +88,7 @@
 
 .course-icon {
   height: 25px;
+  cursor: pointer;
 }
 
 .course-icon.dragged {
