@@ -477,6 +477,10 @@ ul {
   font-size: 0.9em;
 }
 
+.tertiary-btn.disabled {
+  cursor: not-allowed;
+}
+
 .tertiary-btn-outline {
   font-size: 1em;
   padding: 10px;
