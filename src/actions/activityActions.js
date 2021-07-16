@@ -138,3 +138,30 @@ export function resetCurrentActivity() {
     dispatch({ type: "RESET_CURRENT_ACTIVITY" });
   };
 }
+
+export function sortActivities(activityIds) {
+  const url = `${api_url}activities/sort`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_UTIS" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "PATCH",
+      body: JSON.stringify({ activity_ids: activityIds}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+      
+        return dispatch({ type: "SORT_ACTIVITIES", payload: data, loading: false });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}

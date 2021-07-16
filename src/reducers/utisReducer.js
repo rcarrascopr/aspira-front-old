@@ -35,6 +35,8 @@ export default function utisReducer(
         }
       );
       return { ...state, currentUTIS: UTISWithoutProduct, loading: false };
+    case "SORT_ACTIVITIES":
+      return {...state, loading: false}
     default:
       return state;
   }
