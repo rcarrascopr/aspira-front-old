@@ -110,7 +110,7 @@ const CoursesParentContainer = (props) => {
           centerCourses
             .filter((course) => {
               return (
-                course.teacher.id === props.currentUser.id &&
+                course.instructor.id === props.currentUser.id &&
                 props.currentSelectedSemester &&
                 props.currentSelectedSemester.id === course.semester_id
               );

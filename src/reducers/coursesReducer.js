@@ -3,7 +3,7 @@ let coursesFormData = {
   category: "",
   semester_id: "",
   center_id: "",
-  teacher_id: "",
+  instructor_id: "",
   academic_level: "",
   students: [],
 };

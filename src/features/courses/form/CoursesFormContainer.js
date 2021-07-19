@@ -9,7 +9,10 @@ import {
   fetchCenters,
   fetchStudentsFromCenter,
 } from "../../../actions/centerActions";
-import { fetchTeachers } from "../../../actions/userActions";
+// import { fetchTeachers } from "../../../actions/userActions";
+import {
+  fetchFacultyUsers,
+} from "../../../actions/facultyActions";
 import { fetchSemesters } from "../../../actions/semesterActions";
 import {
   setCoursesFormData,
@@ -27,12 +30,13 @@ const CoursesFormContainer = (props) => {
     centers,
     centerWithStudents,
     semesters,
-    teachers,
+    // teachers,
+    faculty,
     coursesFormData,
     setcoursesFormData,
     fetchCenters,
     fetchSemesters,
-    fetchTeachers,
+    fetchFaculty,
     fetchStudentsFromCenter,
     createCourse,
   } = props;
@@ -52,7 +56,7 @@ const CoursesFormContainer = (props) => {
     centerWithStudents,
     students,
     semesters,
-    teachers,
+    faculty,
     selectedStudents,
     setSelectedStudents,
     coursesFormData,
@@ -63,7 +67,7 @@ const CoursesFormContainer = (props) => {
   useEffect(() => {
     fetchCenters();
     fetchSemesters();
-    fetchTeachers();
+    fetchFaculty();
   }, []);
 
   useEffect(() => {
@@ -80,8 +84,8 @@ const CoursesFormContainer = (props) => {
         ...props.currentCourse,
         center_id: props.currentCourse.center.id,
         semester_id: props.currentCourse.semester.id,
-        teacher_id: props.currentCourse.teacher
-          ? props.currentCourse.teacher.id
+        instructor_id: props.currentCourse.instructor
+          ? props.currentCourse.instructor.id
           : "",
       });
     }
@@ -114,20 +118,29 @@ const CoursesFormContainer = (props) => {
     const formData = { ...coursesFormData };
     delete formData.students;
     formData.student_ids = selectedStudents.map((s) => s.id);
-    if (props.match.params.id) {
-      props.editCourse(props.match.params.id, formData).then((action) => {
-        const course = action.payload;
-        if (course.id) {
-          props.history.push(`/cursos/${course.id}`);
-        }
-      });
-    } else {
-      createCourse(formData).then((action) => {
-        const course = action.payload;
-        if (course.id) {
-          props.history.push(`/cursos/${course.id}`);
-        }
-      });
+
+    let instructor = props.faculty.find((f) => f.id == formData.instructor_id)
+    if (instructor) {
+      formData.instructor_type = instructor.role
+      formData.instructor_id = instructor.id
+
+      if (props.match.params.id) {
+        props.editCourse(props.match.params.id, formData).then((action) => {
+          const course = action.payload;
+          if (course.id) {
+            props.history.push(`/cursos/${course.id}`);
+          }
+        });
+      } else {
+        console.log(formData)
+        createCourse(formData).then((action) => {
+          const course = action.payload;
+          console.log(action)
+          if (course.id) {
+            props.history.push(`/cursos/${course.id}`);
+          }
+        });
+      }
     }
   };
 
@@ -218,9 +231,10 @@ const mapStateToProps = (state) => ({
   centers: state.centers.centers,
   centerWithStudents: state.centers.centerWithStudents,
   semesters: state.semesters.semesters,
-  teachers: state.users.teachers,
+  // teachers: state.users.teachers,
   coursesFormData: state.courses.coursesFormData,
   currentCourse: state.courses.currentCourse,
+  faculty: state.faculty.faculty,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -228,7 +242,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStudentsFromCenter: (centerId) =>
     dispatch(fetchStudentsFromCenter(centerId)),
   fetchSemesters: () => dispatch(fetchSemesters()),
-  fetchTeachers: () => dispatch(fetchTeachers()),
+  fetchFaculty: () => dispatch(fetchFacultyUsers()),
   setCoursesFormData: (formData) => dispatch(setCoursesFormData(formData)),
   fetchCourse: (id) => dispatch(fetchOneCourse(id)),
   createCourse: (formData) => dispatch(createCourse(formData)),
