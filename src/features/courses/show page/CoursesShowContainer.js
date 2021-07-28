@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 
 import UTISList from "./plans/UTISList";
 
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 import StudentListCard from "./StudentListCard";
@@ -23,6 +26,20 @@ import "./coursesShowContainer.css";
 // ];
 
 function CoursesShowContainer(props) {
+  
+  const generateBreadcrumbs = () => {
+    if (props.currentCourse && props.currentCourse.id) {
+      return (
+        <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to="/cursos" className="breadcrumb-link">
+            Cursos
+          </Link>
+          <Link className="breadcrumb-current">{props.currentCourse.name}</Link>
+        </Breadcrumbs>
+      );
+    }
+  };
+  
   useEffect(() => {
     props.fetchCourse(props.match.params.id);
   }, []);
@@ -35,6 +52,8 @@ function CoursesShowContainer(props) {
       >
         UTIS del curso: {props.currentCourse ? props.currentCourse.name : ""}
       </h1>
+
+      {generateBreadcrumbs()}
 
       <hr />
 

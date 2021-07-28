@@ -75,6 +75,9 @@ const ActivityShowContainer = (props) => {
       let plan = activity.plan;
       return (
         <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to="/cursos" className="breadcrumb-link">
+            Cursos
+          </Link>
           <Link to={`/cursos/${course.id}`} className="breadcrumb-link">
             {course.name}
           </Link>

@@ -5,12 +5,28 @@ import { fetchOneCourse } from "../../../actions/courseActions";
 import { fetchUTIS } from "../../../actions/UTISActions";
 import GradesTable from "./GradesTable";
 
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 import "./gradingContainer.css";
 
 function GradingContainer(props) {
   const [selectedUTIS, setSelectedUTIS] = useState("");
+
+  const generateBreadcrumbs = () => {
+    if (props.currentCourse && props.currentCourse.id) {
+      return (
+        <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to="/cursos" className="breadcrumb-link">
+            Cursos
+          </Link>
+          <Link className="breadcrumb-current"> {props.currentCourse.name}</Link>
+        </Breadcrumbs>
+      );
+    }
+  };
 
   useEffect(() => {
     let id = props.match.params.id;
@@ -62,6 +78,9 @@ function GradingContainer(props) {
         </div>
         {generateSelectInput()}
       </div>
+
+      {generateBreadcrumbs()}
+
       <GradesTable
         utis={props.currentUTIS}
         students={

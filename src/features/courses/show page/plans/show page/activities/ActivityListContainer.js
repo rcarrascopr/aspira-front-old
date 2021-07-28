@@ -3,6 +3,9 @@ import React from "react";
 import ActivityList from "./ActivityList";
 import StudentCourseGradeCard from "./../../../StudentCourseGradeCard";
 
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 // const products = [
@@ -29,14 +32,34 @@ import { connect } from "react-redux";
 // ];
 
 function ActivityListContainer(props) {
+  const generateBreadcrumbs = () => {
+    if (props.currentUTIS && props.currentUTIS.id) {
+      let course = props.currentUTIS.course
+      return (
+        <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to="/cursos" className="breadcrumb-link">
+            Cursos
+          </Link>
+          <Link to={`/cursos/${course.id}`} className="breadcrumb-link">
+            {course.name}
+          </Link>
+          <Link className="breadcrumb-current">{props.currentUTIS.name}</Link>
+        </Breadcrumbs>
+      );
+    }
+  };
+
   return (
     <div className="activity-list-container">
       <h1 className="dark-purple-text text-align-center">
         {props.currentUTIS.name}
       </h1>
-      <p className="dark-purple-text sub-header-text text-align-center">
+
+      {generateBreadcrumbs()}
+      
+      {/* <p className="dark-purple-text sub-header-text text-align-center">
         Curso: {props.currentUTIS.course ? props.currentUTIS.course.name : ""}
-      </p>
+      </p> */}
       <hr />
       <div className="activity-list-container-content">
         <ActivityList />
