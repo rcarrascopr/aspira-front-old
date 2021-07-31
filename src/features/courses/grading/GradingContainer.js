@@ -22,7 +22,10 @@ function GradingContainer(props) {
           <Link to="/cursos" className="breadcrumb-link">
             Cursos
           </Link>
-          <Link className="breadcrumb-current"> {props.currentCourse.name}</Link>
+          <Link to={`/cursos/${props.currentCourse.id}`} className="breadcrumb-link">
+            {props.currentCourse.name}
+          </Link>
+          <Link className="breadcrumb-current"> Calificaciones </Link>
         </Breadcrumbs>
       );
     }

@@ -30,7 +30,13 @@ const SubmissionFormContainer = (props) => {
           >
             {plan.name}
           </Link>
-          <Link className="breadcrumb-current">{activity.name}</Link>
+          <Link
+            to={`/actividades/${activity.id}`}
+            className="breadcrumb-link"
+          >
+            {activity.name}
+          </Link>
+          <Link className="breadcrumb-current">Evaluación</Link>
         </Breadcrumbs>
       );
     }
