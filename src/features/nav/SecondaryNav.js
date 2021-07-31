@@ -35,7 +35,7 @@ const SecondaryNav = (props) => {
       !props.currentSelectedSemester
     ) {
       let currentSemester = props.semesters.find((s) => {
-        return s.name === "2020-21: 2";
+        return s.name === "2021-22: 1";
       });
       props.updateCurrentSelectedSemester(currentSemester);
     }
