@@ -25,6 +25,13 @@ export default function activitiesReducer(
           activityWithLinks.links.push(action.payload);
         } else if (action.payload.assignment_type === "Product") {
           activityWithLinks.product.links.push(action.payload);
+        } else if (action.payload.assignment_type === "StudentProduct") {
+          let student = activityWithLinks.product.students.find(s => s.student_product.id == action.payload.assignment_id)
+          if (student) {
+            student.student_product.links.push(action.payload)
+            let index = activityWithLinks.product.students.findIndex(s => s.id === student.id)
+            activityWithLinks.product.students.splice(index, 1, student)
+          }
         }
         return { ...state, currentActivity: activityWithLinks, loading: false };
       }
@@ -42,6 +49,14 @@ export default function activitiesReducer(
             (link) => link.id !== action.payload.id
           );
           updatedActivityWithLink.product.links.push(action.payload);
+        } else if (action.payload.assignment_type === "StudentProduct") {
+          let student = updatedActivityWithLink.product.students.find(s => s.student_product.id == action.payload.assignment_id)
+          if (student) {
+            let i = student.student_product.links.findIndex(l => l.id === action.payload.id)
+            student.student_product.links.splice(i, 1, action.payload)
+            let index = updatedActivityWithLink.product.students.findIndex(s => s.id === student.id)
+            updatedActivityWithLink.product.students.splice(index, 1, student)
+          }
         }
         return {
           ...state,
@@ -58,11 +73,14 @@ export default function activitiesReducer(
           (link) => link.id === action.payload
         );
 
+        // If activity Link, delete
         if (link) {
           activityWithoutLink.links = activityWithoutLink.links.filter(
             (link) => link.id !== action.payload
           );
-        } else {
+        } 
+        // If product link, delete
+        else {
           link = activityWithoutLink.product.links.find(
             (link) => link.id === action.payload
           );
@@ -70,6 +88,24 @@ export default function activitiesReducer(
             activityWithoutLink.product.links = activityWithoutLink.product.links.filter(
               (link) => link.id !== action.payload
             );
+          } 
+          // If student product Link, delete
+          else {
+            let student = activityWithoutLink.product.students.find(s => {
+              let result = s.student_product.links.find(
+                l => l.id == action.payload
+              )
+              return result
+            })
+           
+            link = student.student_product.links.find(l => l.id === action.payload)
+         
+            if (link) {
+              student.student_product.links = student.student_product.links.filter(l => l.id !== action.payload)
+
+              let index = activityWithoutLink.product.students.findIndex(s => s.id === student.id)
+              activityWithoutLink.product.students.splice(index, 1, student) 
+            }
           }
         }
         return {
