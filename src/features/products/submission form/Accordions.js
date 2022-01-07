@@ -63,15 +63,13 @@ function Accordions(props) {
   };
 
   const handleSubmit = (student, index) => {
-    // console.log()
-    if (student.student_product.links.length > 0) {
+    // if (student.student_product.links.length > 0) {
       props.submitEvaluation(
         student.student_product.id,
         student.id,
         formData[index]
       );
-    }
-   
+    // }
   };
 
   const generateSkills = (student, index) => {
@@ -198,7 +196,7 @@ function Accordions(props) {
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <a
-                  className={`tertiary-btn ${student.student_product.links.length === 0 ? 'disabled' : ''}`}
+                  className={`tertiary-btn`}
                   onClick={(event) => handleSubmit(student, index)}
                 >
                   <strong>Guardar cambios</strong>
