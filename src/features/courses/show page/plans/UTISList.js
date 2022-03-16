@@ -152,21 +152,35 @@ function UTISList(props) {
 
   const generateModal = async (id) => {
     let utisName = "";
+    let isActive = false;
     if (id) {
       let currentPlan = props.currentCourse.plans.find(
         (utis) => utis.id === id
       );
+   
       utisName = currentPlan.name;
+      isActive = currentPlan.is_active;
     }
+
     const { value: formValues } = await MySwal.fire({
       title: `${id ? "Editar" : "Crear"} UTIS`,
-      html: `<input id="swal2-name" placeholder="Nombre de la UTIS" class="swal2-input" value="${utisName}" required>`,
+      html: `
+        <input id="swal2-name" placeholder="Nombre de la UTIS" class="swal2-input" value="${utisName}" required>
+        <hr>
+        <div style="display:flex;align-items:center;">
+          <input id="swal2-is-active" type="checkbox" class="swal2-input" ${isActive ? 'checked' : ''} style="box-shadow:none;margin: 1em 1em 1em 0px;width:24px;">
+          <label for="swal2-is-active">Activo</label>
+        </div>
+      `,      
       focusConfirm: false,
       showCancelButton: true,
       cancelButtonText: "cancelar",
       confirmButtonText: id ? "guardar" : "crear",
       preConfirm: () => {
-        return [document.getElementById("swal2-name").value];
+        return [
+          document.getElementById("swal2-name").value, 
+          document.getElementById("swal2-is-active").checked
+        ];
       },
     });
 
@@ -174,8 +188,10 @@ function UTISList(props) {
       // MySwal.fire(JSON.stringify(formValues));
       let formData = {
         name: formValues[0],
+        is_active: formValues[1],
         course_id: props.match.params.id,
       };
+
       if (id) {
         props.updateUTIS(id, formData);
       } else {
