@@ -61,7 +61,7 @@ const ActivityShowContainer = (props) => {
           </p>
           <p>
             GPH:{" "}
-            <strong>{`${instructor.first_name} ${instructor.paternal_surname}`}</strong>
+            {instructor && <strong>{`${instructor.first_name} ${instructor.paternal_surname}`}</strong>}
           </p>
         </div>
       );
