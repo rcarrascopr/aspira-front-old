@@ -49,7 +49,7 @@ export default function FacultyDetails(props) {
         </ul>
       </div>
       <div className="student-courses-details">
-        {props.currentFaculty.courses && (
+        {props.currentFaculty.courses && props.currentFaculty.courses.length > 0 && (
           <>
             <h3 className="dark-purple-text student-details-header">
               Cursos que está ofreciendo

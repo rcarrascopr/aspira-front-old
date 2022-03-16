@@ -50,7 +50,7 @@ const ActivityShowContainer = (props) => {
       let activity = props.currentActivity;
       let course = activity.course;
       let plan = activity.plan;
-      let teacher = course.teacher;
+      let instructor = course.instructor;
       return (
         <div className="activity-header dark-purple white-text">
           <p>
@@ -61,7 +61,7 @@ const ActivityShowContainer = (props) => {
           </p>
           <p>
             GPH:{" "}
-            <strong>{`${teacher.first_name} ${teacher.paternal_surname}`}</strong>
+            {instructor && <strong>{`${instructor.first_name} ${instructor.paternal_surname}`}</strong>}
           </p>
         </div>
       );
@@ -75,6 +75,9 @@ const ActivityShowContainer = (props) => {
       let plan = activity.plan;
       return (
         <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: "25px" }}>
+          <Link to="/cursos" className="breadcrumb-link">
+            Cursos
+          </Link>
           <Link to={`/cursos/${course.id}`} className="breadcrumb-link">
             {course.name}
           </Link>

@@ -23,7 +23,7 @@ function UTISItem(props) {
         }}
       >
         <div
-          className={`utis-item-card${dragged}`}
+          className={`utis-item-card${dragged} ${props.utis.is_active ? '': 'disabled'}`}
           onClick={() => {
             handleClick();
           }}

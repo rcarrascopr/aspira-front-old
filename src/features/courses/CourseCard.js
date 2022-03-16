@@ -32,8 +32,8 @@ const CourseCard = (props) => {
             </p>
             <p className="dark-purple-text">
               Facultad:{" "}
-              {props.teacher &&
-                `${props.teacher.first_name} ${props.teacher.paternal_surname}`}
+              {props.instructor &&
+                `${props.instructor.first_name} ${props.instructor.paternal_surname}`}
             </p>
             <p className="dark-purple-text">Grado {props.academic_level}</p>
             {props.center_name && (

@@ -28,7 +28,8 @@ export function fetchFacultyUsers() {
 }
 
 export function fetchFacultyUser(role, id) {
-  let apiEndPoint = role === "Teacher" ? "teachers" : "users";
+  // let apiEndPoint = role === "Teacher" ? "teachers" : "users";
+  let apiEndPoint = "users";
   return (dispatch) => {
     dispatch({ type: "LOADING_FACULTY" });
     return fetch(`${api_url}${apiEndPoint}/${id}`, {

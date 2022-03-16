@@ -9,7 +9,7 @@ import grades from "../../../commons/data/grades";
 import categories from "../../../commons/data/categories";
 
 export const Details = (props) => {
-  const { centers, semesters, teachers, control, errors } = useFormContext();
+  const { centers, semesters, faculty, control, errors } = useFormContext();
   return (
     <div className="courses-details-container">
       <h1 className="dark-purple-text">Curso: Detalles</h1>
@@ -62,13 +62,13 @@ export const Details = (props) => {
       />
 
       <SelectInput
-        name="teacher_id"
+        name="instructor_id"
         label="Coordinador/GPH"
         invert={true}
         labelWidth={130}
-        items={teachers || []}
+        items={faculty || []}
         control={control}
-        errors={errors["teacher_id"]}
+        errors={errors["instructor_id"]}
       />
 
       <SelectInput

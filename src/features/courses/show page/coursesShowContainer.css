@@ -35,6 +35,10 @@
   filter: drop-shadow(-10px 10px 10px rgba(57, 52, 135, 0.25));
 }
 
+.utis-item-card-disabled {
+  opacity: 0.5;
+}
+
 .utis-item-header {
   display: flex;
   justify-content: flex-start;

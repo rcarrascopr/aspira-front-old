@@ -21,10 +21,25 @@ export const StudentList = (props) => {
       sorted_students = props.students;
     }
 
-    if (props.formData.sortBy === "Apellido") {
-      sorted_students = sorted_students.sort(last_name);
-    } else {
-      sorted_students = sorted_students.sort(name);
+    // if (props.formData.sortBy === "Apellido") {
+    //   sorted_students = sorted_students.sort(last_name);
+    // } else {
+    //   sorted_students = sorted_students.sort(name);
+    // }
+    if (props.formData.teacher !== "Todos") {
+      sorted_students = sorted_students.filter(
+        (student) => {
+          console.log(student, student.instructor_ids, props.formData.teacher, student.instructor_ids.length, student.instructor_ids.indexOf(props.formData.teacher))
+          return student && student.instructor_ids.length > 0 && student.instructor_ids.indexOf(props.formData.teacher) >= 0
+        } 
+    
+      );
+    } 
+
+    if (props.formData.course !== "Todos") {
+      sorted_students = sorted_students.filter(
+        (student) => student && student.course_ids.length > 0 && student.course_ids.indexOf(props.formData.course) >= 0
+      );
     }
 
     if (props.formData.grade !== "Todos") {
@@ -70,13 +85,31 @@ export const StudentList = (props) => {
           items={["Todos", ...centers]}
           handleChange={props.handleChange}
         />
-        <SelectInput
+        {/* <SelectInput
           name="sortBy"
           label="Ordenar Por"
           invert={true}
           value={props.formData.sortBy}
           labelWidth={90}
           items={["Nombre", "Apellido"]}
+          handleChange={props.handleChange}
+        /> */}
+        <SelectInput
+          name="teacher"
+          label="GPH"
+          invert={true}
+          value={props.formData.teacher}
+          labelWidth={90}
+          items={["Todos", ...props.teachers]}
+          handleChange={props.handleChange}
+        />
+        <SelectInput
+          name="course"
+          label="Curso"
+          invert={true}
+          value={props.formData.course}
+          labelWidth={90}
+          items={["Todos", ...props.courses]}
           handleChange={props.handleChange}
         />
         <SelectInput
