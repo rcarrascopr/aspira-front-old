@@ -106,7 +106,7 @@ const CoursesFormContainer = (props) => {
   useEffect(() => {
     reset(props.coursesFormData);
 
-    let students = [...selectedStudents, ...props.coursesFormData.students];
+    let students = [/*...selectedStudents,*/ ...props.coursesFormData.students];
     students = students.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
