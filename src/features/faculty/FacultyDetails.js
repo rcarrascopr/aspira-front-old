@@ -22,14 +22,21 @@ export default function FacultyDetails(props) {
     );
   }
 
-  const generateCourses = () => {
-    let courses = [...props.currentFaculty.courses]
+  const hasCourses = (user) => {
+    return (
+      user 
+      && props.currentSelectedSemester 
+      && user.courses
+      && user.courses.filter(c => c.semester_id === props.currentSelectedSemester.id).length > 0
+    )
+  }
 
-    if (props.currentSelectedSemester && courses && courses.length > 0) {
-      courses = courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
-    } else {
-      courses = []
-    }
+  const generateCourses = () => {
+    let courses = []
+
+    if (hasCourses(props.currentFaculty)) {
+      courses = props.currentFaculty.courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
+    } 
     
     return <CoursesListContainer items={courses} />
   }
@@ -64,7 +71,10 @@ export default function FacultyDetails(props) {
         {props.currentFaculty.courses && props.currentFaculty.courses.length > 0 && (
           <>
             <h3 className="dark-purple-text student-details-header">
-              Cursos que está ofreciendo
+              {
+                hasCourses(props.currentFaculty)  
+                ? "Cursos que está ofreciendo" : "No tiene ningún curso asignado"
+              }
             </h3>
             { generateCourses() }
           </>

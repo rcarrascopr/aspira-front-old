@@ -22,14 +22,21 @@ export default function StudentDetails(props) {
     );
   }
 
-  const generateCourses = () => {
-    let courses = [...props.currentStudent.courses]
+  const hasCourses = (user) => {
+    return (
+      user 
+      && props.currentSelectedSemester 
+      && user.courses
+      && user.courses.filter(c => c.semester_id === props.currentSelectedSemester.id).length > 0
+    )
+  }
 
-    if (props.currentSelectedSemester && courses && courses.length > 0) {
-      courses = courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
-    } else {
-      courses = []
-    }
+  const generateCourses = () => {
+    let courses = []
+
+    if (hasCourses(props.currentStudent)) {
+      courses = props.currentStudent.courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
+    } 
     
     return <CoursesListContainer items={courses} />
   }
@@ -64,7 +71,10 @@ export default function StudentDetails(props) {
       </div>
       <div className="student-courses-details">
         <h3 className="dark-purple-text student-details-header">
-          Cursos que está tomando
+          {
+            hasCourses(props.currentStudent)  
+            ? "Cursos que está tomando" : "No tiene ningún curso asignado"
+          }
         </h3>
         { generateCourses() }
       </div>
