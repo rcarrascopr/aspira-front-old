@@ -51,7 +51,10 @@ const FacultyContainer = (props) => {
         handleChange={handleChange}
         setCurrentFaculty={setCurrentFaculty}
       />
-      <FacultyDetails currentFaculty={props.currentFaculty} />
+      <FacultyDetails 
+        currentFaculty={props.currentFaculty} 
+        currentSelectedSemester={props.currentSelectedSemester}
+      />
     </section>
   );
 };
@@ -60,6 +63,7 @@ let mapStateToProps = (state) => {
   return {
     faculty: state.faculty.faculty,
     currentFaculty: state.faculty.currentFaculty,
+    currentSelectedSemester: state.semesters.currentSelectedSemester,
   };
 };
 

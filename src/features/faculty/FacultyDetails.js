@@ -22,6 +22,18 @@ export default function FacultyDetails(props) {
     );
   }
 
+  const generateCourses = () => {
+    let courses = [...props.currentFaculty.courses]
+
+    if (props.currentSelectedSemester && courses && courses.length > 0) {
+      courses = courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
+    } else {
+      courses = []
+    }
+    
+    return <CoursesListContainer items={courses} />
+  }
+
   return (
     <div className="white student-details-container">
       <div className="student-profile-details dark-purple-text">
@@ -54,7 +66,7 @@ export default function FacultyDetails(props) {
             <h3 className="dark-purple-text student-details-header">
               Cursos que está ofreciendo
             </h3>
-            <CoursesListContainer items={props.currentFaculty.courses} />
+            { generateCourses() }
           </>
         )}
       </div>

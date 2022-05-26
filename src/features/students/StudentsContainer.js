@@ -65,7 +65,10 @@ const StudentsContainer = (props) => {
         setCurrentStudent={setCurrentStudent}
         
       />
-      <StudentDetails currentStudent={props.currentStudent} />
+      <StudentDetails 
+        currentStudent={props.currentStudent} 
+        currentSelectedSemester={props.currentSelectedSemester}
+      />
     </section>
   );
 };
