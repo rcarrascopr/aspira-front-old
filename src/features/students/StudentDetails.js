@@ -38,7 +38,7 @@ export default function StudentDetails(props) {
       courses = props.currentStudent.courses.filter(c => c.semester_id === props.currentSelectedSemester.id)
     } 
     
-    return <CoursesListContainer items={courses} />
+    return <CoursesListContainer items={courses} userType={"Student"} />
   }
 
   return (

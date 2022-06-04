@@ -47,13 +47,14 @@ function CoursesListItem(props) {
           display: "flex",
           justifyContent: "space-between",
           width: "100%",
+          padding: (props.userType === "Student" && props.currentStudent && props.currentStudent.id) ? "0px 10px" : "12px 10px"
         }}
       >
         <Link className="dark-purple-text" to={`/cursos/${props.item.id}`}>
           {props.item.name} - {props.item.category}
         </Link>
 
-        {props.currentStudent && (
+        {props.userType === "Student" && props.currentStudent && props.currentStudent.id && (
           <p
             onClick={handleGeneratePDF}
             className="tooltip"
@@ -75,6 +76,7 @@ let mapStateToProps = (state) => {
   return {
     currentCourse: state.courses.currentCourse,
     currentStudent: state.students.currentStudent,
+    currentFaculty: state.faculty.currentFaculty,
   };
 };
 
