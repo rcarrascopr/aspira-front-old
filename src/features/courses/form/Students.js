@@ -52,7 +52,9 @@ export const Students = (props) => {
   }, [selectedStudents]);
 
   const generateStudents = () => {
-    return selectedStudents.map((student) => (
+    return selectedStudents
+      .sort((studentA, studentB) => studentA.paternal_surname.localeCompare(studentB.paternal_surname))
+      .map((student) => (
       <li key={student.id} className="student-list-item">
         {" "}
         <div>
