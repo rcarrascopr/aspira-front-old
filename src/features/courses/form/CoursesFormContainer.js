@@ -132,10 +132,8 @@ const CoursesFormContainer = (props) => {
           }
         });
       } else {
-        console.log(formData)
         createCourse(formData).then((action) => {
           const course = action.payload;
-          console.log(action)
           if (course.id) {
             props.history.push(`/cursos/${course.id}`);
           }
