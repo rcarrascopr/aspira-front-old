@@ -54,7 +54,7 @@ export default function SubmittedProductsTable(props) {
               }}
             >
               <strong
-                style={{ fontSize: "40px", marginRight: "10px", width: 24 }}
+                style={{ fontSize: "40px", marginRight: "10px" }}
               >
                 {product.students.reduce((total, student) => {
                   if (
