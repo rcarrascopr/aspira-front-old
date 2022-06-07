@@ -26,7 +26,7 @@ function CoursesListItem(props) {
       const asPdf = pdf([]); // {} is important, throws without an argument
       asPdf.updateContainer(doc);
       asPdf.toBlob().then((blob) => {
-        saveAs(blob, `informe-de-evaluacion .pdf`);
+        saveAs(blob, `informe-de-evaluacion.pdf`);
       });
       setClicked(false);
     }
