@@ -110,7 +110,7 @@ export default function CoursesReport(props) {
               Trabajos completados: {props.course.products_passed}
             </Text>
             <Text>
-              <Text style={styles.bold}>EVALUACIÓN DEL CURSO: </Text>
+              <Text style={styles.bold}>Evaluación del curso: </Text>
               {props.course.status}
             </Text>
           </View>
