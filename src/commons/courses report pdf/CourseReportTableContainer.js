@@ -54,19 +54,58 @@ export default function CourseReportTableContainer(props) {
       </View>
       <CourseReportSkillsTable skills={props.course.skills} />
       <Image
-        style={{ marginTop: 35 }}
+        style={{ marginTop: 10 }}
         src="/assets/tablas_escala_nivel_y_evaluacion.png"
       />
-      <Text
+      <View
         style={{
-          fontFamily: "Helvetica-Oblique",
-          marginTop: "40",
           display: "flex",
-          alignSelf: "center",
+          flexDirection: "row",
+          width: "100%",
+          justifyContent: "flex-end",
+          boxSizing: "border-box",
+          paddingTop: "10",
         }}
       >
-        Licencia del Consejo de Educación de Puerto Rico Núm. A 75-56
-      </Text>
+        <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              boxSizing: "border-box",
+              // marginLeft: "50"
+            }}
+          >
+          <Text
+            style={{
+              fontFamily: "Helvetica-Oblique",
+              // marginTop: "40",
+              display: "flex",
+              alignSelf: "center",
+              fontSize: "8"
+            }}
+          >
+            Acreditados por la Comisión Acreditadora de Instituciones Educativas CADIE
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Helvetica-Oblique",
+              // marginTop: "40",
+              display: "flex",
+              alignSelf: "center",
+              fontSize: "8"
+            }}
+          >
+            Certificación de Registro de Educación Básica del Departamento de Estado de Puerto Rico Núm. A 75-56
+          </Text>
+        </View>
+        <Image
+          style={{height: "30"}}
+          src="/assets/logo_cadie.png"
+        />
+      </View>
     </View>
   );
 }
