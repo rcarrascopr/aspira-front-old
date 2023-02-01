@@ -109,7 +109,12 @@ export function userEdit(data, userId) {
       .then((response) => response.json())
       .then((data) => {
         if (data.errors) {
-          alert(data.errors);
+          dispatch({ type: "SET_USER_ERRORS", payload: data.errors });
+          MySwal.fire({
+            title: data.errors,
+            icon: "error",
+            confirmButtonText: "continuar",
+          });
           return;
         } else {
           MySwal.fire({

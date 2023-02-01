@@ -158,7 +158,7 @@ function UserForm(props) {
         props.fetchUser(userId);
       }
 
-      delete formData.email;
+      // delete formData.email;
       delete formData.password;
       delete formData.password_confirmation;
     } else {
