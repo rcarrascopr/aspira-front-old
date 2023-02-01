@@ -154,7 +154,8 @@ function UserForm(props) {
   useEffect(() => {
     //fetch user if route params contain user id
     if (isEdit && Number.isInteger(userId)) {
-      if (props.formDefaultValues && props.formDefaultValues.id != userId) {
+      // If user id provided is a new one, then fetch user
+      if (!(props.formDefaultValues && props.formDefaultValues.id == userId)) {
         props.fetchUser(userId);
       }
 
