@@ -37,6 +37,7 @@ export default function GradesTable(props) {
         let levels = activities[j].product.students.find(
           (s) => s.id === simpleStudent.id
         ).levels;
+        student = activities[j].product.students[i]
         simpleStudent.productGrades.push({ levels: levels, submitted: student.student_product.submitted });
       }
       students = [...students, simpleStudent];
