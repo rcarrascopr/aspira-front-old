@@ -69,4 +69,9 @@ export const userFormData = {
     label: "Título",
     items: titles,
   },
+  is_active: {
+    type: "checkbox",
+    required: false,
+    label: "Activo",
+  }
 };

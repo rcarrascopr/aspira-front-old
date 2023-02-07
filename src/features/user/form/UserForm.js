@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import { TextField } from "@material-ui/core";
-
+import { TextField, FormControlLabel } from "@material-ui/core";
+import Checkbox from '@material-ui/core/Checkbox';
 import { SelectInput } from "../../../commons/inputs/SelectInput";
 import Error from "../../../commons/inputs/Error";
 import grades from "../../../commons/data/grades";
@@ -22,9 +22,10 @@ let formData = { ...userFormData };
 
 function UserForm(props) {
   const { isEdit, formDefaultValues } = props;
-  const { control, errors, handleSubmit, watch, reset } = useForm({
+  const { control, errors, handleSubmit, watch, reset, getValues } = useForm({
     defaultValues: formDefaultValues,
   });
+  const [isActive, setIsActive] = useState(formDefaultValues["is_active"])
 
   const userId = parseInt(props.match.params.id, 10);
   const accountType = watch("role");
@@ -32,6 +33,10 @@ function UserForm(props) {
   const others = Object.keys(formData);
   const otherFields = others.slice(4, others.length);
   formData.center_id.items = props.centers;
+
+  const handleCheckboxChange = (field) => {
+    setIsActive(!isActive)
+  }
 
   const generateNameFields = () => {
     return (
@@ -76,6 +81,19 @@ function UserForm(props) {
             errors={errors[field]}
           />
         );
+      } else if (!!formData[field] && formData[field].type === "checkbox") {
+        return (
+          <FormControlLabel
+            control={
+              <Checkbox
+                name={field}
+                checked={isActive}
+                onChange={handleCheckboxChange}
+              />
+            }
+            label={formData[field].label}
+          />
+        )
       } else if (!!formData[field]) {
         return (
           <div className="textfield-input">
@@ -144,9 +162,9 @@ function UserForm(props) {
 
   const onSubmit = (data, event) => {
     if (isEdit) {
-      props.userEdit(data, userId);
+      props.userEdit({...data, is_active: isActive}, userId);
     } else {
-      props.userCreate(data);
+      props.userCreate({...data, is_active: isActive});
       reset(formDefaultValues);
     }
   };
@@ -184,6 +202,7 @@ function UserForm(props) {
 
   useEffect(() => {
     reset(formDefaultValues);
+    setIsActive(formDefaultValues.is_active)
   }, [formDefaultValues]);
 
   return (
