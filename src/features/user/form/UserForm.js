@@ -89,6 +89,7 @@ function UserForm(props) {
                 name={field}
                 checked={isActive}
                 onChange={handleCheckboxChange}
+                color="primary"
               />
             }
             label={formData[field].label}
