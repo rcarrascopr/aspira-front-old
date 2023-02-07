@@ -18,6 +18,7 @@ const FacultyContainer = (props) => {
     center: "Todos",
     sortBy: "Nombre",
     title: "Todos",
+    active: "Activos",
     filter: "",
   });
 

@@ -65,6 +65,7 @@ export default function FacultyDetails(props) {
           <li>Municipio: {props.currentFaculty.residence_municipality}</li>
           <li>Título: {props.currentFaculty.role}</li>
           <li>Centro: {props.currentFaculty.center_name}</li>
+          <li style={{color: props.currentFaculty.is_active ? "green" : "red"}}><strong>{props.currentFaculty.is_active ? "Activo" : "Inactivo"}</strong></li>
         </ul>
       </div>
       <div className="student-courses-details">

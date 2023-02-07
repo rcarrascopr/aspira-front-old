@@ -19,6 +19,7 @@ const StudentsContainer = (props) => {
     teacher: "Todos",
     course: "Todos",
     grade: "Todos",
+    active: "Activos",
     filter: "",
   });
 

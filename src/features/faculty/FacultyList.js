@@ -21,6 +21,23 @@ export const FacultyList = (props) => {
       sorted_faculty = props.faculty;
     }
 
+    if (props.formData.active !== "Todos") {
+      if (props.formData.active === "Activos") {
+        sorted_faculty = sorted_faculty.filter(
+          (faculty) => {
+            return faculty && faculty.is_active 
+          } 
+        );
+      }
+      else {
+        sorted_faculty = sorted_faculty.filter(
+          (faculty) => {
+            return faculty && !faculty.is_active 
+          } 
+        );
+      }
+    } 
+
     if (props.formData.title !== "Todos") {
       sorted_faculty = sorted_faculty.filter(
         (faculty) => faculty.role == props.formData.title
@@ -86,6 +103,15 @@ export const FacultyList = (props) => {
           value={props.formData.grade}
           labelWidth={50}
           items={["Todos", ...facultyTitles]}
+          handleChange={props.handleChange}
+        />
+        <SelectInput
+          name="active"
+          label="Activo"
+          invert={true}
+          value={props.formData.active}
+          labelWidth={50}
+          items={["Todos", "Activos", "Inactivos"]}
           handleChange={props.handleChange}
         />
         <div className="search-form">

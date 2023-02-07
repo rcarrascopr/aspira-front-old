@@ -67,6 +67,7 @@ export default function StudentDetails(props) {
           <li>Número de estudiante: {props.currentStudent.badge_id}</li>
           <li>Grade: {props.currentStudent.academic_level}</li>
           <li>Centro: {props.currentStudent.center.name}</li>
+          <li style={{color: props.currentStudent.is_active ? "green" : "red"}}><strong>{props.currentStudent.is_active ? "Activo" : "Inactivo"}</strong></li>
         </ul>
       </div>
       <div className="student-courses-details">

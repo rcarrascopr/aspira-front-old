@@ -8,7 +8,7 @@
 }
 
 .student-list-container {
-  height: 710px;
+  height: 780px;
   max-width: 610px;
   min-width: 580px;
   padding: 40px;
@@ -74,6 +74,10 @@
   width: 80%;
 }
 
+.list-item.inactive {
+  opacity: 0.4;
+}
+
 .list-item-content {
   display: flex;
   align-items: center;
@@ -88,7 +92,7 @@
 }
 
 .student-details-container {
-  height: 710px;
+  height: 780px;
   max-width: 610px;
   min-width: 580px;
   display: flex;

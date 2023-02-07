@@ -22,6 +22,7 @@ const initialState = {
     password: "",
     password_confirmation: "",
     role: "",
+    is_active: true,
   },
 };
 

@@ -26,10 +26,27 @@ export const StudentList = (props) => {
     // } else {
     //   sorted_students = sorted_students.sort(name);
     // }
+
+    if (props.formData.active !== "Todos") {
+      if (props.formData.active === "Activos") {
+        sorted_students = sorted_students.filter(
+          (student) => {
+            return student && student.is_active 
+          } 
+        );
+      }
+      else {
+        sorted_students = sorted_students.filter(
+          (student) => {
+            return student && !student.is_active 
+          } 
+        );
+      }
+    } 
+
     if (props.formData.teacher !== "Todos") {
       sorted_students = sorted_students.filter(
         (student) => {
-          console.log(student, student.instructor_ids, props.formData.teacher, student.instructor_ids.length, student.instructor_ids.indexOf(props.formData.teacher))
           return student && student.instructor_ids.length > 0 && student.instructor_ids.indexOf(props.formData.teacher) >= 0
         } 
     
@@ -121,6 +138,16 @@ export const StudentList = (props) => {
           items={[...grades]}
           handleChange={props.handleChange}
         />
+        <SelectInput
+          name="active"
+          label="Activo"
+          invert={true}
+          value={props.formData.active}
+          labelWidth={50}
+          items={["Todos", "Activos", "Inactivos"]}
+          handleChange={props.handleChange}
+        />
+        
         <div className="search-form">
           <input
             className="search"
