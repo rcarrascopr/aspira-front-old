@@ -1,0 +1,117 @@
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import "./dashboard.css";
+import Grid from "@material-ui/core/Grid";
+import { Paper } from "@material-ui/core";
+import SemesterSummaryCard from "./SemesterSummaryCard";
+import DashboardUTISCard from "./DashboardCard";
+import { fetchDashboardCourses } from "../../actions/dashboardActions";
+import * as moment from "moment/min/moment-with-locales";
+import DashboardCardsContainer from "./DashboardCardsContainer";
+import MainWrapper from "../../commons/MainWrapper";
+
+const DashboardContainer = (props) => {
+  const { dashboardCourses, fetchCourses, currentSelectedSemester } = props;
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    setCourses(
+      dashboardCourses.filter(
+        (c) =>
+          currentSelectedSemester && c.semester_id == currentSelectedSemester.id
+      )
+    );
+  }, [dashboardCourses, currentSelectedSemester]);
+
+  const generatePlanCards = () => {
+    let plans = [];
+
+    courses.forEach((course) => {
+      course.plans.forEach((p) => {
+        let plan = {};
+        plan = { ...p, courseName: course.name, courseId: course.id };
+        plans.push(plan);
+      });
+    });
+
+    return plans.map((p) => {
+      return (
+        <Grid item xs={12} id={p.id}>
+          <DashboardUTISCard {...p} />
+        </Grid>
+      );
+    });
+  };
+
+  const daysUntilSemesterOver = () => {
+    if (currentSelectedSemester) {
+      return moment(currentSelectedSemester.end_date).diff(moment(), "days");
+    }
+    return 0;
+  };
+
+  return (
+    <MainWrapper>
+      <div className="dashboard-2 ">
+        <h1>Dashboard</h1>
+
+        {courses.length > 0 && (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <DashboardCardsContainer courses={courses} />
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <Grid container spacing={2}>
+                {generatePlanCards()}
+              </Grid>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Grid container spacing={2}>
+                {daysUntilSemesterOver() < 150 &&
+                  daysUntilSemesterOver() > 0 && (
+                    <Grid item xs={12}>
+                      <Paper className="dashboard-2-card" elevation={3}>
+                        <div className="numbers-countdown big-numbers-text">
+                          <p className="dark-purple-text">
+                            {daysUntilSemesterOver()}
+                          </p>
+                          <p className="dark-purple-text">😎</p>
+                        </div>
+                        <p className="dark-purple-text">
+                          días para el final de semestre
+                        </p>
+                      </Paper>
+                    </Grid>
+                  )}
+
+                <Grid item xs={12}>
+                  <SemesterSummaryCard courses={courses} />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        )}
+        {courses.length === 0 && (
+          <p className="dark-purple-text">
+            Ningún curso asignado en este semestre. Selecciona otro semestre.
+          </p>
+        )}
+      </div>
+    </MainWrapper>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  dashboardCourses: state.dashboard.courses,
+  currentSelectedSemester: state.semesters.currentSelectedSemester,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCourses: () => dispatch(fetchDashboardCourses()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

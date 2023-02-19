@@ -1,0 +1,52 @@
+.dashboard-2 {
+    padding: 40px;
+    min-height: 100%;
+}
+
+.dashboard-2 h1 {
+    color: var(--dark-purple);
+    font-size: 24px;
+}
+
+.dashboard-2-card {
+    padding: 24px;
+}
+
+.dashboard-2-card p {
+    margin: 0px;
+}
+
+.numbers-countdown {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.semester-summary-subcard {
+    padding: 12px;
+}
+
+/* .main-dashboard-2 {
+    text-align: center;
+} */
+/* 
+.card-group {
+    display: flex;
+}
+
+.dashboard-2-card {
+    margin: 15px;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px 0 rgba(42,88,148,0.5);
+    width: 175px;
+    height: 175px;
+}
+
+.dashboard-2 img {
+    height: 60px;
+}
+
+.dashboard-2 p {
+    margin: 15px 0px 0px 0px;
+} */
