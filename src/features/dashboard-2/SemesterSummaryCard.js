@@ -58,11 +58,13 @@ function SemesterSummaryCard(props) {
             <p className="dark-purple-text big-numbers-text">
               {getProductsAmount()}
             </p>
-            <ProgressBar
-              successPercentage={Math.round(
-                (getProductsPassed() / getProductsAmount()) * 100
-              )}
-            />
+            {getProductsAmount() > 0 && (
+              <ProgressBar
+                successPercentage={Math.round(
+                  (getProductsPassed() / getProductsAmount()) * 100
+                )}
+              />
+            )}
           </Paper>
         </Grid>
         <Grid item xs={12}>
