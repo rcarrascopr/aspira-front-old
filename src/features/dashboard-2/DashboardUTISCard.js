@@ -4,7 +4,7 @@ import ProductSubmittedPercentageSubcard from "./ProductSubmittedPercentageSubca
 import { Link } from "react-router-dom";
 
 function DashboardUTISCard(props) {
-  const { courseName, courseId, id, name, activities } = props;
+  const { courseId, id, name, activities } = props;
 
   const generateProductCards = () => {
     return activities.map((a) => {
@@ -22,13 +22,7 @@ function DashboardUTISCard(props) {
     });
   };
   return (
-    <Paper className="dashboard-2-card" elevation={3} id={id}>
-      <Link
-        to={`/cursos/${courseId}`}
-        className="medium-title dark-purple-text"
-      >
-        {courseName}
-      </Link>
+    <div id={id}>
       <div style={{ margin: "12px 0px" }}>
         <Link
           to={`/cursos/${courseId}/utis/${id}`}
@@ -40,7 +34,7 @@ function DashboardUTISCard(props) {
       <Grid container spacing={2}>
         {generateProductCards()}
       </Grid>
-    </Paper>
+    </div>
   );
 }
 

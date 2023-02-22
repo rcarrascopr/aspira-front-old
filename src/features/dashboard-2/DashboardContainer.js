@@ -4,7 +4,7 @@ import "./dashboard.css";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import SemesterSummaryCard from "./SemesterSummaryCard";
-import DashboardUTISCard from "./DashboardCard";
+import DashboardCourseCard from "./DashboardCourseCard";
 import { fetchDashboardCourses } from "../../actions/dashboardActions";
 import * as moment from "moment/min/moment-with-locales";
 import DashboardCardsContainer from "./DashboardCardsContainer";
@@ -27,21 +27,11 @@ const DashboardContainer = (props) => {
     );
   }, [dashboardCourses, currentSelectedSemester]);
 
-  const generatePlanCards = () => {
-    let plans = [];
-
-    courses.forEach((course) => {
-      course.plans.forEach((p) => {
-        let plan = {};
-        plan = { ...p, courseName: course.name, courseId: course.id };
-        plans.push(plan);
-      });
-    });
-
-    return plans.map((p) => {
+  const generateCourseCards = () => {
+    return courses.map((c) => {
       return (
-        <Grid item xs={12} id={p.id}>
-          <DashboardUTISCard {...p} />
+        <Grid item xs={12} id={c.id}>
+          <DashboardCourseCard {...c} />
         </Grid>
       );
     });
@@ -66,7 +56,7 @@ const DashboardContainer = (props) => {
             </Grid>
             <Grid item xs={12} md={7}>
               <Grid container spacing={2}>
-                {generatePlanCards()}
+                {generateCourseCards()}
               </Grid>
             </Grid>
             <Grid item xs={12} md={5}>
