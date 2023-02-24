@@ -20,6 +20,7 @@ div.info-wrapper {
 div.activity-header {
   padding: 20px 25px;
   font-size: 20px;
+  line-height: 20px;
   border-radius: 12px;
   margin-bottom: 50px;
 }
