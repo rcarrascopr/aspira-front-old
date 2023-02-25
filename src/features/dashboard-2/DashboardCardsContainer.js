@@ -53,7 +53,7 @@ function DashboardCardsContainer(props) {
                 className="white-text medium-title"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                Visitar todos los cursos <ChevronRight24Filled style={{marginLeft: "16px"}} />
+                Ver todos los cursos <ChevronRight24Filled style={{marginLeft: "16px"}} />
               </p>
             </div>
           </Paper>
