@@ -14,6 +14,7 @@ body,
 
 :root {
   --dark-purple: #282460;
+  --bg-purple: #393487;
   --students-purple: #8da5de;
   --events-purple: #8495bc;
   --general-events: #60e5bd;
@@ -99,6 +100,10 @@ a {
 
 .dark-purple-text {
   color: var(--dark-purple) !important;
+}
+
+.bg-purple {
+  background-color: var(--bg-purple) !important;
 }
 
 .courses-purple {
@@ -692,8 +697,6 @@ ul {
   font-size: 18px;
   line-height: 21px;
   /* identical to box height */
-  display: flex;
-  align-items: center;
   /* Text/Dark */
   color: var(--dark-purple-text);
 }
