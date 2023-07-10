@@ -1,0 +1,86 @@
+
+.reports-container{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.reports-header {
+  margin: 0px 0px;
+  padding: 0px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-filter {
+  border: 1px solid var(--dark-purple) !important;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.chevron {
+  /* animation: rotate90 0.3s ease-in; */
+  transition: all 0.2s;
+  rotate: 0deg;
+  cursor: pointer;
+}
+
+.chevron.rotate {
+  /* animation: rotate90 0.3s ease-in; */
+  transition: all 0.2s;
+  rotate: 90deg;
+}
+
+.center-filter-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  animation: fade-in 0.3s ease-in;
+}
+
+.center-filter-buttons.hide {
+  display: none;
+}
+
+.center-btn {
+  color: var(--dark-purple);
+  border-radius: 8px !important;
+  border: 1px solid var(--dark-purple) !important;
+}
+
+.center-btn:hover,
+.center-btn.btn-active {
+  background-color: var(--dark-purple);
+  color: white;
+}
+
+
+.tablero-stats-cards-group {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 24px;
+  }
+
+.tablero-stats-card {
+  gap: 16px;
+  min-width: 30%;
+  align-items: flex-start;
+}
+
+
+.ability-bar-graph{
+
+}
+
+.school-ability-bar-graph-section {
+
+}
+
+.bar {
+
+}
+
+.ser-ability-bar{
+
+}
