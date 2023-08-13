@@ -76,6 +76,12 @@
   border-color: #c5b7da;
 }
 
+.btn-6:hover,
+.btn-6.btn-active {
+  background-color: #649117;
+  border-color: #649117;
+}
+
 .courses-container {
   margin: 0px 0px;
   display: flex;
@@ -186,3 +192,8 @@
 .course-card-footer.border-comunitaria {
   border-top: 1px solid var(--comunitaria);
 }
+
+.course-card-footer.border-electivo {
+  border-top: 1px solid var(--electivo);
+}
+

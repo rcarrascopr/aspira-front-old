@@ -18,6 +18,7 @@ const CoursesParentContainer = (props) => {
     ocupacional: true,
     cultural: true,
     comunitaria: true,
+    electivo: true,
   });
 
   const [sortBy, setSortBy] = useState("Grado - (ascendiente ↑)");

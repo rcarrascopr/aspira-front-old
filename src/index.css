@@ -32,6 +32,7 @@ body,
   --cientifico: #83bc09;
   --humanistico: #75cf94;
   --comunitaria: #c5b7da;
+  --electivo: #649117;
   /* buttons */
   --button-green: #c9ffa7;
   --button-red: #f26e6e;
@@ -128,6 +129,10 @@ a {
 
 .comunitaria {
   background-color: var(--comunitaria);
+}
+
+.electivo {
+  background-color: var(--electivo);
 }
 
 .light-purple {

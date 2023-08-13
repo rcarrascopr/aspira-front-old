@@ -4,4 +4,5 @@ export default [
   "Ocupacional",
   "Cultural",
   "Comunitaria",
+  "Electivo"
 ];

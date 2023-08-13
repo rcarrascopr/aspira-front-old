@@ -48,6 +48,15 @@ export const ButtonGroup = (props) => {
       >
         Comunitaria
       </a>
+      <a
+        className={`btn btn-6 ${
+          props.buttonStates["electivo"] ? "btn-active" : ""
+        }`}
+        name="electivo"
+        onClick={props.handleClick}
+      >
+        Electivo 
+      </a>
     </section>
   );
 };

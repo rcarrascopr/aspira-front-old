@@ -5,4 +5,5 @@ export const cardColors = {
   Ocupacional: "ocupacional",
   Cultural: "cultural",
   Comunitaria: "comunitaria",
+  Electivo: "electivo",
 };
