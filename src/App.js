@@ -23,6 +23,8 @@ import SubmissionFormContainer from "./features/products/submission form/Submiss
 import ActivityShowContainer from "./features/courses/show page/plans/show page/activities/show page/ActivityShowContainer";
 import AdminContainer from "./features/admin/AdminContainer";
 import { LoadingScreen } from "./commons/loading/LoadingScreen";
+// import DashboardContainer from "./features/dashboard-2/DashboardContainer";
+import ReportsContainer from "./features/reports/ReportsContainer";
 
 function App(props) {
   // useEffect(() => {
@@ -54,7 +56,15 @@ function App(props) {
         <Switch>
           {generateLoginSignupRoutes()}
           <PrivateRoute exact path="/" component={DashboardContainer} />
+          {/* <PrivateRoute
+            exact
+            path="/dashboard-2"
+            component={DashboardContainer2}
+          /> */}
+
           {/* <PrivateRoute path="/centers" component={CenterContainer} /> */}
+
+          <PrivateRoute path="/generar-reportes" component={ReportsContainer} />
           <PrivateRoute
             path="/cursos/create"
             component={CoursesFormContainer}
