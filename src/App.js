@@ -24,7 +24,7 @@ import ActivityShowContainer from "./features/courses/show page/plans/show page/
 import AdminContainer from "./features/admin/AdminContainer";
 import { LoadingScreen } from "./commons/loading/LoadingScreen";
 import DashboardContainer from "./features/dashboard-2/DashboardContainer";
-// import ReportsContainer from "./features/reports/ReportsContainer";
+import ReportsContainer from "./features/reports/ReportsContainer";
 
 function App(props) {
   // useEffect(() => {
@@ -64,7 +64,7 @@ function App(props) {
 
           {/* <PrivateRoute path="/centers" component={CenterContainer} /> */}
 
-          {/* <PrivateRoute path="/generar-reportes" component={ReportsContainer} /> */}
+          <PrivateRoute path="/generar-reportes" component={ReportsContainer} />
           <PrivateRoute
             path="/cursos/create"
             component={CoursesFormContainer}
