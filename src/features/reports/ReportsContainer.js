@@ -163,7 +163,7 @@ export const ReportsContainer = (props) => {
         {
           type: "category",
           axisTick: { show: false },
-          data: [...centers.map((c) => c.name)],
+          data: [...dataCenters.map((c) => c.name)],
         },
       ]
       options.series = [
@@ -208,8 +208,6 @@ export const ReportsContainer = (props) => {
           data: dataCenters.map((dc) => dc.conocerCount),
         },
       ];
-
-      console.log(options)
 
       return (
         <div
@@ -404,8 +402,6 @@ export const ReportsContainer = (props) => {
           ],
         },
       ];
-
-      console.log(options)
 
       return (
         <div
