@@ -66,9 +66,9 @@ function ReportsFilter(props) {
         </a>
         <a
           className={`btn center-btn ${
-            props.buttonStates["Moca"] ? "btn-active" : ""
+            props.buttonStates["moca"] ? "btn-active" : ""
           }`}
-          name="Moca"
+          name="moca"
           onClick={props.handleClick}
         >
           Moca

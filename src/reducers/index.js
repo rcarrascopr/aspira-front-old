@@ -12,6 +12,7 @@ import usersReducer from "./usersReducer";
 import coursesReducer from "./coursesReducer";
 import utisReducer from "./utisReducer";
 import activitiesReducer from "./activitiesReducer";
+import reportsReducer from './reportsReducer'
 
 const rootReducer = combineReducers({
   centers: centersReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   courses: coursesReducer,
   utis: utisReducer,
   activities: activitiesReducer,
+  reports: reportsReducer
 });
 
 export default (state, action) => {
