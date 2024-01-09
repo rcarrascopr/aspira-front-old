@@ -450,6 +450,14 @@ ul {
   font-size: 0.9em;
 }
 
+.primary-btn.disabled {
+  opacity: 0.5;
+}
+
+.primary-btn.disabled:hover {
+  cursor: not-allowed !important;
+}
+
 .primary-btn-outline {
   font-size: 1em;
   padding: 10px;
