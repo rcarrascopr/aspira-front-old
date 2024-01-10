@@ -309,6 +309,7 @@ export const ReportsContainer = (props) => {
         <section className="reports-container">
           <div className="reports-header" style={{ paddingBottom: "24px" }}>
             <h1 className="dark-purple-text text-align-center">Tablero</h1>
+            <button className="primary-btn" onClick={() => props.updateDashboardState("Dashboard")}>Cambiar a dashboard de maestro</button>
             <button
               className={`primary-btn ${
                 props.adminReport && props.adminReport.centers ? "" : "disabled"

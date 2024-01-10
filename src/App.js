@@ -24,7 +24,7 @@ import ActivityShowContainer from "./features/courses/show page/plans/show page/
 import AdminContainer from "./features/admin/AdminContainer";
 import { LoadingScreen } from "./commons/loading/LoadingScreen";
 import DashboardContainer from "./features/dashboard-2/DashboardContainer";
-import ReportsContainer from "./features/reports/ReportsContainer";
+import AdminDashboardContainer from "./features/AdminDashboard/AdminDashboardContainer.js";
 
 function App(props) {
   // useEffect(() => {
@@ -48,6 +48,16 @@ function App(props) {
     }
   };
 
+  const generateDashboard = () => {{
+    
+    if (props.currentUser && props.currentUser.role === "Admin") {
+      return <PrivateRoute exact path="/" component={AdminDashboardContainer} />
+    } 
+    else {
+      return <PrivateRoute exact path="/" component={DashboardContainer} />
+    }
+  }}
+
   return (
     <div className="App">
       {props.currentUser && <Navbar />}
@@ -55,7 +65,7 @@ function App(props) {
       <div style={{ height: "100%", width: "100%" }}>
         <Switch>
           {generateLoginSignupRoutes()}
-          <PrivateRoute exact path="/" component={DashboardContainer} />
+          {generateDashboard()}
           {/* <PrivateRoute
             exact
             path="/dashboard-2"
@@ -64,7 +74,7 @@ function App(props) {
 
           {/* <PrivateRoute path="/centers" component={CenterContainer} /> */}
 
-          <PrivateRoute path="/generar-reportes" component={ReportsContainer} />
+          {/* <PrivateRoute path="/generar-reportes" component={ReportsContainer} /> */}
           <PrivateRoute
             path="/cursos/create"
             component={CoursesFormContainer}

@@ -49,6 +49,12 @@ const DashboardContainer = (props) => {
       <div className="dashboard-2 ">
         <h1>Dashboard</h1>
 
+        {props.currentUser && props.currentUser.role === "Admin" && (
+          <button className="primary-btn" onClick={() => props.updateDashboardState("reports")}>
+            Cambiar a reportes
+          </button>
+        )}
+
         {courses.length > 0 && (
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -98,6 +104,7 @@ const DashboardContainer = (props) => {
 const mapStateToProps = (state) => ({
   dashboardCourses: state.dashboard.courses,
   currentSelectedSemester: state.semesters.currentSelectedSemester,
+  currentUser: state.users.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
