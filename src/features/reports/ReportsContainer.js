@@ -13,6 +13,8 @@ import {
   addSkillCountsToCenters,
   addCategorySkillCountsToCenters,
 } from "./helpers";
+import MainWrapper from "../../commons/MainWrapper.js";
+import ToggleButton from "../../commons/inputs/ToggleButton/ToggleButton.js";
 
 export const ReportsContainer = (props) => {
   const [buttonStates, setButtonStates] = useState({
@@ -304,14 +306,19 @@ export const ReportsContainer = (props) => {
   }, [props.currentSelectedSemester]);
 
   return (
-    <section className="utis-container courses-purple">
-      {!props.loading && (
-        <section className="reports-container">
-          <div className="reports-header" style={{ paddingBottom: "24px" }}>
-            <h1 className="dark-purple-text text-align-center">Tablero</h1>
-            <button className="primary-btn" onClick={() => props.updateDashboardState("Dashboard")}>Cambiar a dashboard de maestro</button>
+    <MainWrapper>
+      <div className="dashboard-2">
+        {!props.loading && (
+          <section className="reports-container">
+            <div className="reports-header" style={{ paddingBottom: "24px" }}>
+              <h1 className="dark-purple-text text-align-center">Dashboard</h1>
+              <ToggleButton
+                onToggle={() => props.updateDashboardState("Dashboard")}
+                selectedOption="reportes"
+              />
+            </div>
             <button
-              className={`primary-btn ${
+              className={`primary-btn float-left ${
                 props.adminReport && props.adminReport.centers ? "" : "disabled"
               }`}
               onClick={() => {
@@ -324,25 +331,25 @@ export const ReportsContainer = (props) => {
             >
               <ArrowDownload16Regular /> Exportar
             </button>
-          </div>
-          <ReportsFilter
-            buttonStates={buttonStates}
-            handleClick={handleClick}
-          />
-          {generateHeaderCards()}
-          {props.adminReport && props.adminReport.centers && (
-            <div className="ability-bar-graph card">
-              {generateCenterGraphs()}
-            </div>
-          )}
-          {props.adminReport && props.adminReport.centers && (
-            <div className="ability-bar-graph card">
-              {generateCategoryGraphs()}
-            </div>
-          )}
-        </section>
-      )}
-    </section>
+            <ReportsFilter
+              buttonStates={buttonStates}
+              handleClick={handleClick}
+            />
+            {generateHeaderCards()}
+            {props.adminReport && props.adminReport.centers && (
+              <div className="ability-bar-graph card">
+                {generateCenterGraphs()}
+              </div>
+            )}
+            {props.adminReport && props.adminReport.centers && (
+              <div className="ability-bar-graph card">
+                {generateCategoryGraphs()}
+              </div>
+            )}
+          </section>
+        )}
+      </div>
+    </MainWrapper>
   );
 };
 

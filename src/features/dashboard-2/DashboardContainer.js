@@ -9,6 +9,7 @@ import { fetchDashboardCourses } from "../../actions/dashboardActions";
 import * as moment from "moment/min/moment-with-locales";
 import DashboardCardsContainer from "./DashboardCardsContainer";
 import MainWrapper from "../../commons/MainWrapper";
+import ToggleButton from "../../commons/inputs/ToggleButton/ToggleButton";
 
 const DashboardContainer = (props) => {
   const { dashboardCourses, fetchCourses, currentSelectedSemester } = props;
@@ -47,14 +48,15 @@ const DashboardContainer = (props) => {
   return (
     <MainWrapper>
       <div className="dashboard-2 ">
-        <h1>Dashboard</h1>
-
-        {props.currentUser && props.currentUser.role === "Admin" && (
-          <button className="primary-btn" onClick={() => props.updateDashboardState("reports")}>
-            Cambiar a reportes
-          </button>
-        )}
-
+        <div className="reports-header" style={{ paddingBottom: "24px" }}>
+          <h1>Dashboard</h1>
+          {props.currentUser && props.currentUser.role === "Admin" && (
+            <ToggleButton
+              onToggle={() => props.updateDashboardState("reports")}
+              selectedOption="dashboard"
+            />
+          )}
+        </div>
         {courses.length > 0 && (
           <Grid container spacing={3}>
             <Grid item xs={12}>
