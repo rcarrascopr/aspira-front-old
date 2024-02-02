@@ -13,7 +13,6 @@ export default function InstructionsForm(props) {
 
   const generateSteps = () => {
     return fields.map((field, index) => {
-      console.log(field);
       return (
         <div key={field.id} className="textfield-input">
           <div className="step">{index + 1}</div>
