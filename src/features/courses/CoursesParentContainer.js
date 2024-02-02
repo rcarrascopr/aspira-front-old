@@ -53,8 +53,6 @@ const CoursesParentContainer = (props) => {
     const selectedCenter = props.centers.find(
       (c) => c.name === props.currentUser.center_name
     );
-    console.log(props.currentUser.center_name);
-    console.log("Center selected: ", selectedCenter);
     setCurrentCenter(selectedCenter);
   }, [props.centers]);
 
