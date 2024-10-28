@@ -1,2 +1,2 @@
 // export const api_url = "http://localhost:3000/";
-export const api_url = "https://aspira-backend-heroku-22.herokuapp.com/";
+export const api_url = "https://aspira-backend.herokuapp.com/";
