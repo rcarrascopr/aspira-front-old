@@ -4,6 +4,7 @@ import { cardColors } from "../../commons/courseCategoryColors";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
+import CoursesExcelReportButton from "../../commons/CoursesExcelReportButton";
 
 const CourseCard = (props) => {
   const handleClick = (id) => {
@@ -53,6 +54,7 @@ const CourseCard = (props) => {
             alt="duplicar"
             style={{ padding: "0px 10px" }}
           /> */}
+            <CoursesExcelReportButton courseId={props.id} />
             <img
               className="icon pointer"
               src="/assets/edit_icon.png"

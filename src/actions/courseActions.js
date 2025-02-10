@@ -143,6 +143,30 @@ export function fetchCourseReport(courseId, studentId) {
   };
 }
 
+export function fetchCourseSummaryReport(courseId) {
+  const url = `${api_url}courses/${courseId}/summary_report`;
+  return (dispatch) => {
+    dispatch({ type: "LOADING_COURSES" });
+    return fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: "SET_CURRENT_COURSE", payload: data });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "Hubo un error.",
+          icon: "error",
+          confirmButtonText: "continuar",
+        });
+      });
+  };
+}
+
 
 
 export function resetCoursesFormData() {
