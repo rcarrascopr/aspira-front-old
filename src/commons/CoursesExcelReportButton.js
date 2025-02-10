@@ -8,17 +8,27 @@ import { round2 } from "./common_methods";
 const CoursesExcelReportButton = (props) => {
   const handleExport = () => {
     props.fetchCourse(props.courseId).then(() => {
-      if (!props.currentCourse) return;
+      if (
+        !(
+          props.currentCourse &&
+          props.currentCourse.name &&
+          props.currentCourse.students &&
+          props.currentCourse.students.length > 0
+        )
+      )
+        return;
 
       const now = new Date();
       const formattedDate = `${String(now.getDate()).padStart(2, "0")}-${String(
         now.getMonth() + 1
       ).padStart(2, "0")}-${now.getFullYear()}`;
-  
+
       // Sanitize course name: remove special characters & replace spaces with underscores
-      const sanitizedCourseName = props.currentCourse.name
-        .replace(/[^a-zA-Z0-9 ]/g, "") // Remove special characters
-  
+      const sanitizedCourseName = props.currentCourse.name.replace(
+        /[^a-zA-Z0-9 ]/g,
+        ""
+      ); // Remove special characters
+
       const fileName = `Reporte de ${sanitizedCourseName} ${formattedDate}.xlsx`;
 
       let instructor = props.currentCourse.instructor;
@@ -83,7 +93,6 @@ const CoursesExcelReportButton = (props) => {
 
       ws["!cols"] = colWidths;
 
-    
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Reporte");
 
