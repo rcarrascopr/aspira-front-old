@@ -72,10 +72,10 @@ const CoursesExcelReportButton = (props) => {
             ? round2(student.products_passed / student.amount_of_products) * 100
             : 0,
           student.status,
-          student.skills.SER.average_level,
-          student.skills.HACER.average_level,
-          student.skills.CONVIVIR.average_level,
-          student.skills.CONOCER.average_level,
+          student.skills.SER.biggest_level,
+          student.skills.HACER.biggest_level,
+          student.skills.CONVIVIR.biggest_level,
+          student.skills.CONOCER.biggest_level,
         ]),
       ];
 
